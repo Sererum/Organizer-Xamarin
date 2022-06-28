@@ -62,6 +62,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Internal\Activity\MainActivity.cs" />
+    <Compile Include="Internal\Model\ListTasks.cs" />
+    <Compile Include="Internal\Model\Task\BaseTask.cs" />
+    <Compile Include="Internal\Model\Task\Project.cs" />
+    <Compile Include="Internal\Model\Task\Regular.cs" />
+    <Compile Include="Internal\Model\Task\Routine.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
