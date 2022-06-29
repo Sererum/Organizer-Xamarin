@@ -1,4 +1,15 @@
 <resources>
     <string name="app_name">Organizer</string>
     <string name="action_settings">Settings</string>
+
+
+	<!--Content description-->
+
+	<string name="description_add_button">Добавление задачи</string>
+	<string name="description_calendar_button">Календарь</string>
+	<string name="description_schedule_button">Расписание</string>
+	<string name="description_list_button">Список задач</string>
+	<string name="description_timer_button">Таймер</string>
+	<string name="description_account_button">Пользователь</string>
+    
 </resources>

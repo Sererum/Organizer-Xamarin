@@ -5,6 +5,73 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <RelativeLayout
+        android:id="@+id/MainFragmentLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/MainButtonLayout"
+        />
 
+    <LinearLayout
+        android:id="@+id/MainButtonLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_tool_bar"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:background="#DDD"
+        >
+
+        <ImageButton
+            android:id="@+id/MainCalendarButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_margin="4dp"
+            android:background="@android:drawable/ic_menu_today"
+            android:contentDescription="@string/description_calendar_button" 
+            />
+
+        <ImageButton
+            android:id="@+id/MainScheduleButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_margin="4dp"
+            android:background="@android:drawable/ic_menu_my_calendar"
+            android:contentDescription="@string/description_schedule_button" 
+            />
+
+        <ImageButton
+            android:id="@+id/MainListButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_margin="4dp"
+            android:background="@android:drawable/ic_menu_agenda"
+            android:contentDescription="@string/description_list_button" 
+            />
+
+        <ImageButton
+            android:id="@+id/MainTimerButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_margin="4dp"
+            android:background="@android:drawable/ic_lock_idle_alarm"
+            android:contentDescription="@string/description_timer_button" 
+            />
+
+        <ImageButton
+            android:id="@+id/MainAccountButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_margin="4dp"
+            android:background="@android:drawable/ic_menu_myplaces"
+            android:contentDescription="@string/description_account_button" 
+            />
+    
+    
+    </LinearLayout>
 
 </RelativeLayout>
