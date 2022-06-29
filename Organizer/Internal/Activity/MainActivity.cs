@@ -4,6 +4,7 @@ using Android.Runtime;
 using Android.Widget;
 using AndroidX.AppCompat.App;
 using AndroidX.Fragment.App;
+using Organizer.Internal.Data;
 using Organizer.Internal.Fragments;
 using Fragment = AndroidX.Fragment.App.Fragment;
 
@@ -24,6 +25,8 @@ namespace Organizer.Internal.Activity
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.activity_main);
+
+            Server.SetListTasks();
 
             InitializeFragments(savedInstanceState);
             InitializeButtons();
@@ -84,7 +87,7 @@ namespace Organizer.Internal.Activity
 
         public void UpdateFragments ()
         {
-
+            _listTasksFragment.UpdateListView();
         }
     }
 }

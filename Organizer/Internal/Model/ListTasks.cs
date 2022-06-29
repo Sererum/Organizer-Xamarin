@@ -1,11 +1,12 @@
-﻿using Organizer.Internal.Model.Task;
+﻿using Organizer.Internal.Data;
+using Organizer.Internal.Model.Task;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 
 namespace Organizer.Internal.Model
 {
-    class ListTasks : Java.Lang.Object, IEnumerable
+    public class ListTasks : IEnumerable
     {
         public enum Mode { All }
         public static readonly string ListSep = "_";
@@ -29,14 +30,17 @@ namespace Organizer.Internal.Model
                 {
                     continue;
                 }
-                int typeTask = Int32.Parse(sTask[0].ToString());
+                int typeTask = Int32.Parse(sTask.Split(BaseTask.TaskSep)[0].ToString());
                 switch (typeTask)
                 {
                     case (int) BaseTask.Type.Project:
+                        _tasks.Add(new Project(sTask));
                         break;
                     case (int) BaseTask.Type.Regular:
+                        _tasks.Add(new Regular(sTask));
                         break;
                     case (int) BaseTask.Type.Routine:
+                        _tasks.Add(new Routine(sTask));
                         break;
                 }
             }
@@ -52,20 +56,19 @@ namespace Organizer.Internal.Model
             {
                 final += Sep + task.ToString();
             }
-            return final;
+            return final == "" ? "" : final[Sep.Length..];
         }
 
         public BaseTask this[int position] => _tasks[position];
 
         public int Count => _tasks.Count;
 
-        public void Add (BaseTask task)
-        {
-            _tasks.Add(task);
-            Sort();
-        }
+        public void Add (BaseTask task) => _tasks.Add(task);
 
-        public int Sort () => 0;
+        public void Sort () => _tasks.Sort((taskOne, taskTwo) => TaskSorter.Compare(taskOne, taskTwo));
+
+        public static ListTasks operator + (ListTasks listOne, ListTasks listTwo)
+            => new ListTasks(listOne.Archive(Mode.All) + ListSep + listTwo.Archive(Mode.All));
 
         #region IEnumerable
         public IEnumerator GetEnumerator () => (IEnumerator) new TaskEnum(_tasks);

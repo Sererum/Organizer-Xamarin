@@ -32,7 +32,7 @@ namespace Organizer.Internal.ArrayAdapters
                 _showList = mainList;
             }
             _mainList = mainList;
-
+            var s = _mainList.Archive(ListTasks.Mode.All);
             TaskViewConstructor.InitialConstructor(_context);
         }
 

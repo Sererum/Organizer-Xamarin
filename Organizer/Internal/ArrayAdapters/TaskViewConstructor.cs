@@ -3,6 +3,7 @@ using Android.Content;
 using Android.Graphics;
 using Android.OS;
 using Android.Runtime;
+using Android.Util;
 using Android.Views;
 using Android.Widget;
 using AndroidX.Core.Content;
@@ -13,6 +14,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using static Android.App.ActionBar;
+using static Android.Views.ViewGroup;
+using LayoutParams = Android.App.ActionBar.LayoutParams;
 
 namespace Organizer.Internal.ArrayAdapters
 {
@@ -49,7 +53,7 @@ namespace Organizer.Internal.ArrayAdapters
 
             if (view is null)
             {
-                view = context.LayoutInflater.Inflate(Resource.Layout.list_item_task, null);
+                view = _context.LayoutInflater.Inflate(Resource.Layout.list_item_task, null);
                 holder = new ViewHolder();
 
                 holder.CompleteCheckBox = view.FindViewById<CheckBox>(Resource.Id.TaskCompleteCheckBox);
@@ -72,12 +76,12 @@ namespace Organizer.Internal.ArrayAdapters
             #endregion
 
             holder.CompleteCheckBox.Checked = task.Complete;
-            holder.CompleteCheckBox.CheckedChange += (s, e) => CompleteCheckBox_CheckedChange(holder);
+            holder.CompleteCheckBox.CheckedChange += (s, e) => CompleteCheckBox_CheckedChange(holder, task);
             ChangeTextStyle(holder);
 
             InitializePriorityView(holder, task);
 
-            holder.TitleTextView.Text = task.Text;
+            holder.TitleTextView.Text = task.Title;
 
             if (task.StartTime != "" || task.EndTime != "")
             {
@@ -108,17 +112,22 @@ namespace Organizer.Internal.ArrayAdapters
                 holder.TasksListLayout.Visibility = project.TasksVisible ? ViewStates.Visible : ViewStates.Gone;
 
                 holder.TasksListLayout.RemoveAllViews();
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LayoutParams.MatchParent, LayoutParams.WrapContent);
+                layoutParams.SetMargins(0, 2, 0, 2);
                 foreach (BaseTask taskProject in project.Tasks)
                 {
-                    holder.TasksListLayout.AddView(GetTaskView(taskProject, null));
+                    holder.TasksListLayout.AddView(GetTaskView(taskProject, null), layoutParams);
                 }
+
+                
             }
 
             return view;
         }
 
-        private static void CompleteCheckBox_CheckedChange (ViewHolder holder)
+        private static void CompleteCheckBox_CheckedChange (ViewHolder holder, BaseTask task)
         {
+            task.Complete = holder.CompleteCheckBox.Checked;
             ChangeTextStyle(holder);
             _mainActivity.UpdateFragments();
         }

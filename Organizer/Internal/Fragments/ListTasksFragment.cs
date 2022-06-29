@@ -3,6 +3,8 @@ using Android.OS;
 using Android.Views;
 using Android.Widget;
 using AndroidX.Fragment.App;
+using Organizer.Internal.ArrayAdapters;
+using Organizer.Internal.Data;
 
 namespace Organizer.Internal.Fragments
 {
@@ -24,7 +26,15 @@ namespace Organizer.Internal.Fragments
             ImageButton addButton = view.FindViewById<ImageButton>(Resource.Id.ListAddTaskButton);
             _tasksListView = view.FindViewById<ListView>(Resource.Id.ListTasksListView);
 
+            UpdateListView();
+
             return view;
+        }
+
+        public void UpdateListView ()
+        {
+            Server.ListTasks.Sort();
+            _tasksListView.Adapter = new TaskArrayAdapter(_context, null, Server.ListTasks);
         }
     }
 }

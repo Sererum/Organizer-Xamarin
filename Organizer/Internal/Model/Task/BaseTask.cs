@@ -22,7 +22,7 @@ namespace Organizer.Internal.Model.Task
 
         public string StartTime => _startTime;
 
-        public string EndTime => EndTime;
+        public string EndTime => _endTime;
 
         public bool Complete { get; set; }
 
@@ -35,8 +35,8 @@ namespace Organizer.Internal.Model.Task
             _typeTask = typeTask;
             _title = ToStandart(title);
             _text = ToStandart(text);
-            _startTime = startTime;
-            _endTime = endTime;
+            _startTime = startTime ?? throw new ArgumentNullException();
+            _endTime = endTime ?? throw new ArgumentNullException();
             Complete = false;
         }
 
@@ -57,7 +57,7 @@ namespace Organizer.Internal.Model.Task
 
         public static string ToStandart (string text, string Sep = " ", string final = "")
         {
-            string[] words = text.Split(Sep);
+            string[] words = text?.Split(Sep) ?? throw new ArgumentNullException();
             foreach (string word in words)
             {
                 final += (word == "") ? "" : (Sep + word);

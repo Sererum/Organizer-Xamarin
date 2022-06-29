@@ -64,7 +64,9 @@
     <Compile Include="Internal\Activity\MainActivity.cs" />
     <Compile Include="Internal\ArrayAdapters\TaskArrayAdapter.cs" />
     <Compile Include="Internal\ArrayAdapters\TaskViewConstructor.cs" />
+    <Compile Include="Internal\Data\Server.cs" />
     <Compile Include="Internal\Data\Storage.cs" />
+    <Compile Include="Internal\Data\TaskSorter.cs" />
     <Compile Include="Internal\Fragments\AccountFragment.cs" />
     <Compile Include="Internal\Fragments\CalendarFragment.cs" />
     <Compile Include="Internal\Fragments\CreateFragment.cs" />
