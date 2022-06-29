@@ -5,6 +5,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Organizer.Internal.Model;
+using Organizer.Internal.Model.Task;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,21 +15,87 @@ namespace Organizer.Internal.Data
 {
     public static class Server
     {
-        public static ListTasks ListTasks { get; set; }
+        public enum Period { Day, Month, Year, Global }
+        private enum Key { Global, Routine }
 
-        public static void SetListTasks ()
+        private static ISharedPreferences _preferences = Application.Context.GetSharedPreferences("Settings", FileCreationMode.Private);
+        private static ISharedPreferencesEditor _preferencesEdit = _preferences.Edit();
+
+        public static ListTasks Routines
         {
-            ListTasks list = new ListTasks();
+            get { return new ListTasks(_preferences.GetString(Key.Routine.ToString(), "")); }
+            set { _preferencesEdit.PutString(Key.Global.ToString(), value.Archive(ListTasks.Mode.All)).Commit(); }
+        }
 
-            list += new ListTasks("0|P1||09:00||0|1|2|^0|P2||||0|1|1|^1|Reg|text of reg|||0|5^1|Reg||00:00||0|5");
-            list += new ListTasks("1|Reg|text of reg||23:59|0|9");
-            list += new ListTasks("2|Rout||10:00|11:00|0|0");
+        public static ListTasks GetList (Period period, DateTime date)
+        {
+            switch (period)
+            {
+                case Period.Day:
+                    ListTasks dayList = new ListTasks(_preferences.GetString(GetKey(date, Period.Day), ""));
+                    dayList += GetRoutinesOnDay((int) date.DayOfWeek);
+                    return dayList;
+                case Period.Month:
+                    return new ListTasks(_preferences.GetString(GetKey(date, Period.Month), ""));
+                case Period.Year:
+                    return new ListTasks(_preferences.GetString(GetKey(date, Period.Year), ""));
+                case Period.Global:
+                    return new ListTasks(_preferences.GetString(Key.Global.ToString(), ""));
+            }
+            throw new ArgumentException();
+        }
 
-            list += new ListTasks("1|Reg9||||0|9");
-            list += new ListTasks("1|Reg5||||0|5");
-            list += new ListTasks("1|Reg1||||0|1");
+        public static void SetList (Period period, DateTime date, ListTasks list)
+        {
+            switch (period)
+            {
+                case Period.Day:
+                    _preferencesEdit.PutString(GetKey(date, Period.Day), list.Archive(ListTasks.Mode.All));
+                    break;
+                case Period.Month:
+                    _preferencesEdit.PutString(GetKey(date, Period.Month), list.Archive(ListTasks.Mode.All));
+                    break;
+                case Period.Year:
+                    _preferencesEdit.PutString(GetKey(date, Period.Year), list.Archive(ListTasks.Mode.All));
+                    break;
+                case Period.Global:
+                    _preferencesEdit.PutString(Key.Global.ToString(), list.Archive(ListTasks.Mode.All));
+                    break;
+                default:
+                    throw new ArgumentException();
+            }
+            _preferencesEdit.Commit();
+        }
 
-            ListTasks = list;
+        private static ListTasks GetRoutinesOnDay(int dayOfWeek)
+        {
+            ListTasks routinesOnDay = new ListTasks();
+            foreach (Routine routine in Routines)
+            {
+                if (routine.SDays.Contains(dayOfWeek.ToString()))
+                {
+                    routinesOnDay.Add(routine);
+                }
+            }
+            return routinesOnDay;
+        }
+
+        public static string GetKey (DateTime date, Period period)
+        {
+            int day = date.Day;
+            int month = date.Month;
+            int year = date.Year;
+
+            switch (period)
+            {
+                case Period.Day:
+                    return day + "/" + month + "/" + year;
+                case Period.Month:
+                    return month + "/" + year;
+                case Period.Year:
+                    return year.ToString();
+            }
+            throw new ArgumentException();
         }
     }
 }

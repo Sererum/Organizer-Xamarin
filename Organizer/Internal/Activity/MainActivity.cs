@@ -26,7 +26,7 @@ namespace Organizer.Internal.Activity
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.activity_main);
 
-            Server.SetListTasks();
+            Storage.InitializeListsTasks();
 
             InitializeFragments(savedInstanceState);
             InitializeButtons();
@@ -88,6 +88,12 @@ namespace Organizer.Internal.Activity
         public void UpdateFragments ()
         {
             _listTasksFragment.UpdateListView();
+        }
+
+        protected override void OnPause ()
+        {
+            base.OnPause();
+            Storage.SaveListsTasks();
         }
     }
 }
