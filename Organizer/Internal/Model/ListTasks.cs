@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Organizer.Internal.Model
 {
-    class ListTasks : IEnumerable
+    class ListTasks : Java.Lang.Object, IEnumerable
     {
         public enum Mode { All }
         public static readonly string ListSep = "_";
@@ -54,6 +54,8 @@ namespace Organizer.Internal.Model
             }
             return final;
         }
+
+        public BaseTask this[int position] => _tasks[position];
 
         public int Count => _tasks.Count;
 

@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#000"
+    android:padding="1dp"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFF"
+        >
+    
+        <CheckBox
+            android:id="@+id/TaskCompleteCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="3dp"
+            />
+
+        <TextView
+            android:id="@+id/TaskPriorityTextView"
+            android:layout_width="@dimen/title_size"
+            android:layout_height="match_parent"
+            android:layout_alignTop="@id/TaskContentTaskLayout"
+            android:layout_alignBottom="@id/TaskContentTaskLayout"
+            android:layout_toRightOf="@id/TaskCompleteCheckBox"
+            android:gravity="center"
+            
+            android:textSize="@dimen/title_size"
+            android:textStyle="bold"
+        
+            android:text="R"
+            android:textColor="#888"
+            android:background="#DDD"
+            />
+
+        <RelativeLayout
+            android:id="@+id/TaskContentTaskLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/TaskPriorityTextView"
+            android:layout_toLeftOf="@id/TaskHideProjectButton"
+            
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            >
+
+            <TextView
+                android:id="@+id/TaskTitleTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                
+                android:textColor="#000"
+                android:textSize="@dimen/title_size"
+            
+                android:text="Title"
+                />
+
+            <TextView
+                android:id="@+id/TaskFirstLineTextView"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/TaskTitleTextView"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="3dp"
+                
+                android:background="#000"
+                android:visibility="gone"
+                />
+
+            <TextView
+                android:id="@+id/TaskTimeTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/TaskFirstLineTextView"
+                
+                android:textColor="#000"
+                android:textSize="@dimen/text_size"
+            
+                android:text="Ø  00:00 ~ 23:59"
+                android:visibility="gone"
+                />
+        
+            <TextView
+                android:id="@+id/TaskSecondLineTextView"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/TaskTimeTextView"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="3dp"
+                
+                android:background="#000"
+                android:visibility="gone"
+                />
+
+            <TextView
+                android:id="@+id/TaskTextTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/TaskSecondLineTextView"
+                
+                android:textColor="#000"
+                android:textSize="@dimen/text_size"
+            
+                android:text="Text"
+                android:visibility="gone"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/TaskProjectListLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/TaskContentTaskLayout"
+            android:layout_toRightOf="@id/TaskCompleteCheckBox"
+            >
+        
+            <TextView
+                android:id="@+id/TaskThirdLineTextView"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="3dp"
+                android:background="#000"
+                android:visibility="gone"
+                />
+
+            <LinearLayout
+                android:id="@+id/TasksListLayout"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:visibility="gone"
+                />
+        
+        </RelativeLayout>
+
+        <ImageButton
+            android:id="@+id/TaskHideProjectButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignBottom="@id/TaskContentTaskLayout"
+            android:background="@android:drawable/arrow_down_float"
+            android:contentDescription="@string/description_hide_tasks"
+            android:visibility="gone"
+            />
+    
+    </RelativeLayout>
+
+</RelativeLayout>

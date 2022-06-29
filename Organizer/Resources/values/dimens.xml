@@ -3,4 +3,7 @@
 
 	<dimen name="height_tool_bar">60dp</dimen>
 
+	<dimen name="title_size">24sp</dimen>
+	<dimen name="text_size">18sp</dimen>
+	
 </resources>

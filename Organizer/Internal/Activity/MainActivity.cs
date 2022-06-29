@@ -81,5 +81,10 @@ namespace Organizer.Internal.Activity
             FindViewById<ImageButton>(Resource.Id.MainAccountButton).Click += (s, e) => ShowFragment(_accountFragment);
         }
         #endregion
+
+        public void UpdateFragments ()
+        {
+
+        }
     }
 }

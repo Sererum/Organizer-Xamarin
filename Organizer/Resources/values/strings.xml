@@ -2,6 +2,31 @@
     <string name="app_name">Organizer</string>
     <string name="action_settings">Settings</string>
 
+	<!--Name of tasks-->
+
+	<string name="project_task">Проект</string>
+	<string name="regular_task">Обычная задача</string>
+	<string name="routine_task">Рутина</string>
+
+	<string name="project_task_short">П</string>
+	<string name="routine_task_short">Р</string>
+
+	<!--Name days of week-->
+
+	<string name="sunday">Воскресенье</string>
+	<string name="sunday_short">Вс.</string>
+	<string name="monday">Понедельник</string>
+	<string name="monday_short">Пн.</string>
+	<string name="tuesday">Вторник</string>
+	<string name="tuesday_short">Вт.</string>
+	<string name="wednesday">Среда</string>
+	<string name="wednesday_short">Ср.</string>
+	<string name="thursday">Четверг</string>
+	<string name="thursday_short">Чт.</string>
+	<string name="friday">Пятница</string>
+	<string name="friday_short">Пт.</string>
+	<string name="saturday">Суббота</string>
+	<string name="saturday_short">Сб.</string>
 
 	<!--Content description-->
 
@@ -11,5 +36,10 @@
 	<string name="description_list_button">Список задач</string>
 	<string name="description_timer_button">Таймер</string>
 	<string name="description_account_button">Пользователь</string>
+	<string name="description_hide_tasks">Скрыть задачи</string>
+
+	<!--Key for holders-->
+
+	<string name="key_task_holder">0</string>
     
 </resources>

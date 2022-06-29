@@ -3,4 +3,20 @@
     <color name="colorPrimary">#2c3e50</color>
     <color name="colorPrimaryDark">#1B3147</color>
     <color name="colorAccent">#3498db</color>
+
+	<!--Priority colors-->
+
+	<color name="priority_one">#69F7FF</color>
+	<color name="priority_two">#2BC9FC</color>
+	<color name="priority_three">#1F83FF</color>
+	<color name="priority_four">#7C1BFF</color>
+	<color name="priority_five">#A53CFD</color>
+	<color name="priority_six">#C960FF</color>
+	<color name="priority_seven">#FF6767</color>
+	<color name="priority_eight">#FE3E30</color>
+	<color name="priority_nine">#FB0200</color>
+	<color name="routine">#35FFC2</color>
+	<color name="project">#FFD700</color>
+	
+	
 </resources>
