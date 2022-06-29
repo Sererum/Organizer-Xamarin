@@ -6,7 +6,7 @@
 
         public string SDays => _sDays;
 
-        public Routine (int typeTask, string title, string text, string startTime, string endTime, string sDays) :
+        public Routine (string title, string text, string startTime, string endTime, string sDays) :
             base((int) BaseTask.Type.Routine, title, text, startTime, endTime)
         {
             _sDays = sDays;

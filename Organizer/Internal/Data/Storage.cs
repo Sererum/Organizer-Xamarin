@@ -1,4 +1,6 @@
-﻿using Android.Views;
+﻿using Android.Content;
+using Android.Util;
+using Android.Views;
 using Organizer.Internal.Model;
 using System;
 using System.Collections.Generic;
@@ -30,13 +32,16 @@ namespace Organizer.Internal.Data
 
         public static Period MainPeriod => _mainPeriod;
 
+        public static Context Context { get; set; }
+
         #endregion
 
-        public static void InitializeListsTasks ()
+        public static void InitializeListsTasks (Context context)
         {
             _mainListTasks = GetList(Period.Day, DateTime.Now);
             _calendarListTasks = GetList(Period.Day, DateTime.Now);
             _scheduleListTasks = GetList(Period.Day, DateTime.Now);
+            Context = context;
         }
 
         public static void ChangeMainListTasks(Period period, DateTime date)
@@ -93,6 +98,14 @@ namespace Organizer.Internal.Data
             {5, Resource.String.friday_short },
             {6, Resource.String.saturday_short },
         };
+
+        #endregion
+
+        #region Public methods
+
+        public static float DpToPx (int dp) => TypedValue.ApplyDimension(ComplexUnitType.Dip, dp, Context.Resources.DisplayMetrics);
+
+        public static string DateToStandart (int hour, int minute) => (hour <= 9 ? "0" : "") + hour + ":" + (minute <= 9 ? "0" : "") + minute;
 
         #endregion
     }

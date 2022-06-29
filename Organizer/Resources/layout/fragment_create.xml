@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <EditText
+        android:id="@+id/CreateTitleEditText"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_tool_bar"
+        android:padding="10dp"
+        android:textSize="@dimen/title_size"
+        android:textColorHint="#000"
+        android:textColor="#000"
+        android:background="#AAA"
+        android:hint="@string/hint_title"
+        android:inputType="textCapSentences"
+        />
+
+    <EditText
+        android:id="@+id/CreateTextEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        android:layout_marginTop="5dp"
+        android:layout_below="@id/CreateTitleEditText"
+        android:textSize="@dimen/text_size"
+        android:textColorHint="#000"
+        android:textColor="#000"
+        android:hint="@string/hint_text"
+        android:inputType="textCapSentences | textMultiLine"
+        android:maxLines="2"
+        />
+
+    <RelativeLayout
+        android:id="@+id/CreateStartLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/CreateTextEditText"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="20dp"
+        >
+    
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textColor="#000"
+            android:textSize="@dimen/text_size"
+            android:text="@string/start_time"
+            />
+
+        <TextView
+            android:id="@+id/StartTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:textColor="#000"
+            android:textSize="@dimen/text_size"
+            android:text="@string/empty_time"
+            />
+    
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/CreateEndLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/CreateStartLayout"
+        android:layout_marginTop="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="20dp"
+        >
+    
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textColor="#000"
+            android:textSize="@dimen/text_size"
+            android:text="@string/end_time"
+            />
+
+        <TextView
+            android:id="@+id/EndTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:textColor="#000"
+            android:textSize="@dimen/text_size"
+            android:text="@string/empty_time"
+            />
+    
+    </RelativeLayout>
+
+    <RadioGroup
+        android:id="@+id/CreateTypeRadioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/CreateEndLayout"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        
+        android:layout_centerHorizontal="true"
+        >
+    
+        <RadioButton
+            android:id="@+id/CreateRegularRadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size"
+            android:text="@string/regular_task"
+            />
+
+        <RadioButton
+            android:id="@+id/CreateRoutineRadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size"
+            android:text="@string/routine_task"
+            />
+
+        <RadioButton
+            android:id="@+id/CreateProjectRadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size"
+            android:text="@string/project_task"
+            />
+    
+    </RadioGroup>
+
+    <RelativeLayout
+        android:id="@+id/CreateProjectLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/CreateTypeRadioGroup"
+        android:layout_above="@id/OkCreateButton"
+        android:visibility="gone"
+        >
+    
+        <LinearLayout
+            android:id="@+id/ProjectTasksLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+
+        <ImageButton
+            android:id="@+id/ProjectAddButton"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_margin="10dp"
+            android:background="@android:drawable/ic_input_add"
+            />
+    
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/CreateRegularLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/CreateTypeRadioGroup"
+        android:layout_marginTop="20dp"
+        android:visibility="gone"
+        >
+    
+        <TextView
+            android:id="@+id/PriorityTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size"
+            android:textColor="#000"
+            android:text="@string/regular_priority"
+            />
+
+        <Spinner
+            android:id="@+id/PrioritySpinner"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/PriorityTextView"
+            android:layout_alignTop="@id/PriorityTextView"
+            android:layout_alignBottom="@id/PriorityTextView"
+            android:layout_marginLeft="10dp"
+            />
+    
+    
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/CreateRoutineLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/CreateTypeRadioGroup"
+        android:visibility="visible"
+        >
+    
+        <TextView 
+            android:id="@+id/RoutineDaysTextView" 
+            android:layout_width="match_parent" 
+            android:layout_height="wrap_content" 
+            android:textSize="24sp" 
+            android:textColor="#000" 
+            android:layout_margin="8dp" 
+            android:text="@string/routine_days"
+            />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/RoutineDaysTextView"
+            android:layout_centerHorizontal="true">
+
+            <CheckBox
+                android:id="@+id/MondayCheckBox" 
+                android:layout_width="wrap_content" 
+                android:layout_height="wrap_content" 
+                android:textSize="@dimen/text_size"
+                android:text="@string/monday_short"/>
+            <CheckBox 
+                android:id="@+id/TuesdayCheckBox" 
+                android:layout_width="wrap_content" 
+                android:layout_height="wrap_content" 
+                android:layout_toEndOf="@id/MondayCheckBox" 
+                android:textSize="@dimen/text_size"
+                android:text="@string/tuesday_short"/>
+            <CheckBox 
+                android:id="@+id/WednesdayCheckBox" 
+                android:layout_width="wrap_content" 
+                android:layout_height="wrap_content" 
+                android:layout_toEndOf="@id/TuesdayCheckBox" 
+                android:textSize="@dimen/text_size"
+                android:text="@string/wednesday_short"/>
+            <CheckBox 
+                android:id="@+id/ThursdayCheckBox" 
+                android:layout_width="wrap_content" 
+                android:layout_height="wrap_content" 
+                android:layout_toEndOf="@id/WednesdayCheckBox" 
+                android:textSize="@dimen/text_size"
+                android:text="@string/thursday_short"/>
+            <CheckBox 
+                android:id="@+id/FridayCheckBox" 
+                android:layout_width="wrap_content" 
+                android:layout_height="wrap_content" 
+                android:layout_toEndOf="@id/ThursdayCheckBox" 
+                android:textSize="@dimen/text_size"
+                android:text="@string/friday_short"/>
+            <CheckBox 
+                android:id="@+id/SaturdayCheckBox" 
+                android:layout_width="wrap_content" 
+                android:layout_height="wrap_content" 
+                android:layout_toEndOf="@id/FridayCheckBox" 
+                android:textSize="@dimen/text_size"
+                android:text="@string/saturday_short"/>
+            <CheckBox 
+                android:id="@+id/SundayCheckBox" 
+                android:layout_width="wrap_content" 
+                android:layout_height="wrap_content" 
+                android:layout_toEndOf="@id/SaturdayCheckBox" 
+                android:textSize="@dimen/text_size"
+                android:text="@string/sunday_short"/>
+    
+        </RelativeLayout>
+    
+    </RelativeLayout>
+
+    <ImageButton
+        android:id="@+id/OkCreateButton"
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@id/CancelCreateButton"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@android:drawable/checkbox_on_background"
+        android:contentDescription="@string/description_ok_button"
+        />
+
+    <ImageButton
+        android:id="@+id/CancelCreateButton"
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:layout_alignTop="@id/OkCreateButton"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="10dp"
+        android:background="@android:drawable/ic_menu_close_clear_cancel"
+        android:contentDescription="@string/description_cancel"
+        />
+
+</RelativeLayout>

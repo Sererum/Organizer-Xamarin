@@ -65,6 +65,22 @@ namespace Organizer.Internal.Model
 
         public void Add (BaseTask task) => _tasks.Add(task);
 
+        public void Remove(BaseTask removeTask)
+        {
+            foreach (BaseTask task in _tasks)
+            {
+                if (task is Project)
+                {
+                    (task as Project).Tasks.Remove(removeTask);
+                }
+                if (removeTask.Equals(task))
+                {
+                    _tasks.Remove(task);
+                    return;
+                }
+            }
+        }
+
         public void Sort () => _tasks.Sort((taskOne, taskTwo) => TaskSorter.Compare(taskOne, taskTwo));
 
         public static ListTasks operator + (ListTasks listOne, ListTasks listTwo)

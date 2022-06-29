@@ -45,7 +45,7 @@ namespace Organizer.Internal.ArrayAdapters
             public ImageButton HideTasksButton;
         }
         
-        public static View GetTaskView(BaseTask task, View convertView)
+        public static View GetTaskView(BaseTask task, View convertView, bool isSimple = false)
         {
             #region Initialize views
             ViewHolder holder;
@@ -75,6 +75,10 @@ namespace Organizer.Internal.ArrayAdapters
             }
             #endregion
 
+            if (isSimple)
+            {
+                holder.CompleteCheckBox.Visibility = ViewStates.Gone;
+            }
             holder.CompleteCheckBox.Checked = task.Complete;
             holder.CompleteCheckBox.CheckedChange += (s, e) => CompleteCheckBox_CheckedChange(holder, task);
             ChangeTextStyle(holder);
@@ -83,13 +87,13 @@ namespace Organizer.Internal.ArrayAdapters
 
             holder.TitleTextView.Text = task.Title;
 
-            if (task.StartTime != "" || task.EndTime != "")
+            if (isSimple == false && (task.StartTime != "" || task.EndTime != ""))
             {
                 holder.FirstLineTextView.Visibility = ViewStates.Visible;
                 holder.TimeTextView.Visibility = ViewStates.Visible;
                 holder.TimeTextView.Text = task.StartTime + " ~ " + task.EndTime;
             }
-            if (task.Text != "")
+            if (isSimple == false && (task.Text != ""))
             {
                 holder.SecondLineTextView.Visibility = ViewStates.Visible;
                 holder.TextTextView.Visibility = ViewStates.Visible;
@@ -118,8 +122,6 @@ namespace Organizer.Internal.ArrayAdapters
                 {
                     holder.TasksListLayout.AddView(GetTaskView(taskProject, null), layoutParams);
                 }
-
-                
             }
 
             return view;

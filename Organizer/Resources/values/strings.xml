@@ -11,22 +11,32 @@
 	<string name="project_task_short">П</string>
 	<string name="routine_task_short">Р</string>
 
+	<!--CreateFragment-->
+
+	<string name="hint_title">Заголовок (обязательно)</string>
+	<string name="hint_text">Текст задачи</string>
+	<string name="start_time">Время начала</string>
+	<string name="end_time">Время конца</string>
+	<string name="empty_time">--:--</string>
+	<string name="regular_priority">Приоритет задачи</string>
+	<string name="routine_days">Дни рутин</string>
+
 	<!--Name days of week-->
 
 	<string name="sunday">Воскресенье</string>
-	<string name="sunday_short">Вс.</string>
+	<string name="sunday_short">Вс</string>
 	<string name="monday">Понедельник</string>
-	<string name="monday_short">Пн.</string>
+	<string name="monday_short">Пн</string>
 	<string name="tuesday">Вторник</string>
-	<string name="tuesday_short">Вт.</string>
+	<string name="tuesday_short">Вт</string>
 	<string name="wednesday">Среда</string>
-	<string name="wednesday_short">Ср.</string>
+	<string name="wednesday_short">Ср</string>
 	<string name="thursday">Четверг</string>
-	<string name="thursday_short">Чт.</string>
+	<string name="thursday_short">Чт</string>
 	<string name="friday">Пятница</string>
-	<string name="friday_short">Пт.</string>
+	<string name="friday_short">Пт</string>
 	<string name="saturday">Суббота</string>
-	<string name="saturday_short">Сб.</string>
+	<string name="saturday_short">Сб</string>
 
 	<!--Content description-->
 
@@ -37,6 +47,8 @@
 	<string name="description_timer_button">Таймер</string>
 	<string name="description_account_button">Пользователь</string>
 	<string name="description_hide_tasks">Скрыть задачи</string>
+	<string name="description_ok_button">Создать задачу</string>
+	<string name="description_cancel">Отмена</string>
 
 	<!--Key for holders-->
 

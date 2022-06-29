@@ -65,9 +65,7 @@ namespace Organizer.Internal.Model.Task
             return (final == "") ? "" : final[(Sep.Length)..];
         }
 
-        public bool EqualsWithoutComplete (BaseTask task) => (TypeTask == task.TypeTask) && (Title == task.Title) &&
+        public bool Equals (BaseTask task) => (TypeTask == task.TypeTask) && (Title == task.Title) &&
             (Text == task.Text) && (StartTime == task.StartTime) && (EndTime == task.EndTime);
-
-        public bool Equals (BaseTask task) => EqualsWithoutComplete(task) && Complete == task.Complete;
     }
 }

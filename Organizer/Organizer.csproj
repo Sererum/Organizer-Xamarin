@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Internal\Activity\MainActivity.cs" />
+    <Compile Include="Internal\ArrayAdapters\PriorityArrayAdapter.cs" />
     <Compile Include="Internal\ArrayAdapters\TaskArrayAdapter.cs" />
     <Compile Include="Internal\ArrayAdapters\TaskViewConstructor.cs" />
     <Compile Include="Internal\Data\Server.cs" />
@@ -130,6 +131,16 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\list_item_task.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\fragment_create.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\list_item_priority.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

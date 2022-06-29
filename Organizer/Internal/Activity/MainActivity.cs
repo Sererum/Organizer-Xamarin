@@ -6,6 +6,9 @@ using AndroidX.AppCompat.App;
 using AndroidX.Fragment.App;
 using Organizer.Internal.Data;
 using Organizer.Internal.Fragments;
+using Organizer.Internal.Model;
+using Organizer.Internal.Model.Task;
+using System.Collections.Generic;
 using Fragment = AndroidX.Fragment.App.Fragment;
 
 namespace Organizer.Internal.Activity
@@ -18,23 +21,27 @@ namespace Organizer.Internal.Activity
         private ScheduleFragment _scheduleFragment;
         private TimerFragment _timerFragment;
         private AccountFragment _accountFragment;
-        private Fragment _lastFragment;
+        private CreateFragment _createFragment;
+
         private Fragment _currentFragment;
+        private Stack<Fragment> _lastFragments;
 
         protected override void OnCreate (Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.activity_main);
 
-            Storage.InitializeListsTasks();
+            Storage.InitializeListsTasks(this);
 
             InitializeFragments(savedInstanceState);
             InitializeButtons();
         }
 
-        #region Work with fragments
+        #region Initialize fragments
         private void InitializeFragments (Bundle savedInstanceState)
         {
+            _lastFragments = new Stack<Fragment>();
+
             _listTasksFragment = new ListTasksFragment(this);
             _calendarFragment = new CalendarFragment();
             _scheduleFragment = new ScheduleFragment();
@@ -58,7 +65,7 @@ namespace Organizer.Internal.Activity
             ShowFragment(_currentFragment);
         }
 
-        public void ShowFragment (Fragment fragment)
+        public void ShowFragment (Fragment fragment, bool returnBack = false)
         {
             if (fragment.IsVisible == true)
             {
@@ -68,7 +75,10 @@ namespace Organizer.Internal.Activity
 
             fragmentTransaction.Hide(_currentFragment);
             fragmentTransaction.Show(fragment);
-            _lastFragment = _currentFragment;
+            if (returnBack == false)
+            {
+                _lastFragments.Push(_currentFragment);
+            }
             _currentFragment = fragment;
 
             fragmentTransaction.AddToBackStack(null);
@@ -85,9 +95,26 @@ namespace Organizer.Internal.Activity
         }
         #endregion
 
+        public void ShowCreateFragment (ListTasks list, bool disableRoutine = false, BaseTask editTask = null)
+        {
+            _createFragment = new CreateFragment(this, list, disableRoutine, editTask);
+            var fragmentTransaction = SupportFragmentManager.BeginTransaction();
+            fragmentTransaction.Add(Resource.Id.MainFragmentLayout, _createFragment).Hide(_createFragment);
+            fragmentTransaction.Commit();
+            ShowFragment(_createFragment);
+        }
+
         public void UpdateFragments ()
         {
             _listTasksFragment.UpdateListView();
+        }
+
+        public override void OnBackPressed ()
+        {
+            if (_lastFragments.Count > 0)
+            {
+                ShowFragment(_lastFragments.Pop(), true);
+            }
         }
 
         protected override void OnPause ()

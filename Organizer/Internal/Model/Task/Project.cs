@@ -15,7 +15,7 @@ namespace Organizer.Internal.Model.Task
 
         public bool TasksVisible { get; set; }
 
-        public Project (int typeTask, string title, string text, string startTime, string endTime, ListTasks tasks) :
+        public Project (string title, string text, string startTime, string endTime, ListTasks tasks) :
             base((int) BaseTask.Type.Project, title, text, startTime, endTime)
         {
             _tasks = tasks;
