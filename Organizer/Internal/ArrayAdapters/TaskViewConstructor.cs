@@ -166,7 +166,7 @@ namespace Organizer.Internal.ArrayAdapters
 
         private static void View_LongClick (View view, BaseTask task)
         {
-            if ((new Date()).Time - _periodClick < 1000)
+            if ((new Date()).Time - _periodClick < 500)
             {
                 return;
             }
@@ -176,9 +176,20 @@ namespace Organizer.Internal.ArrayAdapters
             ListTasks currentList = new ListTasks();
             bool disableRoutine = task is Project;
 
+            Server.Period currentPeriod = Storage.MainPeriod;
+            DateTime currentDate = DateTime.MinValue;
+            DateTime nextDate = DateTime.MinValue;
+            ListTasks nextList = null;
+
             if (Storage.MainListTasks.Contains(task))
             {
                 currentList = Storage.MainListTasks.GetRootList(task) ?? throw new ArgumentException();
+
+                currentDate = Storage.MainDate;
+                nextDate = Storage.MainDate;
+                nextDate = nextDate.AddDays(Storage.MainPeriod == Server.Period.Day ? 1 : 0);
+                nextDate = nextDate.AddMonths(Storage.MainPeriod == Server.Period.Month ? 1 : 0);
+                nextDate = nextDate.AddYears(Storage.MainPeriod == Server.Period.Year ? 1 : 0);
                 if (Storage.MainPeriod == Server.Period.Month || Storage.MainPeriod == Server.Period.Year)
                 {
                     idMenu = Resource.Menu.task_action_menu;
@@ -197,6 +208,10 @@ namespace Organizer.Internal.ArrayAdapters
             else if (Storage.CalendarListTasks.Contains(task))
             {
                 currentList = Storage.CalendarListTasks.GetRootList(task) ?? throw new ArgumentException();
+
+                currentPeriod = Server.Period.Day;
+                currentDate = Storage.CalendarDate;
+                nextDate = Storage.CalendarDate.AddDays(1);
                 if (Storage.IsPast(Storage.CalendarDate))
                 {
                     idMenu = Resource.Menu.task_action_menu_past;
@@ -205,6 +220,10 @@ namespace Organizer.Internal.ArrayAdapters
             else if(Storage.ScheduleListTasks.Contains(task))
             {
                 currentList = Storage.ScheduleListTasks.GetRootList(task) ?? throw new ArgumentException();
+
+                currentPeriod = Server.Period.Day;
+                currentDate = Storage.ScheduleDate;
+                nextDate = Storage.ScheduleDate.AddDays(1);
                 if (Storage.IsPast(Storage.ScheduleDate))
                 {
                     idMenu = Resource.Menu.task_action_menu_past;
@@ -231,8 +250,23 @@ namespace Organizer.Internal.ArrayAdapters
                         _mainActivity.UpdateFragments();
                         break;
                     case Resource.Id.action_move_next:
+                        currentList.Remove(task);
+
+                        nextList = Server.GetList(currentPeriod, nextDate);
+                        nextList.Add(task);
+                        Server.SetList(currentPeriod, nextDate, nextList);
+
+                        _mainActivity.UpdateFragments();
                         break;
                     case Resource.Id.action_move_lower:
+                        currentList.Remove(task);
+
+                        Server.Period nextPeriod = (Server.Period) ((int) currentPeriod + 1);
+                        nextList = Server.GetList(nextPeriod, currentDate);
+                        nextList.Add(task);
+                        Server.SetList(nextPeriod, currentDate, nextList);
+
+                        _mainActivity.UpdateFragments();
                         break;
                 }
             };

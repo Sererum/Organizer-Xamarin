@@ -1,7 +1,4 @@
-﻿using Android.Util;
-using Android.Views;
-using System;
-using System.Linq;
+﻿using System;
 
 namespace Organizer.Internal.Model.Task
 {
@@ -67,7 +64,6 @@ namespace Organizer.Internal.Model.Task
 
                         string[] aProject = new ArraySegment<string>(arrayProjectTasks, indexTask, countProjectTasks + 1).ToArray();
                         string sProject = String.Join(ProjectSep, aProject);
-                        Log.Debug("Project", sProject);
                         _tasks.Add(new Project(sProject));
                         indexTask += countProjectTasks;
                         break;
