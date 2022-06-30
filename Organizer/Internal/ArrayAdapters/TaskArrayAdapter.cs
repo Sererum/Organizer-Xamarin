@@ -1,15 +1,7 @@
-﻿using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
+﻿using Android.Views;
 using Android.Widget;
 using Organizer.Internal.Model;
 using Organizer.Internal.Model.Task;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Organizer.Internal.ArrayAdapters
 {
@@ -23,16 +15,15 @@ namespace Organizer.Internal.ArrayAdapters
 
         public override BaseTask this[int position] => _showList[position];
 
-        public TaskArrayAdapter (Android.App.Activity context, ListTasks showList, ListTasks mainList)
+        public TaskArrayAdapter (Android.App.Activity context, ListTasks mainList, ListTasks showList = null)
         {
             _context = context;
             _showList = showList;
+            _mainList = mainList;
             if (showList is null)
             {
                 _showList = mainList;
             }
-            _mainList = mainList;
-            var s = _mainList.Archive(ListTasks.Mode.All);
             TaskViewConstructor.InitialConstructor(_context);
         }
 

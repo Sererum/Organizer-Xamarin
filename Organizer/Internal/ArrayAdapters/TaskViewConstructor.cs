@@ -5,6 +5,7 @@ using AndroidX.Core.Content;
 using Java.Util;
 using Organizer.Internal.Activity;
 using Organizer.Internal.Data;
+using Organizer.Internal.Fragments;
 using Organizer.Internal.Model;
 using Organizer.Internal.Model.Task;
 using System;
@@ -181,7 +182,7 @@ namespace Organizer.Internal.ArrayAdapters
             DateTime nextDate = DateTime.MinValue;
             ListTasks nextList = null;
 
-            if (Storage.MainListTasks.Contains(task))
+            if (_mainActivity.CurrentFragment is ListTasksFragment)
             {
                 currentList = Storage.MainListTasks.GetRootList(task) ?? throw new ArgumentException();
 
@@ -205,7 +206,7 @@ namespace Organizer.Internal.ArrayAdapters
                     idMenu = Resource.Menu.task_action_menu_past;
                 }
             }
-            else if (Storage.CalendarListTasks.Contains(task))
+            else if (_mainActivity.CurrentFragment is CalendarFragment)
             {
                 currentList = Storage.CalendarListTasks.GetRootList(task) ?? throw new ArgumentException();
 
@@ -217,7 +218,7 @@ namespace Organizer.Internal.ArrayAdapters
                     idMenu = Resource.Menu.task_action_menu_past;
                 }
             }
-            else if(Storage.ScheduleListTasks.Contains(task))
+            else if(_mainActivity.CurrentFragment is ListTasksFragment)
             {
                 currentList = Storage.ScheduleListTasks.GetRootList(task) ?? throw new ArgumentException();
 

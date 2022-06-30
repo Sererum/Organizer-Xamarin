@@ -74,6 +74,7 @@
 	<string name="description_last_button">Прошлый период</string>
 	<string name="description_next_button">Следующий период</string>
 	<string name="description_sort_button">Сортировка задач</string>
+	<string name="description_hide_button">Скрыть список задач</string>
 
 	<!--Key for holders-->
 

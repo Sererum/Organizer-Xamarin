@@ -117,7 +117,7 @@ namespace Organizer.Internal.Fragments
         public void UpdateListView ()
         {
             Storage.MainListTasks.Sort();
-            _tasksListView.Adapter = new TaskArrayAdapter(_context, null, Storage.MainListTasks);
+            _tasksListView.Adapter = new TaskArrayAdapter(_context, Storage.MainListTasks);
         }
 
         private void UpdatePeriods (int selectedItem = 3)

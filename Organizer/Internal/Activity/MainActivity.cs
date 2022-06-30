@@ -26,6 +26,8 @@ namespace Organizer.Internal.Activity
         private Fragment _currentFragment;
         private Stack<Fragment> _lastFragments;
 
+        public Fragment CurrentFragment => _currentFragment;
+
         protected override void OnCreate (Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -43,17 +45,14 @@ namespace Organizer.Internal.Activity
             _lastFragments = new Stack<Fragment>();
 
             _listTasksFragment = new ListTasksFragment(this);
-            _calendarFragment = new CalendarFragment();
+            _calendarFragment = new CalendarFragment(this);
             _scheduleFragment = new ScheduleFragment();
             _timerFragment = new TimerFragment();
             _accountFragment = new AccountFragment();
 
             Fragment[] fragments = { _listTasksFragment, _calendarFragment, _scheduleFragment, _timerFragment, _accountFragment };
-
             _currentFragment = _listTasksFragment;
-
             var fragmentTransaction = SupportFragmentManager.BeginTransaction();
-
             if (savedInstanceState is null)
             {
                 foreach (Fragment fragment in fragments)
@@ -108,6 +107,7 @@ namespace Organizer.Internal.Activity
         {
             Storage.SynchronizeLists(_currentFragment);
             _listTasksFragment.UpdateListView();
+            _calendarFragment.UpdateListView();
         }
 
         public override void OnBackPressed ()

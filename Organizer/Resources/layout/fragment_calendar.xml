@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <CalendarView
+        android:id="@+id/CalendarMainView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
+    <ImageButton
+        android:id="@+id/CalendarHideTasksButton"
+        android:layout_width="60dp"
+        android:layout_height="30dp"
+        android:layout_below="@id/CalendarMainView"
+        android:layout_centerHorizontal="true"
+        android:background="@android:drawable/arrow_down_float"
+        android:contentDescription="@string/description_hide_button"
+        />
+
+    <ListView
+        android:id="@+id/CalendarListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/CalendarHideTasksButton"
+        />
+
+    <ImageButton
+        android:id="@+id/CalendarAddTaskButton"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="10dp"
+        android:background="@android:drawable/ic_input_add"
+        android:contentDescription="@string/description_add_button" 
+        />
+
+</RelativeLayout>
