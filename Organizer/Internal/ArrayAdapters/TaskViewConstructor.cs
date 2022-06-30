@@ -172,7 +172,7 @@ namespace Organizer.Internal.ArrayAdapters
             }
             _periodClick = (new Date()).Time;
 
-            int idMenu = Resource.Menu.task_action_menu_day;
+            int idMenu = task is Routine ? Resource.Menu.task_action_menu_routine : Resource.Menu.task_action_menu_day;
             ListTasks currentList = new ListTasks();
             bool disableRoutine = task is Project;
 
@@ -247,6 +247,12 @@ namespace Organizer.Internal.ArrayAdapters
                         break;
                     case Resource.Id.action_delete:
                         currentList.Remove(task);
+                        if (task is Routine)
+                        {
+                            ListTasks routines = Server.Routines;
+                            routines.Remove(task);
+                            Server.Routines = routines;
+                        }
                         _mainActivity.UpdateFragments();
                         break;
                     case Resource.Id.action_move_next:

@@ -16,7 +16,7 @@ namespace Organizer.Internal.Data
         public static ListTasks Routines
         {
             get { return new ListTasks(_preferences.GetString(Key.Routine.ToString(), "")); }
-            set { _preferencesEdit.PutString(Key.Global.ToString(), value.Archive(ListTasks.Mode.All)).Commit(); }
+            set { _preferencesEdit.PutString(Key.Routine.ToString(), value.Archive(ListTasks.Mode.All)).Commit(); }
         }
 
         public static int SortType
@@ -31,7 +31,7 @@ namespace Organizer.Internal.Data
             {
                 case Period.Day:
                     ListTasks dayList = new ListTasks(_preferences.GetString(GetKey(date, Period.Day), ""));
-                    dayList += GetRoutinesOnDay((int) date.DayOfWeek);
+                    dayList += GetRoutinesOnDay((int) date.DayOfWeek, dayList);
                     return dayList;
                 case Period.Month:
                     return new ListTasks(_preferences.GetString(GetKey(date, Period.Month), ""));
@@ -65,14 +65,25 @@ namespace Organizer.Internal.Data
             _preferencesEdit.Commit();
         }
 
-        private static ListTasks GetRoutinesOnDay(int dayOfWeek)
+        public static ListTasks GetRoutinesOnDay(int dayOfWeek, ListTasks list)
         {
             ListTasks routinesOnDay = new ListTasks();
+            ListTasks listRoutines = list.CutRoutines();
             foreach (Routine routine in Routines)
             {
                 if (routine.SDays.Contains(dayOfWeek.ToString()))
                 {
-                    routinesOnDay.Add(routine);
+                    foreach (BaseTask listRoutine in listRoutines)
+                    {
+                        if (routine.Equals(listRoutine))
+                        {
+                            routinesOnDay.Add(listRoutine);
+                        }
+                    }
+                    if (routinesOnDay.Contains(routine) == false)
+                    {
+                        routinesOnDay.Add(routine);
+                    }
                 }
             }
             return routinesOnDay;

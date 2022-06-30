@@ -229,9 +229,11 @@ namespace Organizer.Internal.Fragments
                     if (_isEdit)
                     {
                         routines.Remove(_editTask);
+                        _mainList.Remove(_editTask);
                     }
                     routines.Add(new Routine(_titleEditText.Text, _textEditText.Text, startTime, endTime, GetSRoutineDays()));
                     Server.Routines = routines;
+                    
                     break;
             }
             _mainActivity.OnBackPressed();

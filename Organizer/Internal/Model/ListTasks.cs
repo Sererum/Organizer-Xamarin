@@ -81,6 +81,23 @@ namespace Organizer.Internal.Model
             }
         }
 
+        public ListTasks CutRoutines ()
+        {
+            ListTasks routines = new ListTasks();
+            foreach (BaseTask task in _tasks)
+            {
+                if (task is Routine)
+                {
+                    routines.Add(task);
+                }
+            }
+            foreach (BaseTask routine in routines)
+            {
+                _tasks.Remove(routine);
+            }
+            return routines;
+        }
+
         public ListTasks GetRootList(BaseTask findTask)
         {
             ListTasks rootList;

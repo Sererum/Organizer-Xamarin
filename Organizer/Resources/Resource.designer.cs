@@ -4651,7 +4651,10 @@ namespace Organizer
 			public const int task_action_menu_past = 2131492867;
 			
 			// aapt resource value: 0x7F0C0004
-			public const int type_sort_menu = 2131492868;
+			public const int task_action_menu_routine = 2131492868;
+			
+			// aapt resource value: 0x7F0C0005
+			public const int type_sort_menu = 2131492869;
 			
 			static Menu()
 			{

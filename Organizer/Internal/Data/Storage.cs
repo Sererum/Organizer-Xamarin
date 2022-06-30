@@ -79,6 +79,7 @@ namespace Organizer.Internal.Data
         {
             if (currentFragment is ListTasksFragment && MainPeriod == Period.Day)
             {
+                _mainListTasks += GetRoutinesOnDay((int) MainDate.DayOfWeek, _mainListTasks);
                 if (EqualsDate(CalendarDate, MainDate))
                 {
                     _calendarListTasks = MainListTasks;
@@ -90,6 +91,7 @@ namespace Organizer.Internal.Data
             }
             if (currentFragment is CalendarFragment)
             {
+                _calendarListTasks += GetRoutinesOnDay((int) CalendarDate.DayOfWeek, _calendarListTasks);
                 if (EqualsDate(MainDate, CalendarDate) && MainPeriod == Period.Day)
                 {
                     _mainListTasks = CalendarListTasks;
@@ -101,6 +103,7 @@ namespace Organizer.Internal.Data
             }
             if (currentFragment is ScheduleFragment)
             {
+                _scheduleListTasks += GetRoutinesOnDay((int) ScheduleDate.DayOfWeek, _scheduleListTasks);
                 if (EqualsDate(MainDate, ScheduleDate) && MainPeriod == Period.Day)
                 {
                     _mainListTasks = CalendarListTasks;
