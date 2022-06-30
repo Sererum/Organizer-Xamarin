@@ -46,7 +46,7 @@ namespace Organizer.Internal.Activity
 
             _listTasksFragment = new ListTasksFragment(this);
             _calendarFragment = new CalendarFragment(this);
-            _scheduleFragment = new ScheduleFragment();
+            _scheduleFragment = new ScheduleFragment(this);
             _timerFragment = new TimerFragment();
             _accountFragment = new AccountFragment();
 
@@ -108,6 +108,7 @@ namespace Organizer.Internal.Activity
             Storage.SynchronizeLists(_currentFragment);
             _listTasksFragment.UpdateListView();
             _calendarFragment.UpdateListView();
+            _scheduleFragment.UpdateListView();
         }
 
         public override void OnBackPressed ()

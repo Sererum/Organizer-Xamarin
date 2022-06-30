@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/ScheduleToolBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_tool_bar"
+        android:background="#DDD"
+        >
+
+        <ImageButton
+            android:id="@+id/ScheduleLastPeriodButton"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:background="@android:drawable/ic_media_previous"
+            android:contentDescription="@string/description_last_button" 
+            />
+
+        <RelativeLayout
+            android:id="@+id/SchedulePeriodLayout"
+            android:layout_width="230dp"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@id/ScheduleLastPeriodButton"
+            android:background="#000"
+            android:padding="1dp"
+            >
+        
+            <TextView
+                android:id="@+id/SchedulePeriodTextView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="19sp"
+                android:textColor="#000"
+                android:gravity="center"
+                android:background="#DDD"
+                
+                android:text="Сегодня, 14/12, Чт"
+                />
+        
+        </RelativeLayout>/>
+
+        <ImageButton
+            android:id="@+id/ScheduleNextPeriodButton"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:background="@android:drawable/ic_media_next"
+            android:layout_toRightOf="@id/SchedulePeriodLayout"
+            android:contentDescription="@string/description_next_button"
+            />
+
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/ScheduleMainListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/ScheduleToolBarLayout"/>
+
+</RelativeLayout>
