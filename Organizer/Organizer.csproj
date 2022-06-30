@@ -62,9 +62,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Internal\Activity\MainActivity.cs" />
+    <Compile Include="Internal\ArrayAdapters\PeriodArrayAdapter.cs" />
     <Compile Include="Internal\ArrayAdapters\PriorityArrayAdapter.cs" />
     <Compile Include="Internal\ArrayAdapters\TaskArrayAdapter.cs" />
     <Compile Include="Internal\ArrayAdapters\TaskViewConstructor.cs" />
+    <Compile Include="Internal\Data\NameDatePeriod.cs" />
     <Compile Include="Internal\Data\Server.cs" />
     <Compile Include="Internal\Data\Storage.cs" />
     <Compile Include="Internal\Data\TaskSorter.cs" />
@@ -155,6 +157,14 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\menu\task_action_menu_global.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\list_item_period.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\menu\type_sort_menu.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

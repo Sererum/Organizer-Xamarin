@@ -34,11 +34,11 @@ namespace Organizer.Internal.Data
 
         public static Period MainPeriod => _mainPeriod;
 
-        public static Context Context { get; set; }
+        public static Android.App.Activity Context { get; set; }
 
         #endregion
 
-        public static void InitializeListsTasks (Context context)
+        public static void InitializeListsTasks (Android.App.Activity context)
         {
             _mainListTasks = GetList(Period.Day, DateTime.Now);
             _calendarListTasks = GetList(Period.Day, DateTime.Now);

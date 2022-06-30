@@ -27,6 +27,21 @@
 	<string name="move_lower">Спустить ниже</string>
 	<string name="edit">Редактировать</string>
 	<string name="delete">Удалить</string>
+	<string name="type_sort">Сортировать по типу задачи</string>
+	<string name="time_start_sort">Сортировать по времени начала</string>
+
+	<!--Name of periods-->
+
+	<string name="last_day">Вчера</string>
+	<string name="this_day">Сегодня</string>
+	<string name="next_day">Завтра</string>
+	<string name="last_month">Прошлый месяц</string>
+	<string name="this_month">Этот месяц</string>
+	<string name="next_month">Следующий месяц</string>
+	<string name="last_year"> Прошлый год</string>
+	<string name="this_year">Этот год</string>
+	<string name="next_year">Следующий год</string>
+	<string name="global">Главные задачи</string>
 
 	<!--Name days of week-->
 
@@ -56,6 +71,9 @@
 	<string name="description_hide_tasks">Скрыть задачи</string>
 	<string name="description_ok_button">Создать задачу</string>
 	<string name="description_cancel">Отмена</string>
+	<string name="description_last_button">Прошлый период</string>
+	<string name="description_next_button">Следующий период</string>
+	<string name="description_sort_button">Сортировка задач</string>
 
 	<!--Key for holders-->
 

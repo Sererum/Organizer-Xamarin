@@ -1,24 +1,15 @@
 ﻿using Android.App;
 using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Util;
-using Android.Views;
-using Android.Widget;
 using Organizer.Internal.Model;
 using Organizer.Internal.Model.Task;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Organizer.Internal.Data
 {
     public static class Server
     {
-        public enum Period { Day, Month, Year, Global }
-        private enum Key { Global, Routine }
-
+        public enum Period { Global, Year, Month, Day }
+        private enum Key { Global, Routine, Sort }
         private static ISharedPreferences _preferences = Application.Context.GetSharedPreferences("Settings", FileCreationMode.Private);
         private static ISharedPreferencesEditor _preferencesEdit = _preferences.Edit();
 
@@ -28,12 +19,17 @@ namespace Organizer.Internal.Data
             set { _preferencesEdit.PutString(Key.Global.ToString(), value.Archive(ListTasks.Mode.All)).Commit(); }
         }
 
+        public static int SortType
+        {
+            get { return _preferences.GetInt(Key.Sort.ToString(), 0); }
+            set { _preferencesEdit.PutInt(Key.Sort.ToString(), (int) TaskSorter.CurrentType).Commit(); }
+        }
+
         public static ListTasks GetList (Period period, DateTime date)
         {
             switch (period)
             {
                 case Period.Day:
-                    Log.Debug("______________________Load", "|" + GetKey(date, Period.Day) + "| - |" + _preferences.GetString(GetKey(date, Period.Day), "") + "|");
                     ListTasks dayList = new ListTasks(_preferences.GetString(GetKey(date, Period.Day), ""));
                     dayList += GetRoutinesOnDay((int) date.DayOfWeek);
                     return dayList;
@@ -52,7 +48,6 @@ namespace Organizer.Internal.Data
             switch (period)
             {
                 case Period.Day:
-                    Log.Debug("______________________Save", "|" + GetKey(date, Period.Day) + "| - |" + list.Archive(ListTasks.Mode.All) + "|");
                     _preferencesEdit.PutString(GetKey(date, Period.Day), list.Archive(ListTasks.Mode.All));
                     break;
                 case Period.Month:

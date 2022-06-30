@@ -16,7 +16,7 @@ namespace Organizer.Internal.Data
     {
         public enum Type { TimeStart, TypeTask }
 
-        private static Type _currentType = Type.TimeStart;
+        private static Type _currentType = (Type) Server.SortType;
 
         public static Type CurrentType
         {
@@ -24,6 +24,7 @@ namespace Organizer.Internal.Data
             set
             {
                 _currentType = value;
+                Server.SortType = (int) value;
             }
         }
 

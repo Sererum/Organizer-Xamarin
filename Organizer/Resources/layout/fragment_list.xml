@@ -3,10 +3,77 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <RelativeLayout
+        android:id="@+id/ListToolBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_tool_bar"
+        android:background="#DDD"
+        >
+
+        <ImageButton
+            android:id="@+id/ListLastPeriodButton"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:background="@android:drawable/ic_media_previous"
+            android:contentDescription="@string/description_last_button" 
+            />
+
+        <RelativeLayout
+            android:id="@+id/ListPeriodLayout"
+            android:layout_width="230dp"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@id/ListLastPeriodButton"
+            android:background="#000"
+            android:padding="1dp"
+            >
+
+            <Spinner
+                android:id="@+id/ListPeriodSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:dropDownWidth="230dp"
+                />
+        
+            <TextView
+                android:id="@+id/ListPeriodTextView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="19sp"
+                android:textColor="#000"
+                android:gravity="center"
+                android:background="#DDD"
+                
+                android:text="Сегодня, 14/12, Чт"
+                />
+        
+        </RelativeLayout>/>
+
+        <ImageButton
+            android:id="@+id/ListNextPeriodButton"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:background="@android:drawable/ic_media_next"
+            android:layout_toRightOf="@id/ListPeriodLayout"
+            android:contentDescription="@string/description_next_button"
+            />
+
+        <ImageButton
+            android:id="@+id/ListSortButton"
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:background="@android:drawable/ic_menu_sort_by_size"
+            android:contentDescription="@string/description_sort_button"
+            />
+    
+    </RelativeLayout>
+
     <ListView
         android:id="@+id/ListTasksListView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_below="@id/ListToolBarLayout"
+        />
 
     <ImageButton
         android:id="@+id/ListAddTaskButton"
