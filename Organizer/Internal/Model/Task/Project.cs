@@ -10,8 +10,18 @@ namespace Organizer.Internal.Model.Task
         public static readonly string ProjectSep = "^";
 
         private ListTasks _tasks;
+        private bool _complete;
 
         public ListTasks Tasks => _tasks;
+        public override bool Complete
+        {
+            get { return _complete; }
+            set
+            {
+                CompleteProject(value);
+                _complete = value;
+            }
+        }
 
         public bool TasksVisible { get; set; }
 
@@ -70,6 +80,20 @@ namespace Organizer.Internal.Model.Task
                 indexTask++;
             }
         }
+
+        private void CompleteProject (bool complete)
+        {
+            if (Tasks is null)
+            {
+                return;
+            }
+            foreach (BaseTask task in Tasks)
+            {
+                task.Complete = complete;
+            }
+        }
+
+        public void UncompleteWitoutAllTask () => _complete = false;
 
         public override string ToString () => base.ToString() + TaskSep + (TasksVisible ? "1" : "0") +
             TaskSep + _tasks.Count + TaskSep + ProjectSep + _tasks.Archive(ListTasks.Mode.All, ProjectSep);

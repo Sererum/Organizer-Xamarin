@@ -1,6 +1,8 @@
 ﻿using Android.Content;
 using Android.Util;
 using Android.Views;
+using AndroidX.Fragment.App;
+using Organizer.Internal.Fragments;
 using Organizer.Internal.Model;
 using System;
 using System.Collections.Generic;
@@ -73,6 +75,43 @@ namespace Organizer.Internal.Data
              SetList(Period.Day, _scheduleDate, _scheduleListTasks);
         }
 
+        public static void SynchronizeLists (Fragment currentFragment)
+        {
+            if (currentFragment is ListTasksFragment && MainPeriod == Period.Day)
+            {
+                if (EqualsDate(CalendarDate, MainDate))
+                {
+                    _calendarListTasks = MainListTasks;
+                }
+                if (EqualsDate(ScheduleDate, MainDate))
+                {
+                    _scheduleListTasks = MainListTasks;
+                }
+            }
+            if (currentFragment is CalendarFragment)
+            {
+                if (EqualsDate(MainDate, CalendarDate) && MainPeriod == Period.Day)
+                {
+                    _mainListTasks = CalendarListTasks;
+                }
+                if (EqualsDate(ScheduleDate, CalendarDate))
+                {
+                    _scheduleListTasks = CalendarListTasks;
+                }
+            }
+            if (currentFragment is ScheduleFragment)
+            {
+                if (EqualsDate(MainDate, ScheduleDate) && MainPeriod == Period.Day)
+                {
+                    _mainListTasks = CalendarListTasks;
+                }
+                if (EqualsDate(CalendarDate, ScheduleDate))
+                {
+                    _calendarListTasks = CalendarListTasks;
+                }
+            }
+        }
+
         #region Dictionaries
 
         public static Dictionary<int, int> PriorityToColorId = new Dictionary<int, int>()
@@ -106,6 +145,11 @@ namespace Organizer.Internal.Data
         public static float DpToPx (int dp) => TypedValue.ApplyDimension(ComplexUnitType.Dip, dp, Context.Resources.DisplayMetrics);
 
         public static string DateToStandart (int hour, int minute) => (hour <= 9 ? "0" : "") + hour + ":" + (minute <= 9 ? "0" : "") + minute;
+
+        public static bool EqualsDate (DateTime dateOne, DateTime dateTwo) => dateOne.ToShortDateString() == dateTwo.ToShortDateString();
+
+        public static bool IsPast (DateTime date)
+            => DateTime.Now.CompareTo(date) > 0 && EqualsDate(DateTime.Now, date) == false;
 
         #endregion
     }

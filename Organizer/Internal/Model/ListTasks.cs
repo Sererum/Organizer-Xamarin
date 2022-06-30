@@ -81,10 +81,100 @@ namespace Organizer.Internal.Model
             }
         }
 
-        public void Sort () => _tasks.Sort((taskOne, taskTwo) => TaskSorter.Compare(taskOne, taskTwo));
+        public ListTasks GetRootList(BaseTask findTask)
+        {
+            ListTasks rootList;
+            foreach (BaseTask task in _tasks)
+            {
+                if (task is Project)
+                {
+                    rootList = (task as Project).Tasks.GetRootList(findTask);
+                    if (rootList != null)
+                    {
+                        return rootList;
+                    }
+                }
+                if (findTask.Equals(task))
+                {
+                    return this;
+                }
+            }
+            return null;
+        }
+
+        public bool Contains(BaseTask containTask)
+        {
+            foreach (BaseTask task in _tasks)
+            {
+                if (task is Project && (task as Project).Tasks.Contains(containTask))
+                {
+                    return true;
+                }
+                if (containTask.Equals(task))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private bool IsAllTaskComplete ()
+        {
+            bool allTaskComplete = true;
+            foreach (BaseTask task in _tasks)
+            {
+                if (task is Project)
+                {
+                    if ((task as Project).Tasks.IsAllTaskComplete())
+                    {
+                        task.Complete = true;
+                    }
+                    else
+                    {
+                        (task as Project).UncompleteWitoutAllTask();
+                    }
+                }
+                if (task.Complete == false)
+                {
+                    allTaskComplete = false;
+                }
+            }
+            return allTaskComplete;
+        }
+
+        public void Sort ()
+        {
+            IsAllTaskComplete();
+            _tasks.Sort((taskOne, taskTwo) => TaskSorter.Compare(taskOne, taskTwo));
+        }
+
+        public void Synchronize(ListTasks list)
+        {
+            Sort();
+            list.Sort();
+            int indexTask = 0;
+            while (indexTask < Count)
+            {
+                if (_tasks[indexTask].Equals(list[indexTask]) == false)
+                {
+
+                }
+            }
+        }
 
         public static ListTasks operator + (ListTasks listOne, ListTasks listTwo)
-            => new ListTasks(listOne.Archive(Mode.All) + ListSep + listTwo.Archive(Mode.All));
+        {
+            ListTasks finalList = new ListTasks(listOne.Archive(Mode.All));
+            for (int i = 0; i < listTwo.Count; i++)
+            {
+                if (finalList.Contains(listTwo[i]) == false)
+                {
+                    finalList.Add(listTwo[i]);
+                }
+            }
+            return finalList;
+        }
+
 
         #region IEnumerable
         public IEnumerator GetEnumerator () => (IEnumerator) new TaskEnum(_tasks);

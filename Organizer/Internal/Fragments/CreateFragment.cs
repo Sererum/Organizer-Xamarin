@@ -20,9 +20,9 @@ namespace Organizer.Internal.Fragments
         private readonly ListTasks _mainList;
         private readonly bool _disableRoutine;
         private readonly bool _isEdit;
-        private readonly ListTasks _projectList;
 
         private BaseTask _editTask;
+        private ListTasks _projectList;
 
         private EditText _titleEditText;
         private EditText _textEditText;
@@ -104,26 +104,6 @@ namespace Organizer.Internal.Fragments
 
             _typeTaskRadioGroup.CheckedChange += (s, e) => ChangeTasksLayoutVisible();
 
-            if (_isEdit)
-            {
-                switch (_editTask.TypeTask)
-                {
-                    case (int) BaseTask.Type.Project:
-                        _projectRadioButton.Checked = true;
-                        break;
-                    case (int) BaseTask.Type.Regular:
-                        _regularRadioButton.Checked = true;
-                        break;
-                    case (int) BaseTask.Type.Routine:
-                        _routineRadioButton.Checked = true;
-                        break;
-                }
-            }
-            else
-            {
-                _regularRadioButton.Checked = true;
-            }
-
             if (_disableRoutine)
             {
                 _routineRadioButton.Visibility = ViewStates.Gone;
@@ -131,10 +111,41 @@ namespace Organizer.Internal.Fragments
 
             UpdateProjectLayout();
             view.FindViewById<ImageButton>(Resource.Id.ProjectAddButton).Click += (s, e)
-                => _mainActivity.ShowCreateFragment(_projectList, true);
+                => _mainActivity.ShowCreateFragment(_projectList, disableRoutine: true);
 
             _prioritySpinner.Adapter = new PriorityArrayAdapter(_context);
             _prioritySpinner.SetSelection(4);
+
+            if (_isEdit)
+            {
+                switch (_editTask.TypeTask)
+                {
+                    case (int) BaseTask.Type.Project:
+                        _projectRadioButton.Checked = true;
+                        _projectList = (_editTask as Project).Tasks;
+                        UpdateProjectLayout();
+                        break;
+                    case (int) BaseTask.Type.Regular:
+                        _regularRadioButton.Checked = true;
+                        _prioritySpinner.SetSelection(9 - (_editTask as Regular).Priority);
+                        break;
+                    case (int) BaseTask.Type.Routine:
+                        _routineRadioButton.Checked = true;
+                        Routine routine = (_editTask as Routine);
+                        _sundayCheckBox.Checked = routine.SDays.Contains("0");
+                        _mondayCheckBox.Checked = routine.SDays.Contains("1");
+                        _tuesdayCheckBox.Checked = routine.SDays.Contains("2");
+                        _wednesdayCheckBox.Checked = routine.SDays.Contains("3");
+                        _thursdayCheckBox.Checked = routine.SDays.Contains("4");
+                        _fridayCheckBox.Checked = routine.SDays.Contains("5");
+                        _saturdayCheckBox.Checked = routine.SDays.Contains("6");
+                        break;
+                }
+            }
+            else
+            {
+                _regularRadioButton.Checked = true;
+            }
 
             view.FindViewById<ImageButton>(Resource.Id.OkCreateButton).Click += (s, e) => OkButton_Click();
             view.FindViewById<ImageButton>(Resource.Id.CancelCreateButton).Click += (s, e) => _mainActivity.OnBackPressed();
@@ -223,8 +234,8 @@ namespace Organizer.Internal.Fragments
                     Server.Routines = routines;
                     break;
             }
-            _mainActivity.UpdateFragments();
             _mainActivity.OnBackPressed();
+            _mainActivity.UpdateFragments();
         }
 
         public override void OnHiddenChanged (bool hidden)

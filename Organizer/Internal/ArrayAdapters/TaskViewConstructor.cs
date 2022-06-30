@@ -1,21 +1,13 @@
-﻿using Android.App;
-using Android.Content;
-using Android.Graphics;
-using Android.OS;
-using Android.Runtime;
-using Android.Util;
+﻿using Android.Graphics;
 using Android.Views;
 using Android.Widget;
 using AndroidX.Core.Content;
+using Java.Util;
 using Organizer.Internal.Activity;
 using Organizer.Internal.Data;
+using Organizer.Internal.Model;
 using Organizer.Internal.Model.Task;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using static Android.App.ActionBar;
-using static Android.Views.ViewGroup;
 using LayoutParams = Android.App.ActionBar.LayoutParams;
 
 namespace Organizer.Internal.ArrayAdapters
@@ -24,11 +16,13 @@ namespace Organizer.Internal.ArrayAdapters
     {
         private static Android.App.Activity _context;
         private static MainActivity _mainActivity;
+        private static long _periodClick;
 
         public static void InitialConstructor(Android.App.Activity context)
         {
             _context = context;
             _mainActivity = context as MainActivity;
+            _periodClick = (new Date()).Time;
         }
 
         public class ViewHolder : Java.Lang.Object
@@ -114,15 +108,17 @@ namespace Organizer.Internal.ArrayAdapters
 
                 holder.ThirdLineTextView.Visibility = project.TasksVisible ? ViewStates.Visible : ViewStates.Gone;
                 holder.TasksListLayout.Visibility = project.TasksVisible ? ViewStates.Visible : ViewStates.Gone;
-
                 holder.TasksListLayout.RemoveAllViews();
                 LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LayoutParams.MatchParent, LayoutParams.WrapContent);
                 layoutParams.SetMargins(0, 2, 0, 2);
+                project.Tasks.Sort();
                 foreach (BaseTask taskProject in project.Tasks)
                 {
                     holder.TasksListLayout.AddView(GetTaskView(taskProject, null), layoutParams);
                 }
             }
+
+            view.Click += (s, e) => View_LongClick(view, task);
 
             return view;
         }
@@ -166,6 +162,80 @@ namespace Organizer.Internal.ArrayAdapters
             holder.PriorityTextView.SetTextColor(color);
             color.A = 25;
             holder.PriorityTextView.SetBackgroundColor(color);
+        }
+
+        private static void View_LongClick (View view, BaseTask task)
+        {
+            if ((new Date()).Time - _periodClick < 1000)
+            {
+                return;
+            }
+            _periodClick = (new Date()).Time;
+
+            int idMenu = Resource.Menu.task_action_menu_day;
+            ListTasks currentList = new ListTasks();
+            bool disableRoutine = task is Project;
+
+            if (Storage.MainListTasks.Contains(task))
+            {
+                currentList = Storage.MainListTasks.GetRootList(task) ?? throw new ArgumentException();
+                if (Storage.MainPeriod == Server.Period.Month || Storage.MainPeriod == Server.Period.Year)
+                {
+                    idMenu = Resource.Menu.task_action_menu;
+                    disableRoutine = true;
+                }
+                if (Storage.MainPeriod == Server.Period.Global)
+                {
+                    idMenu = Resource.Menu.task_action_menu_global;
+                    disableRoutine = true;
+                }
+                if (Storage.IsPast(Storage.MainDate))
+                {
+                    idMenu = Resource.Menu.task_action_menu_past;
+                }
+            }
+            else if (Storage.CalendarListTasks.Contains(task))
+            {
+                currentList = Storage.CalendarListTasks.GetRootList(task) ?? throw new ArgumentException();
+                if (Storage.IsPast(Storage.CalendarDate))
+                {
+                    idMenu = Resource.Menu.task_action_menu_past;
+                }
+            }
+            else if(Storage.ScheduleListTasks.Contains(task))
+            {
+                currentList = Storage.ScheduleListTasks.GetRootList(task) ?? throw new ArgumentException();
+                if (Storage.IsPast(Storage.ScheduleDate))
+                {
+                    idMenu = Resource.Menu.task_action_menu_past;
+                }
+            }
+            else
+            {
+                return;
+            }
+
+            PopupMenu popup = new PopupMenu(_context, view);
+            popup.MenuInflater.Inflate(idMenu, popup.Menu);
+            popup.Show();
+
+            popup.MenuItemClick += (s, e) =>
+            {
+                switch (e.Item.ItemId)
+                {
+                    case Resource.Id.action_edit:
+                        _mainActivity.ShowCreateFragment(currentList, task, disableRoutine);
+                        break;
+                    case Resource.Id.action_delete:
+                        currentList.Remove(task);
+                        _mainActivity.UpdateFragments();
+                        break;
+                    case Resource.Id.action_move_next:
+                        break;
+                    case Resource.Id.action_move_lower:
+                        break;
+                }
+            };
         }
     }
 }

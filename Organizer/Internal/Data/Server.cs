@@ -2,6 +2,7 @@
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
+using Android.Util;
 using Android.Views;
 using Android.Widget;
 using Organizer.Internal.Model;
@@ -32,6 +33,7 @@ namespace Organizer.Internal.Data
             switch (period)
             {
                 case Period.Day:
+                    Log.Debug("______________________Load", "|" + GetKey(date, Period.Day) + "| - |" + _preferences.GetString(GetKey(date, Period.Day), "") + "|");
                     ListTasks dayList = new ListTasks(_preferences.GetString(GetKey(date, Period.Day), ""));
                     dayList += GetRoutinesOnDay((int) date.DayOfWeek);
                     return dayList;
@@ -50,6 +52,7 @@ namespace Organizer.Internal.Data
             switch (period)
             {
                 case Period.Day:
+                    Log.Debug("______________________Save", "|" + GetKey(date, Period.Day) + "| - |" + list.Archive(ListTasks.Mode.All) + "|");
                     _preferencesEdit.PutString(GetKey(date, Period.Day), list.Archive(ListTasks.Mode.All));
                     break;
                 case Period.Month:

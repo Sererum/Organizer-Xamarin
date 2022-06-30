@@ -95,7 +95,7 @@ namespace Organizer.Internal.Activity
         }
         #endregion
 
-        public void ShowCreateFragment (ListTasks list, bool disableRoutine = false, BaseTask editTask = null)
+        public void ShowCreateFragment (ListTasks list, BaseTask editTask = null, bool disableRoutine = false)
         {
             _createFragment = new CreateFragment(this, list, disableRoutine, editTask);
             var fragmentTransaction = SupportFragmentManager.BeginTransaction();
@@ -106,6 +106,7 @@ namespace Organizer.Internal.Activity
 
         public void UpdateFragments ()
         {
+            Storage.SynchronizeLists(_currentFragment);
             _listTasksFragment.UpdateListView();
         }
 

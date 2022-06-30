@@ -21,6 +21,13 @@
 	<string name="regular_priority">Приоритет задачи</string>
 	<string name="routine_days">Дни рутин</string>
 
+	<!--Menu-->
+
+	<string name="move_next">Перенести дальше</string>
+	<string name="move_lower">Спустить ниже</string>
+	<string name="edit">Редактировать</string>
+	<string name="delete">Удалить</string>
+
 	<!--Name days of week-->
 
 	<string name="sunday">Воскресенье</string>

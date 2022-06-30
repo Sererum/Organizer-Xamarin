@@ -142,6 +142,7 @@
     
         <LinearLayout
             android:id="@+id/ProjectTasksLayout"
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             />
@@ -194,7 +195,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/CreateTypeRadioGroup"
-        android:visibility="visible"
+        android:visibility="gone"
         >
     
         <TextView 

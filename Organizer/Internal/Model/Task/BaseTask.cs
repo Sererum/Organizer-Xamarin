@@ -24,7 +24,7 @@ namespace Organizer.Internal.Model.Task
 
         public string EndTime => _endTime;
 
-        public bool Complete { get; set; }
+        public virtual bool Complete { get; set; }
 
         public enum Type { Project, Regular, Routine }
 
