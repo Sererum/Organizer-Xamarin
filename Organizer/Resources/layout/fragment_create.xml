@@ -100,9 +100,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/CreateEndLayout"
         android:layout_marginTop="20dp"
-        android:orientation="horizontal"
-        
-        android:layout_centerHorizontal="true"
+        android:orientation="vertical"
         >
     
         <RadioButton

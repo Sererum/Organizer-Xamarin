@@ -64,6 +64,7 @@
     <Compile Include="Internal\Activity\MainActivity.cs" />
     <Compile Include="Internal\ArrayAdapters\PeriodArrayAdapter.cs" />
     <Compile Include="Internal\ArrayAdapters\PriorityArrayAdapter.cs" />
+    <Compile Include="Internal\ArrayAdapters\ScheduleArrayAdapter.cs" />
     <Compile Include="Internal\ArrayAdapters\TaskArrayAdapter.cs" />
     <Compile Include="Internal\ArrayAdapters\TaskViewConstructor.cs" />
     <Compile Include="Internal\Data\NameDatePeriod.cs" />
@@ -171,6 +172,16 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\fragment_calendar.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\fragment_schedule.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\list_tasks_schedule.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
