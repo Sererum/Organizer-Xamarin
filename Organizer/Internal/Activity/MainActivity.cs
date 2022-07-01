@@ -2,6 +2,7 @@
 using Android.OS;
 using Android.Widget;
 using AndroidX.AppCompat.App;
+using Organizer.Internal.ArrayAdapters;
 using Organizer.Internal.Data;
 using Organizer.Internal.Fragments;
 using Organizer.Internal.Model;
@@ -30,10 +31,17 @@ namespace Organizer.Internal.Activity
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.activity_main);
 
+            InitializeViewConstructors();
             Storage.InitializeListsTasks(this);
 
             InitializeFragments(savedInstanceState);
             InitializeButtons();
+        }
+
+        private void InitializeViewConstructors ()
+        {
+            TaskViewConstructor.InitialConstructor(this);
+            ScheduleViewConstructor.InitialConstructor(this);
         }
 
         #region Initialize fragments
@@ -89,9 +97,9 @@ namespace Organizer.Internal.Activity
         }
         #endregion
 
-        public void ShowCreateFragment (ListTasks list, BaseTask editTask = null, bool disableRoutine = false)
+        public void ShowCreateFragment (ListTasks list, BaseTask editTask = null, bool disableRoutine = false, int scheduleHour = -1)
         {
-            _createFragment = new CreateFragment(this, list, disableRoutine, editTask);
+            _createFragment = new CreateFragment(this, list, disableRoutine, editTask, scheduleHour);
             var fragmentTransaction = SupportFragmentManager.BeginTransaction();
             fragmentTransaction.Add(Resource.Id.MainFragmentLayout, _createFragment).Hide(_createFragment);
             fragmentTransaction.Commit();

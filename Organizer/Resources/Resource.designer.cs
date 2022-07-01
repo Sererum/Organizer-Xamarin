@@ -3509,9 +3509,6 @@ namespace Organizer
 			// aapt resource value: 0x7F08006B
 			public const int accessibility_custom_action_5 = 2131230827;
 			
-			// aapt resource value: 0x7F080081
-			public const int actions = 2131230849;
-			
 			// aapt resource value: 0x7F08006C
 			public const int accessibility_custom_action_6 = 2131230828;
 			
@@ -3617,9 +3614,6 @@ namespace Organizer
 			// aapt resource value: 0x7F08008C
 			public const int auto = 2131230860;
 			
-			// aapt resource value: 0x7F08008F
-			public const int browser_actions_menu_items = 2131230863;
-			
 			// aapt resource value: 0x7F08008D
 			public const int beginning = 2131230861;
 			
@@ -3654,7 +3648,7 @@ namespace Organizer
 			public const int CalendarHideTasksButton = 2131230724;
 			
 			// aapt resource value: 0x7F080005
-			public const int CalendarListView = 2131230725;
+			public const int CalendarLinearLayout = 2131230725;
 			
 			// aapt resource value: 0x7F080006
 			public const int CalendarMainView = 2131230726;
@@ -3781,9 +3775,6 @@ namespace Organizer
 			
 			// aapt resource value: 0x7F0800AE
 			public const int edit_query = 2131230894;
-			
-			// aapt resource value: 0x7F0800B0
-			public const int expanded_menu = 2131230896;
 			
 			// aapt resource value: 0x7F0800AF
 			public const int end = 2131230895;
@@ -3912,7 +3903,7 @@ namespace Organizer
 			public const int ListSortButton = 2131230752;
 			
 			// aapt resource value: 0x7F080021
-			public const int ListTasksListView = 2131230753;
+			public const int ListTasksLinearLayout = 2131230753;
 			
 			// aapt resource value: 0x7F080022
 			public const int ListToolBarLayout = 2131230754;
@@ -3949,9 +3940,6 @@ namespace Organizer
 			
 			// aapt resource value: 0x7F0800D1
 			public const int middle = 2131230929;
-			
-			// aapt resource value: 0x7F080027
-			public const int NamePeriodTextView = 2131230759;
 			
 			// aapt resource value: 0x7F0800D2
 			public const int mini = 2131230930;
@@ -4071,7 +4059,7 @@ namespace Organizer
 			public const int ScheduleLastPeriodButton = 2131230776;
 			
 			// aapt resource value: 0x7F080039
-			public const int ScheduleMainListView = 2131230777;
+			public const int ScheduleMainLinearLayout = 2131230777;
 			
 			// aapt resource value: 0x7F08003A
 			public const int ScheduleNextPeriodButton = 2131230778;

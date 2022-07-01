@@ -68,12 +68,20 @@
     
     </RelativeLayout>
 
-    <ListView
-        android:id="@+id/ListTasksListView"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/ListToolBarLayout"
-        />
+        >
+    
+        <LinearLayout
+            android:id="@+id/ListTasksLinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            />
+    
+    </ScrollView>
 
     <ImageButton
         android:id="@+id/ListAddTaskButton"
@@ -83,7 +91,7 @@
         android:layout_alignParentRight="true"
         android:layout_margin="20dp"
         android:background="@android:drawable/ic_input_add"
-        android:contentDescription="@string/description_add_button" 
+        android:contentDescription="@string/description_add_button"
         />
 
 </RelativeLayout>

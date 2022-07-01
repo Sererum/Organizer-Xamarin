@@ -6,6 +6,7 @@ using AndroidX.Fragment.App;
 using Organizer.Internal.Activity;
 using Organizer.Internal.ArrayAdapters;
 using Organizer.Internal.Data;
+using Organizer.Internal.Model.Task;
 using System;
 
 namespace Organizer.Internal.Fragments
@@ -20,7 +21,7 @@ namespace Organizer.Internal.Fragments
         private ImageButton _lastPeriodButton;
         private ImageButton _sortButton;
         private ImageButton _addButton;
-        private ListView _tasksListView;
+        private LinearLayout _tasksLayout; 
 
         public ListTasksFragment(Android.App.Activity context)
         {
@@ -37,7 +38,7 @@ namespace Organizer.Internal.Fragments
             _nextPeriodButton = view.FindViewById<ImageButton>(Resource.Id.ListNextPeriodButton);
             _sortButton = view.FindViewById<ImageButton>(Resource.Id.ListSortButton);
             _addButton = view.FindViewById<ImageButton>(Resource.Id.ListAddTaskButton);
-            _tasksListView = view.FindViewById<ListView>(Resource.Id.ListTasksListView);
+            _tasksLayout = view.FindViewById<LinearLayout>(Resource.Id.ListTasksLinearLayout);
 
             _periodSpinner.ItemSelected += (s, e)
                 => PeriodSpinner_ItemSelected(view.FindViewById<TextView>(Resource.Id.ListPeriodTextView));
@@ -117,7 +118,12 @@ namespace Organizer.Internal.Fragments
         public void UpdateListView ()
         {
             Storage.MainListTasks.Sort();
-            _tasksListView.Adapter = new TaskArrayAdapter(_context, Storage.MainListTasks);
+            _tasksLayout.RemoveAllViews();
+
+            foreach (BaseTask task in Storage.MainListTasks)
+            {
+                _tasksLayout.AddView(TaskViewConstructor.GetTaskView(task));
+            }
         }
 
         private void UpdatePeriods (int selectedItem = 3)

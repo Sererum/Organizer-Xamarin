@@ -19,6 +19,17 @@ namespace Organizer.Internal.ArrayAdapters
         private static MainActivity _mainActivity;
         private static long _periodClick;
 
+        private static CheckBox _completeCheckBox;
+        private static TextView _priorityTextView;
+        private static TextView _titleTextView;
+        private static TextView _firstLineTextView;
+        private static TextView _timeTextView;
+        private static TextView _secondLineTextView;
+        private static TextView _textTextView;
+        private static TextView _thirdLineTextView;
+        private static LinearLayout _tasksListLayout;
+        private static ImageButton _hideTasksButton;
+
         public static void InitialConstructor(Android.App.Activity context)
         {
             _context = context;
@@ -26,120 +37,94 @@ namespace Organizer.Internal.ArrayAdapters
             _periodClick = (new Date()).Time;
         }
 
-        public class ViewHolder : Java.Lang.Object
-        {
-            public CheckBox CompleteCheckBox;
-            public TextView PriorityTextView;
-            public TextView TitleTextView;
-            public TextView FirstLineTextView;
-            public TextView TimeTextView;
-            public TextView SecondLineTextView;
-            public TextView TextTextView;
-            public TextView ThirdLineTextView;
-            public LinearLayout TasksListLayout;
-            public ImageButton HideTasksButton;
-        }
-        
-        public static View GetTaskView(BaseTask task, View convertView, bool isSimple = false)
+        public static View GetTaskView (BaseTask task, bool isSimple = false)
         {
             #region Initialize views
-            ViewHolder holder;
-            View view = convertView;
 
-            if (view is null)
-            {
-                view = _context.LayoutInflater.Inflate(Resource.Layout.list_item_task, null);
-                holder = new ViewHolder();
+            View view = _context.LayoutInflater.Inflate(Resource.Layout.list_item_task, null);
+            _completeCheckBox = view.FindViewById<CheckBox>(Resource.Id.TaskCompleteCheckBox);
+            _priorityTextView = view.FindViewById<TextView>(Resource.Id.TaskPriorityTextView);
+            _titleTextView = view.FindViewById<TextView>(Resource.Id.TaskTitleTextView);
+            _firstLineTextView = view.FindViewById<TextView>(Resource.Id.TaskFirstLineTextView);
+            _timeTextView = view.FindViewById<TextView>(Resource.Id.TaskTimeTextView);
+            _secondLineTextView = view.FindViewById<TextView>(Resource.Id.TaskSecondLineTextView);
+            _textTextView = view.FindViewById<TextView>(Resource.Id.TaskTextTextView);
+            _thirdLineTextView = view.FindViewById<TextView>(Resource.Id.TaskThirdLineTextView);
+            _tasksListLayout = view.FindViewById<LinearLayout>(Resource.Id.TasksListLayout);
+            _hideTasksButton = view.FindViewById<ImageButton>(Resource.Id.TaskHideProjectButton);
 
-                holder.CompleteCheckBox = view.FindViewById<CheckBox>(Resource.Id.TaskCompleteCheckBox);
-                holder.PriorityTextView = view.FindViewById<TextView>(Resource.Id.TaskPriorityTextView);
-                holder.TitleTextView = view.FindViewById<TextView>(Resource.Id.TaskTitleTextView);
-                holder.FirstLineTextView = view.FindViewById<TextView>(Resource.Id.TaskFirstLineTextView);
-                holder.TimeTextView = view.FindViewById<TextView>(Resource.Id.TaskTimeTextView);
-                holder.SecondLineTextView = view.FindViewById<TextView>(Resource.Id.TaskSecondLineTextView);
-                holder.TextTextView = view.FindViewById<TextView>(Resource.Id.TaskTextTextView);
-                holder.ThirdLineTextView = view.FindViewById<TextView>(Resource.Id.TaskThirdLineTextView);
-                holder.TasksListLayout = view.FindViewById<LinearLayout>(Resource.Id.TasksListLayout);
-                holder.HideTasksButton = view.FindViewById<ImageButton>(Resource.Id.TaskHideProjectButton);
-
-                view.SetTag(Resource.String.key_task_holder, holder);
-            }
-            else
-            {
-                holder = (ViewHolder) view.GetTag(Resource.String.key_task_holder);
-            }
             #endregion
 
             if (isSimple)
             {
-                holder.CompleteCheckBox.Visibility = ViewStates.Gone;
+                _completeCheckBox.Visibility = ViewStates.Gone;
             }
-            holder.CompleteCheckBox.Checked = task.Complete;
-            holder.CompleteCheckBox.CheckedChange += (s, e) => CompleteCheckBox_CheckedChange(holder, task);
-            ChangeTextStyle(holder);
+            _completeCheckBox.Checked = task.Complete;
+            _completeCheckBox.CheckedChange += (s, e) => CompleteCheckBox_CheckedChange(task);
+            ChangeTextStyle();
 
-            InitializePriorityView(holder, task);
+            InitializePriorityView(task);
 
-            holder.TitleTextView.Text = task.Title;
+            _titleTextView.Text = task.Title;
 
             if (isSimple == false && (task.StartTime != "" || task.EndTime != ""))
             {
-                holder.FirstLineTextView.Visibility = ViewStates.Visible;
-                holder.TimeTextView.Visibility = ViewStates.Visible;
-                holder.TimeTextView.Text = task.StartTime + " ~ " + task.EndTime;
+                _firstLineTextView.Visibility = ViewStates.Visible;
+                _timeTextView.Visibility = ViewStates.Visible;
+                _timeTextView.Text = task.StartTime + " ~ " + task.EndTime;
             }
             if (isSimple == false && (task.Text != ""))
             {
-                holder.SecondLineTextView.Visibility = ViewStates.Visible;
-                holder.TextTextView.Visibility = ViewStates.Visible;
-                holder.TextTextView.Text = task.Text;
+                _secondLineTextView.Visibility = ViewStates.Visible;
+                _textTextView.Visibility = ViewStates.Visible;
+                _textTextView.Text = task.Text;
             }
             if (task is Project)
             {
                 Project project = task as Project;
 
-                holder.HideTasksButton.Visibility = ViewStates.Visible;
-                holder.HideTasksButton.Click += (s, e) =>
+                _hideTasksButton.Visibility = ViewStates.Visible;
+                _hideTasksButton.Click += (s, e) =>
                 {
-                    bool listIsVisible = (holder.TasksListLayout.Visibility == ViewStates.Visible);
+                    bool listIsVisible = (_tasksListLayout.Visibility == ViewStates.Visible);
                     ViewStates viewState = listIsVisible ? ViewStates.Gone : ViewStates.Visible;
-                    holder.ThirdLineTextView.Visibility = viewState;
-                    holder.TasksListLayout.Visibility = viewState;
+                    _thirdLineTextView.Visibility = viewState;
+                    _tasksListLayout.Visibility = viewState;
                 };
 
-                holder.ThirdLineTextView.Visibility = project.TasksVisible ? ViewStates.Visible : ViewStates.Gone;
-                holder.TasksListLayout.Visibility = project.TasksVisible ? ViewStates.Visible : ViewStates.Gone;
-                holder.TasksListLayout.RemoveAllViews();
+                _thirdLineTextView.Visibility = project.TasksVisible ? ViewStates.Visible : ViewStates.Gone;
+                _tasksListLayout.Visibility = project.TasksVisible ? ViewStates.Visible : ViewStates.Gone;
+                _tasksListLayout.RemoveAllViews();
                 LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LayoutParams.MatchParent, LayoutParams.WrapContent);
                 layoutParams.SetMargins(0, 2, 0, 2);
                 project.Tasks.Sort();
                 foreach (BaseTask taskProject in project.Tasks)
                 {
-                    holder.TasksListLayout.AddView(GetTaskView(taskProject, null), layoutParams);
+                    _tasksListLayout.AddView(GetTaskView(taskProject), layoutParams);
                 }
             }
 
-            view.Click += (s, e) => View_LongClick(view, task);
+            view.LongClick += (s, e) => View_LongClick(view, task);
 
             return view;
         }
 
-        private static void CompleteCheckBox_CheckedChange (ViewHolder holder, BaseTask task)
+        private static void CompleteCheckBox_CheckedChange (BaseTask task)
         {
-            task.Complete = holder.CompleteCheckBox.Checked;
-            ChangeTextStyle(holder);
+            task.Complete = (task.Complete == false);
+            ChangeTextStyle();
             _mainActivity.UpdateFragments();
         }
 
-        private static void ChangeTextStyle (ViewHolder holder)
+        private static void ChangeTextStyle ()
         {
-            PaintFlags paintFlag = holder.CompleteCheckBox.Checked ? PaintFlags.StrikeThruText : PaintFlags.LinearText;
-            holder.TitleTextView.PaintFlags = paintFlag;
-            holder.TimeTextView.PaintFlags = paintFlag;
-            holder.TextTextView.PaintFlags = paintFlag;
+            PaintFlags paintFlag = _completeCheckBox.Checked ? PaintFlags.StrikeThruText : PaintFlags.LinearText;
+            _titleTextView.PaintFlags = paintFlag;
+            _timeTextView.PaintFlags = paintFlag;
+            _textTextView.PaintFlags = paintFlag;
         }
 
-        private static void InitializePriorityView (ViewHolder holder, BaseTask task)
+        private static void InitializePriorityView (BaseTask task)
         {
             string text = "";
             Color color = new Color();
@@ -159,10 +144,10 @@ namespace Organizer.Internal.ArrayAdapters
                     color = new Color(ContextCompat.GetColor(_context, Resource.Color.routine));
                     break;
             }
-            holder.PriorityTextView.Text = text;
-            holder.PriorityTextView.SetTextColor(color);
+            _priorityTextView.Text = text;
+            _priorityTextView.SetTextColor(color);
             color.A = 25;
-            holder.PriorityTextView.SetBackgroundColor(color);
+            _priorityTextView.SetBackgroundColor(color);
         }
 
         private static void View_LongClick (View view, BaseTask task)
@@ -218,7 +203,7 @@ namespace Organizer.Internal.ArrayAdapters
                     idMenu = Resource.Menu.task_action_menu_past;
                 }
             }
-            else if(_mainActivity.CurrentFragment is ListTasksFragment)
+            else if(_mainActivity.CurrentFragment is ScheduleFragment)
             {
                 currentList = Storage.ScheduleListTasks.GetRootList(task) ?? throw new ArgumentException();
 

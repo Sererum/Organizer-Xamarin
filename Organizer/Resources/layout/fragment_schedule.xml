@@ -52,10 +52,17 @@
 
     </RelativeLayout>
 
-    <ListView
-        android:id="@+id/ScheduleMainListView"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/ScheduleToolBarLayout"/>
+        android:layout_below="@id/ScheduleToolBarLayout">
+    
+        <LinearLayout
+            android:id="@+id/ScheduleMainLinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"/>
+    
+    </ScrollView>
 
 </RelativeLayout>

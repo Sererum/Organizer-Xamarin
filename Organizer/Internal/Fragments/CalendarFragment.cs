@@ -5,6 +5,7 @@ using AndroidX.Fragment.App;
 using Organizer.Internal.Activity;
 using Organizer.Internal.ArrayAdapters;
 using Organizer.Internal.Data;
+using Organizer.Internal.Model.Task;
 using System;
 
 namespace Organizer.Internal.Fragments
@@ -16,7 +17,7 @@ namespace Organizer.Internal.Fragments
 
         private CalendarView _calendarView;
         private ImageButton _hideButton;
-        private ListView _tasksListView;
+        private LinearLayout _tasksLayout;
         private ImageButton _addButton;
 
         public CalendarFragment(Android.App.Activity context)
@@ -31,7 +32,7 @@ namespace Organizer.Internal.Fragments
 
             _calendarView = view.FindViewById<CalendarView>(Resource.Id.CalendarMainView);
             _hideButton = view.FindViewById<ImageButton>(Resource.Id.CalendarHideTasksButton);
-            _tasksListView = view.FindViewById<ListView>(Resource.Id.CalendarListView);
+            _tasksLayout = view.FindViewById<LinearLayout>(Resource.Id.CalendarLinearLayout);
             _addButton = view.FindViewById<ImageButton>(Resource.Id.CalendarAddTaskButton);
 
             _calendarView.DateChange += (s, e) => Calendar_DateChange(e.Year, e.Month + 1, e.DayOfMonth);
@@ -58,7 +59,12 @@ namespace Organizer.Internal.Fragments
         public void UpdateListView ()
         {
             Storage.CalendarListTasks.Sort();
-            _tasksListView.Adapter = new TaskArrayAdapter(_context, Storage.CalendarListTasks);
+            _tasksLayout.RemoveAllViews();
+
+            foreach (BaseTask task in Storage.CalendarListTasks)
+            {
+                _tasksLayout.AddView(TaskViewConstructor.GetTaskView(task));
+            }
         }
     }
 }

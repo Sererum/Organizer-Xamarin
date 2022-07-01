@@ -19,12 +19,20 @@
         android:contentDescription="@string/description_hide_button"
         />
 
-    <ListView
-        android:id="@+id/CalendarListView"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/CalendarHideTasksButton"
-        />
+        >
+    
+        <LinearLayout
+            android:id="@+id/CalendarLinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            />
+    
+    </ScrollView>
 
     <ImageButton
         android:id="@+id/CalendarAddTaskButton"

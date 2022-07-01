@@ -20,6 +20,7 @@ namespace Organizer.Internal.Fragments
         private readonly ListTasks _mainList;
         private readonly bool _disableRoutine;
         private readonly bool _isEdit;
+        private readonly int _scheduleHour;
 
         private BaseTask _editTask;
         private ListTasks _projectList;
@@ -46,13 +47,14 @@ namespace Organizer.Internal.Fragments
         private CheckBox _fridayCheckBox;
         private CheckBox _saturdayCheckBox;
 
-        public CreateFragment (Android.App.Activity context, ListTasks mainList, bool disableRoutine = false, BaseTask editTask = null)
+        public CreateFragment (Android.App.Activity context, ListTasks mainList, bool disableRoutine = false, BaseTask editTask = null, int scheduleHour = -1)
         {
             _context = context;
             _mainActivity = context as MainActivity;
             _mainList = mainList;
             _disableRoutine = disableRoutine;
             _editTask = editTask;
+            _scheduleHour = scheduleHour;
             _isEdit = (editTask != null);
             _projectList = new ListTasks();
         }
@@ -96,10 +98,16 @@ namespace Organizer.Internal.Fragments
             view.FindViewById<RelativeLayout>(Resource.Id.CreateEndLayout).Click += (s, e) => TimeLayout_Click(_endTextView);
 
             string emptyTime = _context.GetString(Resource.String.empty_time);
+
             if (_isEdit)
             {
                 _startTextView.Text = _editTask.StartTime == "" ? emptyTime : _editTask.StartTime;
                 _endTextView.Text = _editTask.EndTime == "" ? emptyTime : _editTask.EndTime;
+            }
+            else if (_scheduleHour != -1)
+            {
+                _startTextView.Text = Storage.TimeToStandart(_scheduleHour, 0);
+                _endTextView.Text = Storage.TimeToStandart(_scheduleHour + 1, 0);
             }
 
             _typeTaskRadioGroup.CheckedChange += (s, e) => ChangeTasksLayoutVisible();
@@ -154,7 +162,7 @@ namespace Organizer.Internal.Fragments
         }
 
         private void TimeLayout_Click (TextView textView) => new TimePickerDialog(
-                _context, (s, e) => textView.Text = Storage.DateToStandart(e.HourOfDay, e.Minute),
+                _context, (s, e) => textView.Text = Storage.TimeToStandart(e.HourOfDay, e.Minute),
                 DateTime.Now.Hour, DateTime.Now.Minute, true).Show();
 
         private void ChangeTasksLayoutVisible ()
@@ -181,7 +189,7 @@ namespace Organizer.Internal.Fragments
             _projectTasksLayout.RemoveAllViews();
             foreach (BaseTask task in _projectList)
             {
-                _projectTasksLayout.AddView(TaskViewConstructor.GetTaskView(task, null, true));
+                _projectTasksLayout.AddView(TaskViewConstructor.GetTaskView(task, true));
             }
         }
 

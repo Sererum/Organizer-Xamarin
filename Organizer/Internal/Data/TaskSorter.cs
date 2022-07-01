@@ -1,14 +1,5 @@
-﻿using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
-using Organizer.Internal.Model.Task;
+﻿using Organizer.Internal.Model.Task;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Organizer.Internal.Data
 {
@@ -85,6 +76,8 @@ namespace Organizer.Internal.Data
             DateTime timeTwo = DateTime.MinValue.AddHours(hourTwo).AddMinutes(minuteTwo);
             return -timeOne.CompareTo(timeTwo);
         }
+
+        public static bool FirstEarlierOrEquals (string sTimeOne, string sTimeTwo) => CompareTime(sTimeOne, sTimeTwo) >= 0;
 
         private static int GetRate (int position) => (int) Math.Pow(2, position);
 

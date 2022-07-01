@@ -17,7 +17,7 @@ namespace Organizer.Internal.Fragments
         private TextView _periodTextView;
         private ImageButton _lastPeriodButton;
         private ImageButton _nextPeriodButton;
-        private ListView _scheduleListView;
+        private LinearLayout _scheduleLayout;
 
         public ScheduleFragment(Android.App.Activity context)
         {
@@ -32,14 +32,13 @@ namespace Organizer.Internal.Fragments
             _periodTextView = view.FindViewById<TextView>(Resource.Id.SchedulePeriodTextView);
             _lastPeriodButton = view.FindViewById<ImageButton>(Resource.Id.ScheduleLastPeriodButton);
             _nextPeriodButton = view.FindViewById<ImageButton>(Resource.Id.ScheduleNextPeriodButton);
-            _scheduleListView = view.FindViewById<ListView>(Resource.Id.ScheduleMainListView);
+            _scheduleLayout = view.FindViewById<LinearLayout>(Resource.Id.ScheduleMainLinearLayout);
 
             _periodTextView.Text = NameDatePeriod.GetNameDate(DateTime.Now);
             _lastPeriodButton.Click += (s, e) => PeriodButton_Click(isNext: false);
             _nextPeriodButton.Click += (s, e) => PeriodButton_Click(isNext: true);
 
             UpdateListView();
-            _scheduleListView.SetSelection(DateTime.Now.Hour);
 
             return view;
         }
@@ -54,9 +53,13 @@ namespace Organizer.Internal.Fragments
 
         public void UpdateListView ()
         {
-            int firstVisiblePosition = _scheduleListView.FirstVisiblePosition;
-            _scheduleListView.Adapter = new ScheduleArrayAdapter(_context, Storage.ScheduleListTasks);
-            _scheduleListView.SetSelection(firstVisiblePosition);
+            Storage.ScheduleListTasks.Sort();
+            _scheduleLayout.RemoveAllViews();
+
+            for (int i = 0; i < 24; i++)
+            {
+                _scheduleLayout.AddView(ScheduleViewConstructor.GetView(i));
+            }
         }
     }
 }

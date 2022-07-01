@@ -30,7 +30,6 @@ namespace Organizer.Internal.ArrayAdapters
             }
 
             TextView _priorityView = view.FindViewById<TextView>(Resource.Id.ItemPriorityTextView);
-
             Color color = new Color(ContextCompat.GetColor(_context, Storage.PriorityToColorId[(int) GetItemId(position)]));
 
             _priorityView.Text = this[position];

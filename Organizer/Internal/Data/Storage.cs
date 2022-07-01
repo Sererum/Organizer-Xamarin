@@ -1,6 +1,4 @@
-﻿using Android.Content;
-using Android.Util;
-using Android.Views;
+﻿using Android.Util;
 using AndroidX.Fragment.App;
 using Organizer.Internal.Fragments;
 using Organizer.Internal.Model;
@@ -106,11 +104,11 @@ namespace Organizer.Internal.Data
                 _scheduleListTasks += GetRoutinesOnDay((int) ScheduleDate.DayOfWeek, _scheduleListTasks);
                 if (EqualsDate(MainDate, ScheduleDate) && MainPeriod == Period.Day)
                 {
-                    _mainListTasks = CalendarListTasks;
+                    _mainListTasks = ScheduleListTasks;
                 }
                 if (EqualsDate(CalendarDate, ScheduleDate))
                 {
-                    _calendarListTasks = CalendarListTasks;
+                    _calendarListTasks = ScheduleListTasks;
                 }
             }
         }
@@ -147,7 +145,7 @@ namespace Organizer.Internal.Data
 
         public static float DpToPx (int dp) => TypedValue.ApplyDimension(ComplexUnitType.Dip, dp, Context.Resources.DisplayMetrics);
 
-        public static string DateToStandart (int hour, int minute) => (hour <= 9 ? "0" : "") + hour + ":" + (minute <= 9 ? "0" : "") + minute;
+        public static string TimeToStandart (int hour, int minute) => (hour <= 9 ? "0" : "") + hour + ":" + (minute <= 9 ? "0" : "") + minute;
 
         public static bool EqualsDate (DateTime dateOne, DateTime dateTwo) => dateOne.ToShortDateString() == dateTwo.ToShortDateString();
 

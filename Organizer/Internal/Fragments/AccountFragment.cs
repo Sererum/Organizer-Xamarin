@@ -4,7 +4,6 @@ using Android.Widget;
 using AndroidX.Fragment.App;
 using Organizer.Internal.Data;
 using Organizer.Internal.Model;
-using System;
 
 namespace Organizer.Internal.Fragments
 {
