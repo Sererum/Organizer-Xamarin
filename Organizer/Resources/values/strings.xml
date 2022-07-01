@@ -24,6 +24,12 @@
 	<!--AccountFragment-->
 
 	<string name="complete_tasks">Выполненые задания</string>
+	<string name="current_language">Текущий язык - </string>
+
+	<!--Languages-->
+
+	<string name="english">English</string>
+	<string name="russian">Русский</string>
 
 	<!--Menu-->
 
