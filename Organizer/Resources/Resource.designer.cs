@@ -3509,6 +3509,9 @@ namespace Organizer
 			// aapt resource value: 0x7F08006B
 			public const int accessibility_custom_action_5 = 2131230827;
 			
+			// aapt resource value: 0x7F080081
+			public const int actions = 2131230849;
+			
 			// aapt resource value: 0x7F08006C
 			public const int accessibility_custom_action_6 = 2131230828;
 			
@@ -3613,6 +3616,9 @@ namespace Organizer
 			
 			// aapt resource value: 0x7F08008C
 			public const int auto = 2131230860;
+			
+			// aapt resource value: 0x7F08008F
+			public const int browser_actions_menu_items = 2131230863;
 			
 			// aapt resource value: 0x7F08008D
 			public const int beginning = 2131230861;
@@ -3775,6 +3781,9 @@ namespace Organizer
 			
 			// aapt resource value: 0x7F0800AE
 			public const int edit_query = 2131230894;
+			
+			// aapt resource value: 0x7F0800B0
+			public const int expanded_menu = 2131230896;
 			
 			// aapt resource value: 0x7F0800AF
 			public const int end = 2131230895;
@@ -3940,6 +3949,9 @@ namespace Organizer
 			
 			// aapt resource value: 0x7F0800D1
 			public const int middle = 2131230929;
+			
+			// aapt resource value: 0x7F080027
+			public const int NamePeriodTextView = 2131230759;
 			
 			// aapt resource value: 0x7F0800D2
 			public const int mini = 2131230930;
