@@ -76,7 +76,6 @@
     <Compile Include="Internal\Fragments\CreateFragment.cs" />
     <Compile Include="Internal\Fragments\ListTasksFragment.cs" />
     <Compile Include="Internal\Fragments\ScheduleFragment.cs" />
-    <Compile Include="Internal\Fragments\TimerFragment.cs" />
     <Compile Include="Internal\Model\ListTasks.cs" />
     <Compile Include="Internal\Model\Task\BaseTask.cs" />
     <Compile Include="Internal\Model\Task\Project.cs" />
@@ -182,6 +181,16 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\list_tasks_schedule.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\fragment_account.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\list_item_counter_complete_task.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

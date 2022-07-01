@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    >
+
+    <TextView
+        android:id="@+id/CounterTaskTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/title_size"
+        android:textColor="#000"
+        android:text="@string/complete_tasks"
+        />
+
+    <TextView
+        android:id="@+id/CounterTaskCounterTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_toRightOf="@id/CounterTaskTextView"
+        android:layout_alignBottom="@id/CounterTaskTextView"
+        android:layout_marginLeft="20dp"
+        android:gravity="bottom"
+        android:textSize="@dimen/title_size"
+        android:textColor="#000"
+        />
+
+    <SeekBar
+        android:id="@+id/CounterTaskSeekBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/CounterTaskTextView"
+        android:layout_marginTop="10dp"
+        />
+
+
+</RelativeLayout>

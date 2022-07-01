@@ -92,6 +92,6 @@ namespace Organizer.Internal.Model.Task
         public void UncompleteWitoutAllTask () => _complete = false;
 
         public override string ToString () => base.ToString() + TaskSep + (TasksVisible ? "1" : "0") +
-            TaskSep + _tasks.Count + TaskSep + ProjectSep + _tasks.Archive(ListTasks.Mode.All, ProjectSep);
+            TaskSep + _tasks.Count + TaskSep + ProjectSep + _tasks.Archive(ProjectSep);
     }
 }

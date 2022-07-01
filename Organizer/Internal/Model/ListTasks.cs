@@ -8,7 +8,7 @@ namespace Organizer.Internal.Model
 {
     public class ListTasks : IEnumerable
     {
-        public enum Mode { All }
+        public enum TaskCounter { WithoutProject, Complete_WithoutProject }
         public static readonly string ListSep = "_";
 
         private List<BaseTask> _tasks;
@@ -46,7 +46,7 @@ namespace Organizer.Internal.Model
             }
         }
 
-        public string Archive (Mode mode, string Sep = null, string final = "")
+        public string Archive (string Sep = null, string final = "")
         {
             if (Sep is null)
             {
@@ -179,9 +179,37 @@ namespace Organizer.Internal.Model
             }
         }
 
+        public int GetCountTasks (TaskCounter counter)
+        {
+            int count = 0;
+            foreach (BaseTask task in _tasks)
+            {
+                if (task is Project)
+                {
+                    count += (task as Project).Tasks.GetCountTasks(counter);
+                }
+                else
+                {
+                    switch (counter)
+                    {
+                        case TaskCounter.WithoutProject:
+                            count++;
+                            break;
+                        case TaskCounter.Complete_WithoutProject:
+                            if (task.Complete)
+                            {
+                                count++;
+                            }
+                            break;
+                    }
+                }
+            }
+            return count;
+        }
+
         public static ListTasks operator + (ListTasks listOne, ListTasks listTwo)
         {
-            ListTasks finalList = new ListTasks(listOne.Archive(Mode.All));
+            ListTasks finalList = new ListTasks(listOne.Archive());
             for (int i = 0; i < listTwo.Count; i++)
             {
                 if (finalList.Contains(listTwo[i]) == false)

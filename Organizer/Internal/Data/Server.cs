@@ -16,7 +16,7 @@ namespace Organizer.Internal.Data
         public static ListTasks Routines
         {
             get { return new ListTasks(_preferences.GetString(Key.Routine.ToString(), "")); }
-            set { _preferencesEdit.PutString(Key.Routine.ToString(), value.Archive(ListTasks.Mode.All)).Commit(); }
+            set { _preferencesEdit.PutString(Key.Routine.ToString(), value.Archive()).Commit(); }
         }
 
         public static int SortType
@@ -48,16 +48,16 @@ namespace Organizer.Internal.Data
             switch (period)
             {
                 case Period.Day:
-                    _preferencesEdit.PutString(GetKey(date, Period.Day), list.Archive(ListTasks.Mode.All));
+                    _preferencesEdit.PutString(GetKey(date, Period.Day), list.Archive());
                     break;
                 case Period.Month:
-                    _preferencesEdit.PutString(GetKey(date, Period.Month), list.Archive(ListTasks.Mode.All));
+                    _preferencesEdit.PutString(GetKey(date, Period.Month), list.Archive());
                     break;
                 case Period.Year:
-                    _preferencesEdit.PutString(GetKey(date, Period.Year), list.Archive(ListTasks.Mode.All));
+                    _preferencesEdit.PutString(GetKey(date, Period.Year), list.Archive());
                     break;
                 case Period.Global:
-                    _preferencesEdit.PutString(Key.Global.ToString(), list.Archive(ListTasks.Mode.All));
+                    _preferencesEdit.PutString(Key.Global.ToString(), list.Archive());
                     break;
                 default:
                     throw new ArgumentException();

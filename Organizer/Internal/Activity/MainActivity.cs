@@ -1,9 +1,7 @@
 ﻿using Android.App;
 using Android.OS;
-using Android.Runtime;
 using Android.Widget;
 using AndroidX.AppCompat.App;
-using AndroidX.Fragment.App;
 using Organizer.Internal.Data;
 using Organizer.Internal.Fragments;
 using Organizer.Internal.Model;
@@ -46,7 +44,7 @@ namespace Organizer.Internal.Activity
             _listTasksFragment = new ListTasksFragment(this);
             _calendarFragment = new CalendarFragment(this);
             _scheduleFragment = new ScheduleFragment(this);
-            _accountFragment = new AccountFragment();
+            _accountFragment = new AccountFragment(this);
 
             Fragment[] fragments = { _listTasksFragment, _calendarFragment, _scheduleFragment, _accountFragment };
             _currentFragment = _listTasksFragment;
