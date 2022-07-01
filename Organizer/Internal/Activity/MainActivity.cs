@@ -19,7 +19,6 @@ namespace Organizer.Internal.Activity
         private ListTasksFragment _listTasksFragment;
         private CalendarFragment _calendarFragment;
         private ScheduleFragment _scheduleFragment;
-        private TimerFragment _timerFragment;
         private AccountFragment _accountFragment;
         private CreateFragment _createFragment;
 
@@ -47,10 +46,9 @@ namespace Organizer.Internal.Activity
             _listTasksFragment = new ListTasksFragment(this);
             _calendarFragment = new CalendarFragment(this);
             _scheduleFragment = new ScheduleFragment(this);
-            _timerFragment = new TimerFragment();
             _accountFragment = new AccountFragment();
 
-            Fragment[] fragments = { _listTasksFragment, _calendarFragment, _scheduleFragment, _timerFragment, _accountFragment };
+            Fragment[] fragments = { _listTasksFragment, _calendarFragment, _scheduleFragment, _accountFragment };
             _currentFragment = _listTasksFragment;
             var fragmentTransaction = SupportFragmentManager.BeginTransaction();
             if (savedInstanceState is null)
@@ -89,7 +87,6 @@ namespace Organizer.Internal.Activity
             FindViewById<ImageButton>(Resource.Id.MainCalendarButton).Click += (s, e) => ShowFragment(_calendarFragment);
             FindViewById<ImageButton>(Resource.Id.MainScheduleButton).Click += (s, e) => ShowFragment(_scheduleFragment);
             FindViewById<ImageButton>(Resource.Id.MainListButton).Click += (s, e) => ShowFragment(_listTasksFragment);
-            FindViewById<ImageButton>(Resource.Id.MainTimerButton).Click += (s, e) => ShowFragment(_timerFragment);
             FindViewById<ImageButton>(Resource.Id.MainAccountButton).Click += (s, e) => ShowFragment(_accountFragment);
         }
         #endregion
