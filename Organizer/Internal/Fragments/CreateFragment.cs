@@ -70,7 +70,9 @@ namespace Organizer.Internal.Fragments
 
             _titleEditText = view.FindViewById<EditText>(Resource.Id.CreateTitleEditText);
             _textEditText = view.FindViewById<EditText>(Resource.Id.CreateTextEditText);
+            TextView startTextView = view.FindViewById<TextView>(Resource.Id.ListStartTimeTextView);
             _startTextView = view.FindViewById<TextView>(Resource.Id.StartTextView);
+            TextView endTextView = view.FindViewById<TextView>(Resource.Id.ListEndTimeTextView);
             _endTextView = view.FindViewById<TextView>(Resource.Id.EndTextView);
             _typeTaskRadioGroup = view.FindViewById<RadioGroup>(Resource.Id.CreateTypeRadioGroup);
             _regularRadioButton = view.FindViewById<RadioButton>(Resource.Id.CreateRegularRadioButton);
@@ -106,10 +108,32 @@ namespace Organizer.Internal.Fragments
 
             Color buttonColor = Storage.GetColor(_mainActivity.Designer.GetIdToolBarElementsColor());
             PorterDuffColorFilter colorFilter = new PorterDuffColorFilter(buttonColor, PorterDuff.Mode.SrcAtop);
+            Color textColor = Storage.GetColor(_mainActivity.Designer.GetIdTextColor());
 
             okButton.Background.SetColorFilter(colorFilter);
             cancelButton.Background.SetColorFilter(colorFilter);
             addButton.Background.SetColorFilter(colorFilter);
+
+            _titleEditText.SetTextColor(textColor);
+            _titleEditText.SetHintTextColor(textColor);
+            _textEditText.SetTextColor(textColor);
+            _textEditText.SetHintTextColor(textColor);
+            _startTextView.SetTextColor(textColor);
+            startTextView.SetTextColor(textColor);
+            _endTextView.SetTextColor(textColor);
+            endTextView.SetTextColor(textColor);
+            _regularRadioButton.SetTextColor(textColor);
+            _projectRadioButton.SetTextColor(textColor);
+            _routineRadioButton.SetTextColor(textColor);
+            priorityTextView.SetTextColor(textColor);
+            routineDaysTextView.SetTextColor(textColor);
+            _sundayCheckBox.SetTextColor(textColor);
+            _mondayCheckBox.SetTextColor(textColor);
+            _tuesdayCheckBox.SetTextColor(textColor);
+            _wednesdayCheckBox.SetTextColor(textColor);
+            _thursdayCheckBox.SetTextColor(textColor);
+            _fridayCheckBox.SetTextColor(textColor);
+            _saturdayCheckBox.SetTextColor(textColor);
 
             #endregion
 

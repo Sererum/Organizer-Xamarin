@@ -17,12 +17,14 @@ namespace Organizer.Internal.Fragments
         private readonly Android.App.Activity _context;
         private readonly MainActivity _mainActivity;
 
+        private RelativeLayout _toolBarLayout;
+        private TextView _periodTextView;
         private Spinner _periodSpinner;
         private ImageButton _nextPeriodButton;
         private ImageButton _lastPeriodButton;
         private ImageButton _sortButton;
         private ImageButton _addButton;
-        private LinearLayout _tasksLayout; 
+        private LinearLayout _tasksLayout;
 
         public ListTasksFragment(Android.App.Activity context)
         {
@@ -34,8 +36,8 @@ namespace Organizer.Internal.Fragments
         {
             View view =  inflater.Inflate(Resource.Layout.fragment_list, container, false);
 
-            RelativeLayout toolBarLayout = view.FindViewById<RelativeLayout>(Resource.Id.ListToolBarLayout);
-            TextView periodTextView = view.FindViewById<TextView>(Resource.Id.ListPeriodTextView);
+            _toolBarLayout = view.FindViewById<RelativeLayout>(Resource.Id.ListToolBarLayout);
+            _periodTextView = view.FindViewById<TextView>(Resource.Id.ListPeriodTextView);
             _periodSpinner = view.FindViewById<Spinner>(Resource.Id.ListPeriodSpinner);
             _lastPeriodButton = view.FindViewById<ImageButton>(Resource.Id.ListLastPeriodButton);
             _nextPeriodButton = view.FindViewById<ImageButton>(Resource.Id.ListNextPeriodButton);
@@ -43,33 +45,16 @@ namespace Organizer.Internal.Fragments
             _addButton = view.FindViewById<ImageButton>(Resource.Id.ListAddTaskButton);
             _tasksLayout = view.FindViewById<LinearLayout>(Resource.Id.ListTasksLinearLayout);
 
-            _periodSpinner.ItemSelected += (s, e)
-                => PeriodSpinner_ItemSelected(view.FindViewById<TextView>(Resource.Id.ListPeriodTextView));
+            _periodSpinner.ItemSelected += (s, e) => PeriodSpinner_ItemSelected(_periodTextView);
             UpdatePeriods();
 
             _lastPeriodButton.Click += (s, e) => PeriodButton_Click(isNext: false);
             _nextPeriodButton.Click += (s, e) => PeriodButton_Click(isNext: true);
-
             _sortButton.Click += (s, e) => SortButton_Click(_sortButton);
-
             _addButton.Click += (s, e) => _mainActivity.ShowCreateFragment(Storage.MainListTasks);
+
             UpdateListView();
-
-            #region Paint views
-
-            Color toolBarColor = Storage.GetColor(_mainActivity.Designer.GetIdToolBarColor());
-            Color toolElementsColor = Storage.GetColor(_mainActivity.Designer.GetIdToolBarElementsColor());
-
-            toolBarLayout.SetBackgroundColor(toolBarColor);
-            periodTextView.SetBackgroundColor(toolBarColor);
-
-            PorterDuffColorFilter colorFilter = new PorterDuffColorFilter(toolElementsColor, PorterDuff.Mode.SrcAtop);
-            _lastPeriodButton.Background.SetColorFilter(colorFilter);
-            _nextPeriodButton.Background.SetColorFilter(colorFilter);
-            _sortButton.Background.SetColorFilter(colorFilter);
-            _addButton.Background.SetColorFilter(colorFilter);
-
-            #endregion
+            PaintViews();
 
             return view;
         }
@@ -156,6 +141,23 @@ namespace Organizer.Internal.Fragments
         {
             _periodSpinner.Adapter = new PeriodArrayAdapter(_context);
             _periodSpinner.SetSelection(selectedItem);
+        }
+
+        public void PaintViews ()
+        {
+            Color textColor = Storage.GetColor(_mainActivity.Designer.GetIdTextColor());
+            Color toolBarColor = Storage.GetColor(_mainActivity.Designer.GetIdToolBarColor());
+            Color toolElementsColor = Storage.GetColor(_mainActivity.Designer.GetIdToolBarElementsColor());
+            PorterDuffColorFilter buttonFilter = new PorterDuffColorFilter(toolElementsColor, PorterDuff.Mode.SrcAtop);
+
+            _toolBarLayout.SetBackgroundColor(toolBarColor);
+            _periodTextView.SetBackgroundColor(toolBarColor);
+            _periodTextView.SetTextColor(textColor);
+
+            _lastPeriodButton.Background.SetColorFilter(buttonFilter);
+            _nextPeriodButton.Background.SetColorFilter(buttonFilter);
+            _sortButton.Background.SetColorFilter(buttonFilter);
+            _addButton.Background.SetColorFilter(buttonFilter);
         }
     }
 }

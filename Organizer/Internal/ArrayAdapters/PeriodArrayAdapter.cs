@@ -42,6 +42,9 @@ namespace Organizer.Internal.ArrayAdapters
             int verticalPadding = (int) (_context.Resources.GetDimension(Resource.Dimension.height_tool_bar) - Storage.DpToPx(30));
             namePeriodView.SetPadding(0, verticalPadding / 2, 0, verticalPadding / 2);
 
+            namePeriodView.SetBackgroundColor(Storage.GetColor(_mainActivity.Designer.GetIdToolBarColor()));
+            namePeriodView.SetTextColor(Storage.GetColor(_mainActivity.Designer.GetIdTextColor()));
+
             return view;
         }
     }

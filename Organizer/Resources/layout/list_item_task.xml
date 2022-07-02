@@ -162,7 +162,7 @@
             android:layout_height="50dp"
             android:layout_alignParentRight="true"
             android:layout_alignBottom="@id/TaskContentTaskLayout"
-            android:background="@android:drawable/arrow_down_float"
+            android:background="@drawable/ic_hide_project"
             android:contentDescription="@string/description_hide_tasks"
             android:visibility="gone"
             />

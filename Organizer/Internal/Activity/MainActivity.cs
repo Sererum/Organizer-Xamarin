@@ -1,12 +1,8 @@
 ﻿using Android.App;
 using Android.Graphics;
-using Android.Graphics.Drawables;
 using Android.OS;
-using Android.Util;
 using Android.Widget;
 using AndroidX.AppCompat.App;
-using AndroidX.Core.Content;
-using Organizer.Internal.ArrayAdapters;
 using Organizer.Internal.Data;
 using Organizer.Internal.Fragments;
 using Organizer.Internal.Model;

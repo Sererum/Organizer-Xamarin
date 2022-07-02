@@ -1,4 +1,5 @@
-﻿using Android.OS;
+﻿using Android.Graphics;
+using Android.OS;
 using Android.Views;
 using Android.Widget;
 using AndroidX.Fragment.App;
@@ -14,6 +15,7 @@ namespace Organizer.Internal.Fragments
         private readonly Android.App.Activity _context;
         private readonly MainActivity _mainActivity;
 
+        private RelativeLayout _toolBarLayout;
         private TextView _periodTextView;
         private ImageButton _lastPeriodButton;
         private ImageButton _nextPeriodButton;
@@ -29,6 +31,7 @@ namespace Organizer.Internal.Fragments
         {
             View view = inflater.Inflate(Resource.Layout.fragment_schedule, container, false);
 
+            _toolBarLayout = view.FindViewById<RelativeLayout>(Resource.Id.ScheduleToolBarLayout);
             _periodTextView = view.FindViewById<TextView>(Resource.Id.SchedulePeriodTextView);
             _lastPeriodButton = view.FindViewById<ImageButton>(Resource.Id.ScheduleLastPeriodButton);
             _nextPeriodButton = view.FindViewById<ImageButton>(Resource.Id.ScheduleNextPeriodButton);
@@ -39,6 +42,7 @@ namespace Organizer.Internal.Fragments
             _nextPeriodButton.Click += (s, e) => PeriodButton_Click(isNext: true);
 
             UpdateListView();
+            PaintViews();
 
             return view;
         }
@@ -63,6 +67,21 @@ namespace Organizer.Internal.Fragments
                 ScheduleViewConstructor constructor = new ScheduleViewConstructor(_context);
                 _scheduleLayout.AddView(constructor.GetView(i));
             }
+        }
+
+        public void PaintViews ()
+        {
+            Color textColor = Storage.GetColor(_mainActivity.Designer.GetIdTextColor());
+            Color toolBarColor = Storage.GetColor(_mainActivity.Designer.GetIdToolBarColor());
+            Color toolElementsColor = Storage.GetColor(_mainActivity.Designer.GetIdToolBarElementsColor());
+            PorterDuffColorFilter buttonFilter = new PorterDuffColorFilter(toolElementsColor, PorterDuff.Mode.SrcAtop);
+
+            _toolBarLayout.SetBackgroundColor(toolBarColor);
+            _periodTextView.SetBackgroundColor(toolBarColor);
+            _periodTextView.SetTextColor(textColor);
+
+            _lastPeriodButton.Background.SetColorFilter(buttonFilter);
+            _nextPeriodButton.Background.SetColorFilter(buttonFilter);
         }
     }
 }

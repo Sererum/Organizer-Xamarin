@@ -7,14 +7,13 @@
         android:id="@+id/ScheduleToolBarLayout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_tool_bar"
-        android:background="#DDD"
         >
 
         <ImageButton
             android:id="@+id/ScheduleLastPeriodButton"
-            android:layout_width="40dp"
+            android:layout_width="60dp"
             android:layout_height="match_parent"
-            android:background="@android:drawable/ic_media_previous"
+            android:background="@drawable/ic_left"
             android:contentDescription="@string/description_last_button" 
             />
 
@@ -23,6 +22,7 @@
             android:layout_width="230dp"
             android:layout_height="match_parent"
             android:layout_toRightOf="@id/ScheduleLastPeriodButton"
+            android:layout_toLeftOf="@id/ScheduleNextPeriodButton"
             android:background="#000"
             android:padding="1dp"
             >
@@ -41,10 +41,10 @@
 
         <ImageButton
             android:id="@+id/ScheduleNextPeriodButton"
-            android:layout_width="40dp"
+            android:layout_width="60dp"
             android:layout_height="match_parent"
-            android:background="@android:drawable/ic_media_next"
-            android:layout_toRightOf="@id/SchedulePeriodLayout"
+            android:background="@drawable/ic_right"
+            android:layout_alignParentRight="true"
             android:contentDescription="@string/description_next_button"
             />
 

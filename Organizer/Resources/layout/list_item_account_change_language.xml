@@ -10,7 +10,7 @@
         android:id="@+id/ChangeLanguageTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/title_size"
+        android:textSize="@dimen/text_size"
         android:textColor="#000"
         />
 
@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/ChangeLanguageTextView"
         android:layout_marginLeft="10dp"
-        android:textSize="@dimen/title_size"
+        android:textSize="@dimen/text_size"
         android:textColor="#000"
         />
 

@@ -27,17 +27,23 @@ namespace Organizer.Internal.ArrayAdapters
         {
             View view = _context.LayoutInflater.Inflate(Resource.Layout.list_tasks_schedule, null);
 
+            RelativeLayout mainLayout = view.FindViewById<RelativeLayout>(Resource.Id.ScheduleItemMainLayout);
             TextView lineTextView = view.FindViewById<TextView>(Resource.Id.ScheduleItemLineTextView);
             TextView hourTextView = view.FindViewById<TextView>(Resource.Id.ScheduleItemHourTextView);
             LinearLayout tasksLayout = view.FindViewById<LinearLayout>(Resource.Id.ScheduleItemListLayout);
 
+            Color textColor = Storage.GetColor(_mainActivity.Designer.GetIdTextColor());
+
+            lineTextView.SetTextColor(textColor);
+            hourTextView.SetTextColor(textColor);
+
             if (hour == DateTime.Now.Hour)
             {
-                view.SetBackgroundColor(Storage.GetColor(_mainActivity.Designer.GetIdToolBarColor()));
+                mainLayout.SetBackgroundColor(Storage.GetColor(_mainActivity.Designer.GetIdDownPanelColor()));
             }
             else
             {
-                view.SetBackgroundColor(Storage.GetColor(_mainActivity.Designer.GetIdMainColor()));
+                mainLayout.SetBackgroundColor(Storage.GetColor(_mainActivity.Designer.GetIdMainColor()));
             }
 
             string sStartHour = (hour < 10 ? "0" : "") + hour + ":00";

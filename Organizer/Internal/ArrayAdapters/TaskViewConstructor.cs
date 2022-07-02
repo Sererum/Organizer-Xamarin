@@ -59,14 +59,29 @@ namespace Organizer.Internal.ArrayAdapters
 
             #endregion
 
+            #region Paint text
+
+            Color textColor = Storage.GetColor(_mainActivity.Designer.GetIdTextColor());
+
+            _titleTextView.SetTextColor(textColor);
+            _firstLineTextView.SetBackgroundColor(textColor);
+            _timeTextView.SetTextColor(textColor);
+            _secondLineTextView.SetBackgroundColor(textColor);
+            _textTextView.SetTextColor(textColor);
+            _thirdLineTextView.SetBackgroundColor(textColor);
+
+            #endregion
+
             mainLayout.SetBackgroundColor(Storage.GetColor(_mainActivity.Designer.GetIdMainColor()));
 
             if (isSimple)
             {
                 _completeCheckBox.Visibility = ViewStates.Gone;
             }
+
             _completeCheckBox.Checked = task.Complete;
             _completeCheckBox.CheckedChange += (s, e) => CompleteCheckBox_CheckedChange(task);
+            
             ChangeTextStyle();
 
             InitializeTypeTaskView(task);
@@ -90,6 +105,11 @@ namespace Organizer.Internal.ArrayAdapters
                 Project project = task as Project;
 
                 _hideTasksButton.Visibility = ViewStates.Visible;
+
+                Color color = Storage.GetColor(_mainActivity.Designer.GetIdToolBarElementsColor());
+                PorterDuffColorFilter colorFilter = new PorterDuffColorFilter(color, PorterDuff.Mode.SrcAtop);
+                _hideTasksButton.Background.SetColorFilter(colorFilter);
+
                 _hideTasksButton.Click += (s, e) =>
                 {
                     bool listIsVisible = (_tasksListLayout.Visibility == ViewStates.Visible);

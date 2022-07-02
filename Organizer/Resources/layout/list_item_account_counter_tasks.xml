@@ -9,7 +9,7 @@
         android:id="@+id/CounterTaskTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/title_size"
+        android:textSize="@dimen/text_size"
         android:textColor="#000"
         />
 
@@ -21,7 +21,7 @@
         android:layout_alignBottom="@id/CounterTaskTextView"
         android:layout_marginLeft="20dp"
         android:gravity="bottom"
-        android:textSize="@dimen/title_size"
+        android:textSize="@dimen/text_size"
         android:textColor="#000"
         />
 

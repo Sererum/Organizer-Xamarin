@@ -18,13 +18,24 @@
 	<color name="routine">#35FFC2</color>
 	<color name="project">#FFD700</color>
 
-	<!--SunriseOcean-->
+	<!--Check-->
 
-	<color name="sunrise_ocean_tool_bar">#EDC3B7</color>
-	<color name="sunrise_ocean_tool_bar_elements">#F28982</color>
-	<color name="sunrise_ocean_main">#FFEAC5</color>
-	<color name="sunrise_ocean_down_panel">#86AEC4</color>
-	<color name="sunrise_ocean_down_panel_elements">#3C4761</color>
+	<color name="check_tool_bar">#1F2833</color>
+	<color name="check_tool_bar_elements">#66FCF1</color>
+	<color name="check_main">#1F2833</color>
+	<color name="check_text">#66FCF1</color>
+	<color name="check_down_panel">#0B0C10</color>
+	<color name="check_down_panel_elements">#45A29E</color>
+
+	<!--Neon-->
+
+	<color name="neon_tool_bar">#1F2833</color>
+	<color name="neon_tool_bar_elements">#66FCF1</color>
+	<color name="neon_main">#1F2833</color>
+	<color name="neon_text">#66FCF1</color>
+	<color name="neon_down_panel">#0B0C10</color>
+	<color name="neon_down_panel_elements">#45A29E</color>
+	
 
 	<!--
 	<!- ->
@@ -32,6 +43,7 @@
 	<color name="tool_bar"></color>
 	<color name="tool_bar_elements"></color>
 	<color name="main"></color>
+	<color name="text"></color>
 	<color name="down_panel"></color>
 	<color name="down_panel_elements"></color>
 	-->

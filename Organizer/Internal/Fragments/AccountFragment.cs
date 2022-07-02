@@ -1,4 +1,5 @@
-﻿using Android.OS;
+﻿using Android.Graphics;
+using Android.OS;
 using Android.Views;
 using Android.Widget;
 using AndroidX.Fragment.App;
@@ -41,17 +42,22 @@ namespace Organizer.Internal.Fragments
         {
             View view = _context.LayoutInflater.Inflate(Resource.Layout.list_item_account_counter_tasks, null);
 
-            view.FindViewById<TextView>(Resource.Id.CounterTaskTextView).Text
-                = _mainActivity.Translater.GetString(Resource.String.complete_tasks);
+            TextView completedTaskTextView = view.FindViewById<TextView>(Resource.Id.CounterTaskTextView);
+            TextView counterTextView = view.FindViewById<TextView>(Resource.Id.CounterTaskCounterTextView);
+            SeekBar counterSeekBar = view.FindViewById<SeekBar>(Resource.Id.CounterTaskSeekBar);
+
+            completedTaskTextView.Text = _mainActivity.Translater.GetString(Resource.String.complete_tasks);
 
             ListTasks todayList = Storage.MainListTasks;
             int countAllTasks = todayList.GetCountTasks(ListTasks.TaskCounter.WithoutProject);
             int countCompleteTasks = todayList.GetCountTasks(ListTasks.TaskCounter.Complete_WithoutProject);
-
-            TextView counterTextView = view.FindViewById<TextView>(Resource.Id.CounterTaskCounterTextView);
             counterTextView.Text = countCompleteTasks + " / " + countAllTasks;
 
-            SeekBar counterSeekBar = view.FindViewById<SeekBar>(Resource.Id.CounterTaskSeekBar);
+            Color textColor = Storage.GetColor(_mainActivity.Designer.GetIdTextColor());
+
+            completedTaskTextView.SetTextColor(textColor);
+            counterTextView.SetTextColor(textColor);
+
             counterSeekBar.Max = countAllTasks;
             counterSeekBar.Progress = countCompleteTasks;
 
@@ -66,7 +72,12 @@ namespace Organizer.Internal.Fragments
                 = _mainActivity.Translater.GetString(Resource.String.current_language);
 
             RelativeLayout mainLayout = view.FindViewById<RelativeLayout>(Resource.Id.ChangeLanguageLayout);
+            TextView languageTextView = view.FindViewById<TextView>(Resource.Id.ChangeLanguageTextView);
             TextView selectTextView = view.FindViewById<TextView>(Resource.Id.ChangeLanguageSelectTextView);
+
+            Color textColor = Storage.GetColor(_mainActivity.Designer.GetIdTextColor());
+            languageTextView.SetTextColor(textColor);
+            selectTextView.SetTextColor(textColor);
 
             switch (_mainActivity.Translater.CurrentLanguage)
             {

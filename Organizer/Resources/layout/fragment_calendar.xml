@@ -9,20 +9,28 @@
         android:layout_height="wrap_content"
         />
 
-    <ImageButton
-        android:id="@+id/CalendarHideTasksButton"
-        android:layout_width="60dp"
-        android:layout_height="30dp"
+    <RelativeLayout
+        android:id="@+id/CalendarHideLayout"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
         android:layout_below="@id/CalendarMainView"
-        android:layout_centerHorizontal="true"
-        android:background="@android:drawable/arrow_down_float"
-        android:contentDescription="@string/description_hide_button"
-        />
+        >
+    
+        <ImageView
+            android:id="@+id/CalendarHideImageView"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/ic_hide"
+            android:contentDescription="@string/description_hide_button"
+            />
+    
+    </RelativeLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/CalendarHideTasksButton"
+        android:layout_below="@id/CalendarHideLayout"
         >
     
         <LinearLayout
