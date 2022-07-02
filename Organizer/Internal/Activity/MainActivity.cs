@@ -23,14 +23,17 @@ namespace Organizer.Internal.Activity
 
         private Fragment _currentFragment;
         private Stack<Fragment> _lastFragments;
+        private Translater _translater;
 
         public Fragment CurrentFragment => _currentFragment;
+        public Translater Translater => _translater;
 
         protected override void OnCreate (Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.activity_main);
 
+            _translater = new Translater();
             InitializeViewConstructors();
             Storage.InitializeListsTasks(this);
 
@@ -109,9 +112,10 @@ namespace Organizer.Internal.Activity
         public void UpdateFragments ()
         {
             Storage.SynchronizeLists(_currentFragment);
-            _listTasksFragment.UpdateListView();
+            _listTasksFragment.Update();
             _calendarFragment.UpdateListView();
             _scheduleFragment.UpdateListView();
+            _accountFragment.UpdateListView();
         }
 
         public override void OnBackPressed ()

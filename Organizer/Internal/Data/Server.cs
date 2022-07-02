@@ -9,7 +9,7 @@ namespace Organizer.Internal.Data
     public static class Server
     {
         public enum Period { Global, Year, Month, Day }
-        private enum Key { Global, Routine, Sort }
+        private enum Key { Global, Routine, Sort, Language }
         private static ISharedPreferences _preferences = Application.Context.GetSharedPreferences("Settings", FileCreationMode.Private);
         private static ISharedPreferencesEditor _preferencesEdit = _preferences.Edit();
 
@@ -22,7 +22,13 @@ namespace Organizer.Internal.Data
         public static int SortType
         {
             get { return _preferences.GetInt(Key.Sort.ToString(), 0); }
-            set { _preferencesEdit.PutInt(Key.Sort.ToString(), (int) TaskSorter.CurrentType).Commit(); }
+            set { _preferencesEdit.PutInt(Key.Sort.ToString(), value).Commit(); }
+        }
+
+        public static int Language
+        {
+            get { return _preferences.GetInt(Key.Language.ToString(), 0); }
+            set { _preferencesEdit.PutInt(Key.Language.ToString(), value).Commit(); }
         }
 
         public static ListTasks GetList (Period period, DateTime date)

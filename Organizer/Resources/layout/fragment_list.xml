@@ -42,8 +42,6 @@
                 android:textColor="#000"
                 android:gravity="center"
                 android:background="#DDD"
-                
-                android:text="Сегодня, 14/12, Чт"
                 />
         
         </RelativeLayout>/>

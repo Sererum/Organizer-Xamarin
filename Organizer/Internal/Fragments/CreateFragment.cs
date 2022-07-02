@@ -89,6 +89,20 @@ namespace Organizer.Internal.Fragments
             _fridayCheckBox = view.FindViewById<CheckBox>(Resource.Id.FridayCheckBox);
             _saturdayCheckBox = view.FindViewById<CheckBox>(Resource.Id.SaturdayCheckBox);
 
+            _titleEditText.Hint = _mainActivity.Translater.GetString(Resource.String.hint_title);
+            _textEditText.Hint = _mainActivity.Translater.GetString(Resource.String.hint_text);
+            view.FindViewById<TextView>(Resource.Id.ListStartTimeTextView).Text 
+                = _mainActivity.Translater.GetString(Resource.String.start_time);
+            view.FindViewById<TextView>(Resource.Id.ListEndTimeTextView).Text
+                = _mainActivity.Translater.GetString(Resource.String.end_time);
+            _regularRadioButton.Text = _mainActivity.Translater.GetString(Resource.String.regular_task);
+            _routineRadioButton.Text = _mainActivity.Translater.GetString(Resource.String.routine);
+            _projectRadioButton.Text = _mainActivity.Translater.GetString(Resource.String.project);
+            view.FindViewById<TextView>(Resource.Id.PriorityTextView).Text
+                = _mainActivity.Translater.GetString(Resource.String.regular_priority);
+            view.FindViewById<TextView>(Resource.Id.RoutineDaysTextView).Text
+                = _mainActivity.Translater.GetString(Resource.String.routine_days);
+
             #endregion
 
             _titleEditText.Text = _isEdit ? _editTask.Title : "";

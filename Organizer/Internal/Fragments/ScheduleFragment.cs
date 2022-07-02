@@ -53,6 +53,8 @@ namespace Organizer.Internal.Fragments
 
         public void UpdateListView ()
         {
+            _periodTextView.Text = NameDatePeriod.GetNameDate(Storage.ScheduleDate);
+
             Storage.ScheduleListTasks.Sort();
             _scheduleLayout.RemoveAllViews();
 

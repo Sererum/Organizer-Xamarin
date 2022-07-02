@@ -70,6 +70,7 @@
     <Compile Include="Internal\Data\Server.cs" />
     <Compile Include="Internal\Data\Storage.cs" />
     <Compile Include="Internal\Data\TaskSorter.cs" />
+    <Compile Include="Internal\Data\Translater.cs" />
     <Compile Include="Internal\Fragments\AccountFragment.cs" />
     <Compile Include="Internal\Fragments\CalendarFragment.cs" />
     <Compile Include="Internal\Fragments\CreateFragment.cs" />

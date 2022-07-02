@@ -14,8 +14,8 @@ namespace Organizer.Internal.Data
             get { return _currentType; }
             set
             {
-                _currentType = value;
                 Server.SortType = (int) value;
+                _currentType = value;
             }
         }
 

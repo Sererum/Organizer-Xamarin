@@ -115,6 +115,12 @@ namespace Organizer.Internal.Fragments
             UpdateListView();
         }
 
+        public void Update ()
+        {
+            UpdateListView();
+            UpdatePeriods();
+        }
+
         public void UpdateListView ()
         {
             Storage.MainListTasks.Sort();

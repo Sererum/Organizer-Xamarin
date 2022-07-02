@@ -2,6 +2,7 @@
 using Android.Views;
 using Android.Widget;
 using AndroidX.Fragment.App;
+using Organizer.Internal.Activity;
 using Organizer.Internal.Data;
 using Organizer.Internal.Model;
 
@@ -10,12 +11,13 @@ namespace Organizer.Internal.Fragments
     public class AccountFragment : Fragment
     {
         private readonly Android.App.Activity _context;
-
+        private readonly MainActivity _mainActivity;
         private LinearLayout _mainLayout;
 
         public AccountFragment(Android.App.Activity context)
         {
             _context = context;
+            _mainActivity = context as MainActivity;
         }
 
         public override View OnCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -38,6 +40,9 @@ namespace Organizer.Internal.Fragments
         {
             View view = _context.LayoutInflater.Inflate(Resource.Layout.list_item_account_counter_tasks, null);
 
+            view.FindViewById<TextView>(Resource.Id.CounterTaskTextView).Text
+                = _mainActivity.Translater.GetString(Resource.String.complete_tasks);
+
             ListTasks todayList = Storage.MainListTasks;
             int countAllTasks = todayList.GetCountTasks(ListTasks.TaskCounter.WithoutProject);
             int countCompleteTasks = todayList.GetCountTasks(ListTasks.TaskCounter.Complete_WithoutProject);
@@ -56,8 +61,21 @@ namespace Organizer.Internal.Fragments
         {
             View view = _context.LayoutInflater.Inflate(Resource.Layout.list_item_account_change_language, null);
 
+            view.FindViewById<TextView>(Resource.Id.ChangeLanguageTextView).Text
+                = _mainActivity.Translater.GetString(Resource.String.current_language);
+
             RelativeLayout mainLayout = view.FindViewById<RelativeLayout>(Resource.Id.ChangeLanguageLayout);
             TextView selectTextView = view.FindViewById<TextView>(Resource.Id.ChangeLanguageSelectTextView);
+
+            switch (_mainActivity.Translater.CurrentLanguage)
+            {
+                case Translater.Language.English:
+                    selectTextView.Text = _mainActivity.Translater.GetString(Resource.String.english);
+                    break;
+                case Translater.Language.Russian:
+                    selectTextView.Text = _mainActivity.Translater.GetString(Resource.String.russian);
+                    break;
+            }
 
             mainLayout.Click += (s, e) =>
             {
@@ -70,14 +88,15 @@ namespace Organizer.Internal.Fragments
                     switch (e.Item.ItemId)
                     {
                         case Resource.Id.language_english:
-                            selectTextView.Text = _context.Resources.GetString(Resource.String.english);
-
+                            selectTextView.Text = _mainActivity.Translater.GetString(Resource.String.english);
+                            _mainActivity.Translater.CurrentLanguage = Translater.Language.English;
                             break;
                         case Resource.Id.language_russian:
-                            selectTextView.Text = _context.Resources.GetString(Resource.String.russian);
-
+                            selectTextView.Text = _mainActivity.Translater.GetString(Resource.String.russian);
+                            _mainActivity.Translater.CurrentLanguage = Translater.Language.Russian;
                             break;
                     }
+                    _mainActivity.UpdateFragments();
                 };
             };
 

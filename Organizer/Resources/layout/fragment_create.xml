@@ -13,7 +13,6 @@
         android:textColorHint="#000"
         android:textColor="#000"
         android:background="#AAA"
-        android:hint="@string/hint_title"
         android:inputType="textCapSentences"
         />
 
@@ -27,7 +26,6 @@
         android:textSize="@dimen/text_size"
         android:textColorHint="#000"
         android:textColor="#000"
-        android:hint="@string/hint_text"
         android:inputType="textCapSentences | textMultiLine"
         android:maxLines="2"
         />
@@ -43,12 +41,12 @@
         >
     
         <TextView
+            android:id="@+id/ListStartTimeTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:textColor="#000"
             android:textSize="@dimen/text_size"
-            android:text="@string/start_time"
             />
 
         <TextView
@@ -74,12 +72,12 @@
         >
     
         <TextView
+            android:id="@+id/ListEndTimeTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:textColor="#000"
             android:textSize="@dimen/text_size"
-            android:text="@string/end_time"
             />
 
         <TextView
@@ -108,7 +106,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_size"
-            android:text="@string/regular_task"
             />
 
         <RadioButton
@@ -116,7 +113,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_size"
-            android:text="@string/routine_task"
             />
 
         <RadioButton
@@ -124,7 +120,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_size"
-            android:text="@string/project_task"
             />
     
     </RadioGroup>
@@ -153,6 +148,7 @@
             android:layout_alignParentRight="true"
             android:layout_margin="10dp"
             android:background="@android:drawable/ic_input_add"
+            android:contentDescription="@string/description_add_button"
             />
     
     </RelativeLayout>
@@ -172,7 +168,6 @@
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_size"
             android:textColor="#000"
-            android:text="@string/regular_priority"
             />
 
         <Spinner
@@ -203,7 +198,6 @@
             android:textSize="24sp" 
             android:textColor="#000" 
             android:layout_margin="8dp" 
-            android:text="@string/routine_days"
             />
 
         <RelativeLayout
@@ -216,50 +210,43 @@
                 android:id="@+id/MondayCheckBox" 
                 android:layout_width="wrap_content" 
                 android:layout_height="wrap_content" 
-                android:textSize="@dimen/text_size"
-                android:text="@string/monday_short"/>
+                android:textSize="@dimen/text_size"/>
             <CheckBox 
                 android:id="@+id/TuesdayCheckBox" 
                 android:layout_width="wrap_content" 
                 android:layout_height="wrap_content" 
                 android:layout_toEndOf="@id/MondayCheckBox" 
-                android:textSize="@dimen/text_size"
-                android:text="@string/tuesday_short"/>
+                android:textSize="@dimen/text_size"/>
             <CheckBox 
                 android:id="@+id/WednesdayCheckBox" 
                 android:layout_width="wrap_content" 
                 android:layout_height="wrap_content" 
                 android:layout_toEndOf="@id/TuesdayCheckBox" 
-                android:textSize="@dimen/text_size"
-                android:text="@string/wednesday_short"/>
+                android:textSize="@dimen/text_size"/>
             <CheckBox 
                 android:id="@+id/ThursdayCheckBox" 
                 android:layout_width="wrap_content" 
                 android:layout_height="wrap_content" 
                 android:layout_toEndOf="@id/WednesdayCheckBox" 
-                android:textSize="@dimen/text_size"
-                android:text="@string/thursday_short"/>
+                android:textSize="@dimen/text_size"/>
             <CheckBox 
                 android:id="@+id/FridayCheckBox" 
                 android:layout_width="wrap_content" 
                 android:layout_height="wrap_content" 
                 android:layout_toEndOf="@id/ThursdayCheckBox" 
-                android:textSize="@dimen/text_size"
-                android:text="@string/friday_short"/>
+                android:textSize="@dimen/text_size"/>
             <CheckBox 
                 android:id="@+id/SaturdayCheckBox" 
                 android:layout_width="wrap_content" 
                 android:layout_height="wrap_content" 
                 android:layout_toEndOf="@id/FridayCheckBox" 
-                android:textSize="@dimen/text_size"
-                android:text="@string/saturday_short"/>
+                android:textSize="@dimen/text_size"/>
             <CheckBox 
                 android:id="@+id/SundayCheckBox" 
                 android:layout_width="wrap_content" 
                 android:layout_height="wrap_content" 
                 android:layout_toEndOf="@id/SaturdayCheckBox" 
-                android:textSize="@dimen/text_size"
-                android:text="@string/sunday_short"/>
+                android:textSize="@dimen/text_size"/>
     
         </RelativeLayout>
     

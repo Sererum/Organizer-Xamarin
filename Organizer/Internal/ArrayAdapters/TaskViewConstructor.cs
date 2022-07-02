@@ -131,7 +131,7 @@ namespace Organizer.Internal.ArrayAdapters
             switch (task.TypeTask)
             {
                 case (int) BaseTask.Type.Project:
-                    text = _context.Resources.GetString(Resource.String.project_task_short);
+                    text = "P";
                     color = new Color(ContextCompat.GetColor(_context, Resource.Color.project));
                     break;
                 case (int) BaseTask.Type.Regular:
@@ -140,7 +140,7 @@ namespace Organizer.Internal.ArrayAdapters
                     color = new Color(ContextCompat.GetColor(_context, Storage.PriorityToColorId[priorityTask]));
                     break;
                 case (int) BaseTask.Type.Routine:
-                    text = _context.Resources.GetString(Resource.String.routine_task_short);
+                    text = "R";
                     color = new Color(ContextCompat.GetColor(_context, Resource.Color.routine));
                     break;
             }

@@ -12,7 +12,6 @@
         android:layout_height="wrap_content"
         android:textSize="@dimen/title_size"
         android:textColor="#000"
-        android:text="@string/current_language"
         />
 
     <TextView

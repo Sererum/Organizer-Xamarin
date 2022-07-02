@@ -4,9 +4,9 @@
 
 	<!--Name of tasks-->
 
-	<string name="project_task">Проект</string>
+	<string name="project">Проект</string>
 	<string name="regular_task">Обычная задача</string>
-	<string name="routine_task">Рутина</string>
+	<string name="routine">Рутина</string>
 
 	<string name="project_task_short">П</string>
 	<string name="routine_task_short">Р</string>

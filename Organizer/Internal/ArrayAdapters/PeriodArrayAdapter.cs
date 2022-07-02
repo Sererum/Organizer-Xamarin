@@ -1,5 +1,6 @@
 ﻿using Android.Views;
 using Android.Widget;
+using Organizer.Internal.Activity;
 using Organizer.Internal.Data;
 using Period = Organizer.Internal.Data.Server.Period;
 
@@ -8,15 +9,16 @@ namespace Organizer.Internal.ArrayAdapters
     class PeriodArrayAdapter : BaseAdapter<string>
     {
         private Android.App.Activity _context;
-
-        private string[] namePeriods = new string[4];
+        private MainActivity _mainActivity;
+        private string[] _namePeriods = new string[4];
 
         public PeriodArrayAdapter (Android.App.Activity context)
         {
             _context = context;
+            _mainActivity = context as MainActivity;
         }
 
-        public override string this[int position] => namePeriods[position];
+        public override string this[int position] => _namePeriods[position];
 
         public override int Count => 4;
 
@@ -35,7 +37,7 @@ namespace Organizer.Internal.ArrayAdapters
 
             string text = NameDatePeriod.GetNameDate(Storage.MainDate, (Period) position);
             namePeriodView.Text = text;
-            namePeriods[position] = text;
+            _namePeriods[position] = text;
 
             int verticalPadding = (int) (_context.Resources.GetDimension(Resource.Dimension.height_tool_bar) - Storage.DpToPx(30));
             namePeriodView.SetPadding(0, verticalPadding / 2, 0, verticalPadding / 2);
