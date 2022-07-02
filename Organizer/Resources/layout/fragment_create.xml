@@ -130,6 +130,7 @@
         android:layout_height="match_parent"
         android:layout_below="@id/CreateTypeRadioGroup"
         android:layout_above="@id/OkCreateButton"
+        android:layout_marginTop="20dp"
         android:visibility="gone"
         >
     
@@ -142,12 +143,12 @@
 
         <ImageButton
             android:id="@+id/ProjectAddButton"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_margin="10dp"
-            android:background="@android:drawable/ic_input_add"
+            android:background="@drawable/ic_add"
             android:contentDescription="@string/description_add_button"
             />
     
@@ -188,6 +189,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/CreateTypeRadioGroup"
+        android:layout_marginTop="20dp"
         android:visibility="gone"
         >
     
@@ -254,25 +256,26 @@
 
     <ImageButton
         android:id="@+id/OkCreateButton"
-        android:layout_width="100dp"
-        android:layout_height="60dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:layout_alignParentBottom="true"
         android:layout_toLeftOf="@id/CancelCreateButton"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="10dp"
-        android:background="@android:drawable/checkbox_on_background"
+        android:background="@drawable/ic_ok"
         android:contentDescription="@string/description_ok_button"
         />
 
     <ImageButton
         android:id="@+id/CancelCreateButton"
-        android:layout_width="100dp"
+        android:layout_width="80dp"
         android:layout_height="match_parent"
         android:layout_alignTop="@id/OkCreateButton"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="10dp"
-        android:background="@android:drawable/ic_menu_close_clear_cancel"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/ic_cancel"
         android:contentDescription="@string/description_cancel"
         />
 

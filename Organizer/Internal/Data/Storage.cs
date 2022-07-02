@@ -1,4 +1,6 @@
-﻿using Android.Util;
+﻿using Android.Graphics;
+using Android.Util;
+using AndroidX.Core.Content;
 using AndroidX.Fragment.App;
 using Organizer.Internal.Fragments;
 using Organizer.Internal.Model;
@@ -151,6 +153,8 @@ namespace Organizer.Internal.Data
 
         public static bool IsPast (DateTime date)
             => DateTime.Now.CompareTo(date) > 0 && EqualsDate(DateTime.Now, date) == false;
+
+        public static Color GetColor(int id) => new Color(ContextCompat.GetColor(Context, id));
 
         #endregion
     }

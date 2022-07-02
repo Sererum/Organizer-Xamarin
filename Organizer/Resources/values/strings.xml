@@ -85,6 +85,7 @@
 	<string name="description_next_button">Следующий период</string>
 	<string name="description_sort_button">Сортировка задач</string>
 	<string name="description_hide_button">Скрыть список задач</string>
+	<string name="description_sign_type_task">Sign of type task</string>
 
 	<!--Key for holders-->
 

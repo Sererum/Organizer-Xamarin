@@ -1,32 +1,24 @@
-﻿using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
-using System;
+﻿using Organizer.Internal.Data;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-namespace Organizer.Internal.Data
+namespace Organizer.Internal.Resources
 {
-    public class Translater
-    {
-        public enum Language { English, Russian }
+	public class Translater
+	{
+		public enum Language { English, Russian }
 
-        private Language _currentLanguage = (Language) Server.Language;
-        public Language CurrentLanguage
-        {
-            get { return _currentLanguage; }
-            set
-            {
-                Server.Language = (int) value;
-                _currentLanguage = value;
-            }
-        }
+		private Language _currentLanguage = (Language) Server.Language;
+		public Language CurrentLanguage
+		{
+			get { return _currentLanguage; }
+			set
+			{
+				Server.Language = (int) value;
+				_currentLanguage = value;
+			}
+		}
 
-		public string GetString (int id) => _translateString[id][(int) CurrentLanguage];
+		public string GetString (int id) => _translateString[id][(int) _currentLanguage];
 
 		private static Dictionary<int, string[]> _translateString = new Dictionary<int, string[]>()
 		{

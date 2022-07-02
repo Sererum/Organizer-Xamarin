@@ -60,7 +60,8 @@ namespace Organizer.Internal.Fragments
 
             for (int i = 0; i < 24; i++)
             {
-                _scheduleLayout.AddView(ScheduleViewConstructor.GetView(i));
+                ScheduleViewConstructor constructor = new ScheduleViewConstructor(_context);
+                _scheduleLayout.AddView(constructor.GetView(i));
             }
         }
     }

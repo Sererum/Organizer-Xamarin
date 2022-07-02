@@ -5,6 +5,7 @@ using AndroidX.Fragment.App;
 using Organizer.Internal.Activity;
 using Organizer.Internal.Data;
 using Organizer.Internal.Model;
+using Organizer.Internal.Resources;
 
 namespace Organizer.Internal.Fragments
 {

@@ -1,4 +1,5 @@
 ﻿using Android.Content;
+using Android.Graphics;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
@@ -33,6 +34,8 @@ namespace Organizer.Internal.Fragments
         {
             View view =  inflater.Inflate(Resource.Layout.fragment_list, container, false);
 
+            RelativeLayout toolBarLayout = view.FindViewById<RelativeLayout>(Resource.Id.ListToolBarLayout);
+            TextView periodTextView = view.FindViewById<TextView>(Resource.Id.ListPeriodTextView);
             _periodSpinner = view.FindViewById<Spinner>(Resource.Id.ListPeriodSpinner);
             _lastPeriodButton = view.FindViewById<ImageButton>(Resource.Id.ListLastPeriodButton);
             _nextPeriodButton = view.FindViewById<ImageButton>(Resource.Id.ListNextPeriodButton);
@@ -51,6 +54,22 @@ namespace Organizer.Internal.Fragments
 
             _addButton.Click += (s, e) => _mainActivity.ShowCreateFragment(Storage.MainListTasks);
             UpdateListView();
+
+            #region Paint views
+
+            Color toolBarColor = Storage.GetColor(_mainActivity.Designer.GetIdToolBarColor());
+            Color toolElementsColor = Storage.GetColor(_mainActivity.Designer.GetIdToolBarElementsColor());
+
+            toolBarLayout.SetBackgroundColor(toolBarColor);
+            periodTextView.SetBackgroundColor(toolBarColor);
+
+            PorterDuffColorFilter colorFilter = new PorterDuffColorFilter(toolElementsColor, PorterDuff.Mode.SrcAtop);
+            _lastPeriodButton.Background.SetColorFilter(colorFilter);
+            _nextPeriodButton.Background.SetColorFilter(colorFilter);
+            _sortButton.Background.SetColorFilter(colorFilter);
+            _addButton.Background.SetColorFilter(colorFilter);
+
+            #endregion
 
             return view;
         }
@@ -128,7 +147,8 @@ namespace Organizer.Internal.Fragments
 
             foreach (BaseTask task in Storage.MainListTasks)
             {
-                _tasksLayout.AddView(TaskViewConstructor.GetTaskView(task));
+                TaskViewConstructor constructor = new TaskViewConstructor(_context);
+                _tasksLayout.AddView(constructor.GetTaskView(task));
             }
         }
 
