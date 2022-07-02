@@ -63,7 +63,8 @@ namespace Organizer.Internal.Fragments
 
             foreach (BaseTask task in Storage.CalendarListTasks)
             {
-                _tasksLayout.AddView(TaskViewConstructor.GetTaskView(task));
+                TaskViewConstructor constuctor = new TaskViewConstructor(_context);
+                _tasksLayout.AddView(constuctor.GetTaskView(task));
             }
         }
     }

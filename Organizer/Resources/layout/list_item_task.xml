@@ -7,9 +7,10 @@
     >
 
     <RelativeLayout
+        android:id="@+id/TaskMainLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FFF"
+        android:background="#fff"
         >
     
         <CheckBox
@@ -21,33 +22,46 @@
             android:layout_margin="3dp"
             />
 
-        <TextView
-            android:id="@+id/TaskPriorityTextView"
-            android:layout_width="@dimen/title_size"
+        <RelativeLayout
+            android:id="@+id/TaskTypeLayout"
+            android:layout_width="35dp"
             android:layout_height="match_parent"
             android:layout_alignTop="@id/TaskContentTaskLayout"
             android:layout_alignBottom="@id/TaskContentTaskLayout"
-            android:layout_toRightOf="@id/TaskCompleteCheckBox"
-            android:gravity="center"
-            
-            android:textSize="@dimen/title_size"
-            android:textStyle="bold"
+            android:layout_toRightOf="@id/TaskCompleteCheckBox">
         
-            android:text="R"
-            android:textColor="#888"
-            android:background="#DDD"
-            />
+                <TextView
+                android:id="@+id/TaskPriorityTextView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textSize="@dimen/title_size"
+                android:textStyle="bold"
+                android:visibility="gone"
+                />
+
+            <ImageView
+                android:id="@+id/TaskTypeImageView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/description_sign_type_task"
+                android:visibility="gone"
+                />
+        
+        </RelativeLayout>
+
+        
 
         <RelativeLayout
             android:id="@+id/TaskContentTaskLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/TaskPriorityTextView"
+            android:layout_toRightOf="@id/TaskTypeLayout"
             android:layout_toLeftOf="@id/TaskHideProjectButton"
             
             android:paddingTop="3dp"
             android:paddingBottom="3dp"
-            android:paddingLeft="10dp"
+            android:paddingLeft="5dp"
             android:paddingRight="10dp"
             >
 

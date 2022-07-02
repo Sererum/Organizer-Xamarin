@@ -65,6 +65,9 @@ namespace Organizer.Internal.Fragments
 
             View view =  inflater.Inflate(Resource.Layout.fragment_create, container, false);
 
+            TextView startTimeTextView = view.FindViewById<TextView>(Resource.Id.ListStartTimeTextView);
+            TextView endTimeTextView = view.FindViewById<TextView>(Resource.Id.ListEndTimeTextView);
+
             _titleEditText = view.FindViewById<EditText>(Resource.Id.CreateTitleEditText);
             _textEditText = view.FindViewById<EditText>(Resource.Id.CreateTextEditText);
             _startTextView = view.FindViewById<TextView>(Resource.Id.StartTextView);
@@ -77,9 +80,11 @@ namespace Organizer.Internal.Fragments
             _projectLayout = view.FindViewById<RelativeLayout>(Resource.Id.CreateProjectLayout);
             _projectTasksLayout = view.FindViewById<LinearLayout>(Resource.Id.ProjectTasksLayout);
 
+            TextView priorityTextView = view.FindViewById<TextView>(Resource.Id.PriorityTextView);
             _regularLayout = view.FindViewById<RelativeLayout>(Resource.Id.CreateRegularLayout);
             _prioritySpinner = view.FindViewById<Spinner>(Resource.Id.PrioritySpinner);
 
+            TextView routineDaysTextView = view.FindViewById<TextView>(Resource.Id.RoutineDaysTextView);
             _routineLayout = view.FindViewById<RelativeLayout>(Resource.Id.CreateRoutineLayout);
             _sundayCheckBox = view.FindViewById<CheckBox>(Resource.Id.SundayCheckBox);
             _mondayCheckBox = view.FindViewById<CheckBox>(Resource.Id.MondayCheckBox);
@@ -89,19 +94,36 @@ namespace Organizer.Internal.Fragments
             _fridayCheckBox = view.FindViewById<CheckBox>(Resource.Id.FridayCheckBox);
             _saturdayCheckBox = view.FindViewById<CheckBox>(Resource.Id.SaturdayCheckBox);
 
+            ImageButton okButton = view.FindViewById<ImageButton>(Resource.Id.OkCreateButton);
+            ImageButton cancelButton = view.FindViewById<ImageButton>(Resource.Id.CancelCreateButton);
+            ImageButton addButton = view.FindViewById<ImageButton>(Resource.Id.ProjectAddButton);
+
+            #endregion
+
+            #region Paint view
+
+            _titleEditText.SetBackgroundColor(Storage.GetColor(_mainActivity.Designer.GetIdToolBarColor()));
+
+            Color buttonColor = Storage.GetColor(_mainActivity.Designer.GetIdToolBarElementsColor());
+            PorterDuffColorFilter colorFilter = new PorterDuffColorFilter(buttonColor, PorterDuff.Mode.SrcAtop);
+
+            okButton.Background.SetColorFilter(colorFilter);
+            cancelButton.Background.SetColorFilter(colorFilter);
+            addButton.Background.SetColorFilter(colorFilter);
+
+            #endregion
+
+            #region Set text
+
             _titleEditText.Hint = _mainActivity.Translater.GetString(Resource.String.hint_title);
             _textEditText.Hint = _mainActivity.Translater.GetString(Resource.String.hint_text);
-            view.FindViewById<TextView>(Resource.Id.ListStartTimeTextView).Text 
-                = _mainActivity.Translater.GetString(Resource.String.start_time);
-            view.FindViewById<TextView>(Resource.Id.ListEndTimeTextView).Text
-                = _mainActivity.Translater.GetString(Resource.String.end_time);
+            startTimeTextView.Text = _mainActivity.Translater.GetString(Resource.String.start_time);
+            endTimeTextView.Text = _mainActivity.Translater.GetString(Resource.String.end_time);
             _regularRadioButton.Text = _mainActivity.Translater.GetString(Resource.String.regular_task);
             _routineRadioButton.Text = _mainActivity.Translater.GetString(Resource.String.routine);
             _projectRadioButton.Text = _mainActivity.Translater.GetString(Resource.String.project);
-            view.FindViewById<TextView>(Resource.Id.PriorityTextView).Text
-                = _mainActivity.Translater.GetString(Resource.String.regular_priority);
-            view.FindViewById<TextView>(Resource.Id.RoutineDaysTextView).Text
-                = _mainActivity.Translater.GetString(Resource.String.routine_days);
+            priorityTextView.Text = _mainActivity.Translater.GetString(Resource.String.regular_priority);
+            routineDaysTextView.Text = _mainActivity.Translater.GetString(Resource.String.routine_days);
 
             #endregion
 
@@ -132,8 +154,7 @@ namespace Organizer.Internal.Fragments
             }
 
             UpdateProjectLayout();
-            view.FindViewById<ImageButton>(Resource.Id.ProjectAddButton).Click += (s, e)
-                => _mainActivity.ShowCreateFragment(_projectList, disableRoutine: true);
+            addButton.Click += (s, e) => _mainActivity.ShowCreateFragment(_projectList, disableRoutine: true);
 
             _prioritySpinner.Adapter = new PriorityArrayAdapter(_context);
             _prioritySpinner.SetSelection(4);
@@ -169,8 +190,8 @@ namespace Organizer.Internal.Fragments
                 _regularRadioButton.Checked = true;
             }
 
-            view.FindViewById<ImageButton>(Resource.Id.OkCreateButton).Click += (s, e) => OkButton_Click();
-            view.FindViewById<ImageButton>(Resource.Id.CancelCreateButton).Click += (s, e) => _mainActivity.OnBackPressed();
+            okButton.Click += (s, e) => OkButton_Click();
+            cancelButton.Click += (s, e) => _mainActivity.OnBackPressed();
 
             return view;
         }
@@ -203,7 +224,8 @@ namespace Organizer.Internal.Fragments
             _projectTasksLayout.RemoveAllViews();
             foreach (BaseTask task in _projectList)
             {
-                _projectTasksLayout.AddView(TaskViewConstructor.GetTaskView(task, true));
+                TaskViewConstructor constructor = new TaskViewConstructor(_context);
+                _projectTasksLayout.AddView(constructor.GetTaskView(task, true));
             }
         }
 

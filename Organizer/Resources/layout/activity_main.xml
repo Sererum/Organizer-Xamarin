@@ -9,59 +9,65 @@
         android:id="@+id/MainFragmentLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/MainButtonLayout"
+        android:layout_above="@id/MainButtonsLayout"
         />
 
-    <LinearLayout
-        android:id="@+id/MainButtonLayout"
+    <RelativeLayout
+        android:id="@+id/MainButtonsLayout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_tool_bar"
-        android:orientation="horizontal"
         android:layout_alignParentBottom="true"
-        android:background="#DDD"
+        android:padding="2dp"
         >
 
         <ImageButton
             android:id="@+id/MainCalendarButton"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_margin="4dp"
-            android:background="@android:drawable/ic_menu_today"
+            android:layout_width="@dimen/height_tool_bar"
+            android:layout_height="@dimen/height_tool_bar"
+            android:layout_toLeftOf="@id/MainScheduleButton"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/ic_calendar"
             android:contentDescription="@string/description_calendar_button" 
             />
 
         <ImageButton
             android:id="@+id/MainScheduleButton"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_margin="4dp"
-            android:background="@android:drawable/ic_menu_my_calendar"
+            android:layout_width="@dimen/height_tool_bar"
+            android:layout_height="@dimen/height_tool_bar"
+            android:layout_toLeftOf="@id/CenterButtonsLayout"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/ic_schedule"
             android:contentDescription="@string/description_schedule_button" 
+            />
+
+        <TextView
+            android:id="@+id/CenterButtonsLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
             />
 
         <ImageButton
             android:id="@+id/MainListButton"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_margin="4dp"
-            android:background="@android:drawable/ic_menu_agenda"
+            android:layout_width="@dimen/height_tool_bar"
+            android:layout_height="@dimen/height_tool_bar"
+            android:layout_toRightOf="@id/CenterButtonsLayout"
+            android:layout_marginLeft="15dp"
+            android:background="@drawable/ic_list"
             android:contentDescription="@string/description_list_button" 
             />
 
         <ImageButton
             android:id="@+id/MainAccountButton"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_margin="4dp"
-            android:background="@android:drawable/ic_menu_myplaces"
+            android:layout_width="@dimen/height_tool_bar"
+            android:layout_height="@dimen/height_tool_bar"
+            android:layout_toRightOf="@id/MainListButton"
+            android:layout_marginLeft="30dp"
+            android:background="@drawable/ic_account"
             android:contentDescription="@string/description_account_button" 
             />
     
     
-    </LinearLayout>
+    </RelativeLayout>
 
 </RelativeLayout>

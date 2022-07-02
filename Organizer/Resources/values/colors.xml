@@ -17,6 +17,25 @@
 	<color name="priority_nine">#FB0200</color>
 	<color name="routine">#35FFC2</color>
 	<color name="project">#FFD700</color>
+
+	<!--SunriseOcean-->
+
+	<color name="sunrise_ocean_tool_bar">#EDC3B7</color>
+	<color name="sunrise_ocean_tool_bar_elements">#F28982</color>
+	<color name="sunrise_ocean_main">#FFEAC5</color>
+	<color name="sunrise_ocean_down_panel">#86AEC4</color>
+	<color name="sunrise_ocean_down_panel_elements">#3C4761</color>
+
+	<!--
+	<!- ->
+	
+	<color name="tool_bar"></color>
+	<color name="tool_bar_elements"></color>
+	<color name="main"></color>
+	<color name="down_panel"></color>
+	<color name="down_panel_elements"></color>
+	-->
+	
 	
 	
 </resources>

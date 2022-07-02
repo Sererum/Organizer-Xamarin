@@ -13,37 +13,41 @@ using LayoutParams = Android.App.ActionBar.LayoutParams;
 
 namespace Organizer.Internal.ArrayAdapters
 {
-    public static class TaskViewConstructor
+    public class TaskViewConstructor
     {
-        private static Android.App.Activity _context;
-        private static MainActivity _mainActivity;
-        private static long _periodClick;
+        private readonly Android.App.Activity _context;
+        private readonly MainActivity _mainActivity;
+        private long _periodClick;
 
-        private static CheckBox _completeCheckBox;
-        private static TextView _priorityTextView;
-        private static TextView _titleTextView;
-        private static TextView _firstLineTextView;
-        private static TextView _timeTextView;
-        private static TextView _secondLineTextView;
-        private static TextView _textTextView;
-        private static TextView _thirdLineTextView;
-        private static LinearLayout _tasksListLayout;
-        private static ImageButton _hideTasksButton;
+        private CheckBox _completeCheckBox;
+        private TextView _priorityTextView;
+        private ImageView _typeImageView;
+        private TextView _titleTextView;
+        private TextView _firstLineTextView;
+        private TextView _timeTextView;
+        private TextView _secondLineTextView;
+        private TextView _textTextView;
+        private TextView _thirdLineTextView;
+        private LinearLayout _tasksListLayout;
+        private ImageButton _hideTasksButton;
 
-        public static void InitialConstructor(Android.App.Activity context)
+        public TaskViewConstructor (Android.App.Activity context)
         {
             _context = context;
             _mainActivity = context as MainActivity;
             _periodClick = (new Date()).Time;
         }
 
-        public static View GetTaskView (BaseTask task, bool isSimple = false)
+        public View GetTaskView (BaseTask task, bool isSimple = false)
         {
             #region Initialize views
 
             View view = _context.LayoutInflater.Inflate(Resource.Layout.list_item_task, null);
+
+            RelativeLayout mainLayout = view.FindViewById<RelativeLayout>(Resource.Id.TaskMainLayout);
             _completeCheckBox = view.FindViewById<CheckBox>(Resource.Id.TaskCompleteCheckBox);
             _priorityTextView = view.FindViewById<TextView>(Resource.Id.TaskPriorityTextView);
+            _typeImageView = view.FindViewById<ImageView>(Resource.Id.TaskTypeImageView);
             _titleTextView = view.FindViewById<TextView>(Resource.Id.TaskTitleTextView);
             _firstLineTextView = view.FindViewById<TextView>(Resource.Id.TaskFirstLineTextView);
             _timeTextView = view.FindViewById<TextView>(Resource.Id.TaskTimeTextView);
@@ -55,6 +59,8 @@ namespace Organizer.Internal.ArrayAdapters
 
             #endregion
 
+            mainLayout.SetBackgroundColor(Storage.GetColor(_mainActivity.Designer.GetIdMainColor()));
+
             if (isSimple)
             {
                 _completeCheckBox.Visibility = ViewStates.Gone;
@@ -63,7 +69,7 @@ namespace Organizer.Internal.ArrayAdapters
             _completeCheckBox.CheckedChange += (s, e) => CompleteCheckBox_CheckedChange(task);
             ChangeTextStyle();
 
-            InitializePriorityView(task);
+            InitializeTypeTaskView(task);
 
             _titleTextView.Text = task.Title;
 
@@ -100,7 +106,8 @@ namespace Organizer.Internal.ArrayAdapters
                 project.Tasks.Sort();
                 foreach (BaseTask taskProject in project.Tasks)
                 {
-                    _tasksListLayout.AddView(GetTaskView(taskProject), layoutParams);
+                    TaskViewConstructor constructor = new TaskViewConstructor(_context);
+                    _tasksListLayout.AddView(constructor.GetTaskView(taskProject), layoutParams);
                 }
             }
 
@@ -109,14 +116,14 @@ namespace Organizer.Internal.ArrayAdapters
             return view;
         }
 
-        private static void CompleteCheckBox_CheckedChange (BaseTask task)
+        private void CompleteCheckBox_CheckedChange (BaseTask task)
         {
             task.Complete = (task.Complete == false);
             ChangeTextStyle();
             _mainActivity.UpdateFragments();
         }
 
-        private static void ChangeTextStyle ()
+        private void ChangeTextStyle ()
         {
             PaintFlags paintFlag = _completeCheckBox.Checked ? PaintFlags.StrikeThruText : PaintFlags.LinearText;
             _titleTextView.PaintFlags = paintFlag;
@@ -124,33 +131,43 @@ namespace Organizer.Internal.ArrayAdapters
             _textTextView.PaintFlags = paintFlag;
         }
 
-        private static void InitializePriorityView (BaseTask task)
+        private void InitializeTypeTaskView (BaseTask task)
         {
-            string text = "";
-            Color color = new Color();
+            PorterDuffColorFilter colorFilter;
+            Color color;
             switch (task.TypeTask)
             {
                 case (int) BaseTask.Type.Project:
-                    text = "P";
-                    color = new Color(ContextCompat.GetColor(_context, Resource.Color.project));
+                    _typeImageView.Visibility = ViewStates.Visible;
+                    _typeImageView.Background = _context.GetDrawable(Resource.Drawable.ic_project);
+
+                    color = Storage.GetColor(_mainActivity.Designer.GetIdToolBarElementsColor());
+                    colorFilter = new PorterDuffColorFilter(color, PorterDuff.Mode.SrcAtop);
+                    _typeImageView.Background.SetColorFilter(colorFilter);
                     break;
                 case (int) BaseTask.Type.Regular:
                     int priorityTask = (task as Regular).Priority;
-                    text = priorityTask.ToString();
+
+                    _priorityTextView.Visibility = ViewStates.Visible;
+                    _priorityTextView.Text = priorityTask.ToString();
+
                     color = new Color(ContextCompat.GetColor(_context, Storage.PriorityToColorId[priorityTask]));
+                    _priorityTextView.SetTextColor(color);
+                    color.A = 75;
+                    _priorityTextView.SetBackgroundColor(color);
                     break;
                 case (int) BaseTask.Type.Routine:
-                    text = "R";
-                    color = new Color(ContextCompat.GetColor(_context, Resource.Color.routine));
+                    _typeImageView.Visibility = ViewStates.Visible;
+                    _typeImageView.Background = _context.GetDrawable(Resource.Drawable.ic_routine);
+
+                    color = Storage.GetColor(_mainActivity.Designer.GetIdToolBarElementsColor());
+                    colorFilter = new PorterDuffColorFilter(color, PorterDuff.Mode.SrcAtop);
+                    _typeImageView.Background.SetColorFilter(colorFilter);
                     break;
             }
-            _priorityTextView.Text = text;
-            _priorityTextView.SetTextColor(color);
-            color.A = 25;
-            _priorityTextView.SetBackgroundColor(color);
         }
 
-        private static void View_LongClick (View view, BaseTask task)
+        private void View_LongClick (View view, BaseTask task)
         {
             if ((new Date()).Time - _periodClick < 500)
             {
@@ -203,7 +220,7 @@ namespace Organizer.Internal.ArrayAdapters
                     idMenu = Resource.Menu.task_action_menu_past;
                 }
             }
-            else if(_mainActivity.CurrentFragment is ScheduleFragment)
+            else if (_mainActivity.CurrentFragment is ScheduleFragment)
             {
                 currentList = Storage.ScheduleListTasks.GetRootList(task) ?? throw new ArgumentException();
 

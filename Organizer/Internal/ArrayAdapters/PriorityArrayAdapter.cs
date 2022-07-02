@@ -34,7 +34,7 @@ namespace Organizer.Internal.ArrayAdapters
 
             _priorityView.Text = this[position];
             _priorityView.SetTextColor(color);
-            color.A = 25;
+            color.A = 50;
             _priorityView.SetBackgroundColor(color);
 
             return view;

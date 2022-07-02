@@ -7,14 +7,13 @@
         android:id="@+id/ListToolBarLayout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_tool_bar"
-        android:background="#DDD"
         >
 
         <ImageButton
             android:id="@+id/ListLastPeriodButton"
-            android:layout_width="40dp"
+            android:layout_width="60dp"
             android:layout_height="match_parent"
-            android:background="@android:drawable/ic_media_previous"
+            android:background="@drawable/ic_left"
             android:contentDescription="@string/description_last_button" 
             />
 
@@ -41,26 +40,25 @@
                 android:textSize="19sp"
                 android:textColor="#000"
                 android:gravity="center"
-                android:background="#DDD"
                 />
         
         </RelativeLayout>/>
 
         <ImageButton
             android:id="@+id/ListNextPeriodButton"
-            android:layout_width="40dp"
+            android:layout_width="60dp"
             android:layout_height="match_parent"
-            android:background="@android:drawable/ic_media_next"
+            android:background="@drawable/ic_right"
             android:layout_toRightOf="@id/ListPeriodLayout"
             android:contentDescription="@string/description_next_button"
             />
 
         <ImageButton
             android:id="@+id/ListSortButton"
-            android:layout_width="50dp"
+            android:layout_width="60dp"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
-            android:background="@android:drawable/ic_menu_sort_by_size"
+            android:background="@drawable/ic_sort"
             android:contentDescription="@string/description_sort_button"
             />
     

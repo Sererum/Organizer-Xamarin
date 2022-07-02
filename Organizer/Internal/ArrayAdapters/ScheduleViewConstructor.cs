@@ -10,20 +10,20 @@ using static Android.App.ActionBar;
 
 namespace Organizer.Internal.ArrayAdapters
 {
-    public static class ScheduleViewConstructor
+    public class ScheduleViewConstructor
     {
-        private static Android.App.Activity _context;
-        private static MainActivity _mainActivity;
-        private static long _periodClick;
+        private readonly Android.App.Activity _context;
+        private readonly MainActivity _mainActivity;
+        private long _periodClick;
 
-        public static void InitialConstructor (Android.App.Activity context)
+        public ScheduleViewConstructor (Android.App.Activity context)
         {
             _context = context;
             _mainActivity = context as MainActivity;
             _periodClick = (new Date()).Time;
         }
 
-        public static View GetView (int hour)
+        public View GetView (int hour)
         {
             View view = _context.LayoutInflater.Inflate(Resource.Layout.list_tasks_schedule, null);
 
@@ -31,14 +31,15 @@ namespace Organizer.Internal.ArrayAdapters
             TextView hourTextView = view.FindViewById<TextView>(Resource.Id.ScheduleItemHourTextView);
             LinearLayout tasksLayout = view.FindViewById<LinearLayout>(Resource.Id.ScheduleItemListLayout);
 
-            if (hour == DateTime.Now.Hour || hour == DateTime.Now.Hour + 1)
+            if (hour == DateTime.Now.Hour)
             {
-                lineTextView.SetBackgroundColor(Color.Red);
+                view.SetBackgroundColor(Storage.GetColor(_mainActivity.Designer.GetIdToolBarColor()));
             }
             else
             {
-                lineTextView.SetBackgroundColor(Color.Black);
+                view.SetBackgroundColor(Storage.GetColor(_mainActivity.Designer.GetIdMainColor()));
             }
+
             string sStartHour = (hour < 10 ? "0" : "") + hour + ":00";
             string sEndHour = (hour < 9 ? "0" : "") + (hour + 1) + ":00";
             hourTextView.Text = sStartHour;
@@ -53,7 +54,8 @@ namespace Organizer.Internal.ArrayAdapters
             {
                 if (HourContainsTask(task, sStartHour, sEndHour))
                 {
-                    tasksLayout.AddView(TaskViewConstructor.GetTaskView(task), layoutParams);
+                    TaskViewConstructor constructor = new TaskViewConstructor(_context);
+                    tasksLayout.AddView(constructor.GetTaskView(task), layoutParams);
                 }
             }
 
@@ -70,7 +72,7 @@ namespace Organizer.Internal.ArrayAdapters
             return view;
         }
 
-        private static bool HourContainsTask (BaseTask task, string startHour, string endHour)
+        private bool HourContainsTask (BaseTask task, string startHour, string endHour)
         {
             if (TaskSorter.FirstEarlierOrEquals(task.StartTime, task.EndTime))
             {

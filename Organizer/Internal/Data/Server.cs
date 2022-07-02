@@ -9,7 +9,7 @@ namespace Organizer.Internal.Data
     public static class Server
     {
         public enum Period { Global, Year, Month, Day }
-        private enum Key { Global, Routine, Sort, Language }
+        private enum Key { Global, Routine, Sort, Language, Theme }
         private static ISharedPreferences _preferences = Application.Context.GetSharedPreferences("Settings", FileCreationMode.Private);
         private static ISharedPreferencesEditor _preferencesEdit = _preferences.Edit();
 
@@ -29,6 +29,12 @@ namespace Organizer.Internal.Data
         {
             get { return _preferences.GetInt(Key.Language.ToString(), 0); }
             set { _preferencesEdit.PutInt(Key.Language.ToString(), value).Commit(); }
+        }
+
+        public static int Theme
+        {
+            get { return _preferences.GetInt(Key.Theme.ToString(), 0); }
+            set { _preferencesEdit.PutInt(Key.Theme.ToString(), value).Commit(); }
         }
 
         public static ListTasks GetList (Period period, DateTime date)
