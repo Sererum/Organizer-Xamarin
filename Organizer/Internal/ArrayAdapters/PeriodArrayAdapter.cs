@@ -1,4 +1,5 @@
-﻿using Android.Views;
+﻿using Android.Graphics;
+using Android.Views;
 using Android.Widget;
 using Organizer.Internal.Activity;
 using Organizer.Internal.Data;
@@ -33,6 +34,7 @@ namespace Organizer.Internal.ArrayAdapters
                 view = _context.LayoutInflater.Inflate(Resource.Layout.list_item_period, null);
             }
 
+            RelativeLayout mainLayout = view.FindViewById<RelativeLayout>(Resource.Id.PeriodItemMainLayout);
             TextView namePeriodView = view.FindViewById<TextView>(Resource.Id.NamePeriodTextView);
 
             string text = NameDatePeriod.GetNameDate(Storage.MainDate, (Period) position);
@@ -42,8 +44,12 @@ namespace Organizer.Internal.ArrayAdapters
             int verticalPadding = (int) (_context.Resources.GetDimension(Resource.Dimension.height_tool_bar) - Storage.DpToPx(30));
             namePeriodView.SetPadding(0, verticalPadding / 2, 0, verticalPadding / 2);
 
+            Color textColor = Storage.GetColor(_mainActivity.Designer.GetIdTextColor());
+
             namePeriodView.SetBackgroundColor(Storage.GetColor(_mainActivity.Designer.GetIdToolBarColor()));
-            namePeriodView.SetTextColor(Storage.GetColor(_mainActivity.Designer.GetIdTextColor()));
+
+            mainLayout.SetBackgroundColor(textColor);
+            namePeriodView.SetTextColor(textColor);
 
             return view;
         }

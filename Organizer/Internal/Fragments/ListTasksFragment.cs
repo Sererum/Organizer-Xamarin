@@ -1,5 +1,4 @@
-﻿using Android.Content;
-using Android.Graphics;
+﻿using Android.Graphics;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
@@ -48,7 +47,7 @@ namespace Organizer.Internal.Fragments
             _addButton = view.FindViewById<ImageButton>(Resource.Id.ListAddTaskButton);
             _tasksLayout = view.FindViewById<LinearLayout>(Resource.Id.ListTasksLinearLayout);
 
-            _periodSpinner.ItemSelected += (s, e) => PeriodSpinner_ItemSelected(_periodTextView);
+            _periodSpinner.ItemSelected += (s, e) => PeriodSpinner_ItemSelected();
             UpdatePeriods();
 
             _lastPeriodButton.Click += (s, e) => PeriodButton_Click(isNext: false);
@@ -83,10 +82,8 @@ namespace Organizer.Internal.Fragments
             };
         }
 
-        private void PeriodSpinner_ItemSelected (TextView textView)
+        private void PeriodSpinner_ItemSelected ()
         {
-            textView.Text = _periodSpinner.SelectedItem.ToString();
-
             _nextPeriodButton.Visibility = ViewStates.Visible;
             _lastPeriodButton.Visibility = ViewStates.Visible;
             if ((int) _periodSpinner.SelectedItemId == (int) Server.Period.Global)
@@ -153,14 +150,15 @@ namespace Organizer.Internal.Fragments
         public void PaintViews ()
         {
             Color textColor = Storage.GetColor(_mainActivity.Designer.GetIdTextColor());
+            PorterDuffColorFilter textFilter = new PorterDuffColorFilter(textColor, PorterDuff.Mode.SrcAtop);
             Color toolBarColor = Storage.GetColor(_mainActivity.Designer.GetIdToolBarColor());
             Color toolElementsColor = Storage.GetColor(_mainActivity.Designer.GetIdToolBarElementsColor());
             PorterDuffColorFilter buttonFilter = new PorterDuffColorFilter(toolElementsColor, PorterDuff.Mode.SrcAtop);
 
             _periodLayout.SetBackgroundColor(textColor);
-            _toolBarLayout.SetBackgroundColor(toolBarColor);
             _periodTextView.SetBackgroundColor(toolBarColor);
-            _periodTextView.SetTextColor(textColor);
+            _periodSpinner.Background.SetColorFilter(textFilter);
+            _toolBarLayout.SetBackgroundColor(toolBarColor);
 
             _lastPeriodButton.Background.SetColorFilter(buttonFilter);
             _nextPeriodButton.Background.SetColorFilter(buttonFilter);

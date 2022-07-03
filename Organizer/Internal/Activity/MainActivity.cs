@@ -27,6 +27,11 @@ namespace Organizer.Internal.Activity
         private Translater _translater;
         private Designer _designer;
 
+        private ImageButton _calendarButton;
+        private ImageButton _scheduleButton;
+        private ImageButton _listTasksButton;
+        private ImageButton _accountButton;
+
         public Fragment CurrentFragment => _currentFragment;
         public Translater Translater => _translater;
         public Designer Designer => _designer;
@@ -39,8 +44,8 @@ namespace Organizer.Internal.Activity
             InitializeResources();
             Storage.InitializeListsTasks(this);
 
-            InitializeFragments(savedInstanceState);
             InitializeButtons();
+            InitializeFragments(savedInstanceState);
 
             PaintActivity();
         }
@@ -49,6 +54,19 @@ namespace Organizer.Internal.Activity
         {
             _translater = new Translater();
             _designer = new Designer();
+        }
+
+        public void InitializeButtons ()
+        {
+            _calendarButton = FindViewById<ImageButton>(Resource.Id.MainCalendarButton);
+            _scheduleButton = FindViewById<ImageButton>(Resource.Id.MainScheduleButton);
+            _listTasksButton = FindViewById<ImageButton>(Resource.Id.MainListButton);
+            _accountButton = FindViewById<ImageButton>(Resource.Id.MainAccountButton);
+
+            _calendarButton.Click += (s, e) => ShowFragment(_calendarFragment);
+            _scheduleButton.Click += (s, e) => ShowFragment(_scheduleFragment);
+            _listTasksButton.Click += (s, e) => ShowFragment(_listTasksFragment);
+            _accountButton.Click += (s, e) => ShowFragment(_accountFragment);
         }
 
         #region Initialize fragments
@@ -91,31 +109,12 @@ namespace Organizer.Internal.Activity
             }
             _currentFragment = fragment;
 
+            PaintButtons();
             fragmentTransaction.AddToBackStack(null);
             fragmentTransaction.Commit();
         }
 
         #endregion
-
-        public void InitializeButtons ()
-        {
-            ImageButton calendarButton = FindViewById<ImageButton>(Resource.Id.MainCalendarButton);
-            ImageButton scheduleButton = FindViewById<ImageButton>(Resource.Id.MainScheduleButton);
-            ImageButton listTasksButton = FindViewById<ImageButton>(Resource.Id.MainListButton);
-            ImageButton accountButton = FindViewById<ImageButton>(Resource.Id.MainAccountButton);
-
-            Color buttonColor = Storage.GetColor(Designer.GetIdDownPanelElementsColor());
-            PorterDuffColorFilter colorFilter = new PorterDuffColorFilter(buttonColor, PorterDuff.Mode.SrcAtop);
-            calendarButton.Background.SetColorFilter(colorFilter);
-            scheduleButton.Background.SetColorFilter(colorFilter);
-            listTasksButton.Background.SetColorFilter(colorFilter);
-            accountButton.Background.SetColorFilter(colorFilter);
-
-            calendarButton.Click += (s, e) => ShowFragment(_calendarFragment);
-            scheduleButton.Click += (s, e) => ShowFragment(_scheduleFragment);
-            listTasksButton.Click += (s, e) => ShowFragment(_listTasksFragment);
-            accountButton.Click += (s, e) => ShowFragment(_accountFragment);
-        }
 
         public void ShowCreateFragment (ListTasks list, BaseTask editTask = null, bool disableRoutine = false, int scheduleHour = -1)
         {
@@ -137,11 +136,32 @@ namespace Organizer.Internal.Activity
 
         private void PaintActivity ()
         {
+            RelativeLayout mainLayout = FindViewById<RelativeLayout>(Resource.Id.MainLayout);
             RelativeLayout fragmentLayout = FindViewById<RelativeLayout>(Resource.Id.MainFragmentLayout);
             RelativeLayout buttonsLayout = FindViewById<RelativeLayout>(Resource.Id.MainButtonsLayout);
 
-            fragmentLayout.SetBackgroundColor(Storage.GetColor(Designer.GetIdMainColor()));
-            buttonsLayout.SetBackgroundColor(Storage.GetColor(Designer.GetIdDownPanelColor()));
+            Color mainColor = Storage.GetColor(Designer.GetIdMainColor());
+            Color downColor = Storage.GetColor(Designer.GetIdDownPanelColor());
+            PorterDuffColorFilter downFilter = new PorterDuffColorFilter(downColor, PorterDuff.Mode.SrcAtop);
+
+            mainLayout.SetBackgroundColor(mainColor);
+            fragmentLayout.SetBackgroundColor(mainColor);
+            buttonsLayout.Background.SetColorFilter(downFilter);
+
+            PaintButtons();
+        }
+
+        private void PaintButtons ()
+        {
+            Color buttonColor = Storage.GetColor(Designer.GetIdDownPanelElementsColor());
+            PorterDuffColorFilter colorFilter = new PorterDuffColorFilter(buttonColor, PorterDuff.Mode.SrcAtop);
+            Color textColor = Storage.GetColor(Designer.GetIdTextColor());
+            PorterDuffColorFilter textFilter = new PorterDuffColorFilter(textColor, PorterDuff.Mode.SrcAtop);
+
+            _calendarButton.Background.SetColorFilter(CurrentFragment is CalendarFragment ? textFilter : colorFilter);
+            _scheduleButton.Background.SetColorFilter(CurrentFragment is ScheduleFragment ? textFilter : colorFilter);
+            _listTasksButton.Background.SetColorFilter(CurrentFragment is ListTasksFragment ? textFilter : colorFilter);
+            _accountButton.Background.SetColorFilter(CurrentFragment is AccountFragment ? textFilter : colorFilter);
         }
 
         public override void OnBackPressed ()
