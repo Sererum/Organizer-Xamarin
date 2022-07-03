@@ -3,7 +3,7 @@
     android:id="@+id/TaskBackgroundLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#000"
+    android:background="@drawable/round_rect"
     android:padding=".5dp"
     >
 
@@ -11,7 +11,7 @@
         android:id="@+id/TaskMainLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#fff"
+        android:background="@drawable/round_rect"
         >
     
         <CheckBox
@@ -136,6 +136,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/TaskContentTaskLayout"
             android:layout_toRightOf="@id/TaskCompleteCheckBox"
+            android:paddingRight="8dp"
             >
         
             <TextView
@@ -153,6 +154,9 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/TaskThirdLineTextView"
+                android:paddingTop="2dp"
+                android:paddingBottom="5dp"
                 android:visibility="gone"
                 />
         

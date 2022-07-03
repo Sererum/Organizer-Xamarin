@@ -23,14 +23,18 @@
             android:layout_height="match_parent"
             android:layout_toRightOf="@id/ListLastPeriodButton"
             android:layout_toLeftOf="@id/ListNextPeriodButton"
-            android:background="#000"
+            android:background="@drawable/round_rect"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:padding="1dp"
             >
 
             <TextView
                 android:id="@+id/ListPeriodTextView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:background="@drawable/round_rect"
+                />
 
             <Spinner
                 android:id="@+id/ListPeriodSpinner"

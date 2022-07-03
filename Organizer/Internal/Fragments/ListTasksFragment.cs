@@ -131,7 +131,7 @@ namespace Organizer.Internal.Fragments
             _tasksLayout.RemoveAllViews();
 
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LayoutParams.MatchParent, LayoutParams.WrapContent);
-            layoutParams.SetMargins(4, 4, 2, 4);
+            layoutParams.SetMargins(4, 6, 2, 6);
             bool isPast = Storage.IsPast(Storage.MainDate);
 
             foreach (BaseTask task in Storage.MainListTasks)
@@ -144,6 +144,7 @@ namespace Organizer.Internal.Fragments
         private void UpdatePeriods (int selectedItem = 3)
         {
             _periodSpinner.Adapter = new PeriodArrayAdapter(_context);
+            _periodSpinner.SetPopupBackgroundDrawable(null);
             _periodSpinner.SetSelection(selectedItem);
         }
 
@@ -152,11 +153,12 @@ namespace Organizer.Internal.Fragments
             Color textColor = Storage.GetColor(_mainActivity.Designer.GetIdTextColor());
             PorterDuffColorFilter textFilter = new PorterDuffColorFilter(textColor, PorterDuff.Mode.SrcAtop);
             Color toolBarColor = Storage.GetColor(_mainActivity.Designer.GetIdToolBarColor());
+            PorterDuffColorFilter toolBarFilter = new PorterDuffColorFilter(toolBarColor, PorterDuff.Mode.SrcAtop);
             Color toolElementsColor = Storage.GetColor(_mainActivity.Designer.GetIdToolBarElementsColor());
             PorterDuffColorFilter buttonFilter = new PorterDuffColorFilter(toolElementsColor, PorterDuff.Mode.SrcAtop);
 
-            _periodLayout.SetBackgroundColor(textColor);
-            _periodTextView.SetBackgroundColor(toolBarColor);
+            _periodLayout.Background.SetColorFilter(textFilter);
+            _periodTextView.Background.SetColorFilter(toolBarFilter);
             _periodSpinner.Background.SetColorFilter(textFilter);
             _toolBarLayout.SetBackgroundColor(toolBarColor);
 

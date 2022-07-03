@@ -41,14 +41,17 @@ namespace Organizer.Internal.ArrayAdapters
             namePeriodView.Text = text;
             _namePeriods[position] = text;
 
-            int verticalPadding = (int) (_context.Resources.GetDimension(Resource.Dimension.height_tool_bar) - Storage.DpToPx(30));
+            int verticalPadding = (int) (_context.Resources.GetDimension(Resource.Dimension.height_tool_bar) - Storage.DpToPx(40));
             namePeriodView.SetPadding(0, verticalPadding / 2, 0, verticalPadding / 2);
 
             Color textColor = Storage.GetColor(_mainActivity.Designer.GetIdTextColor());
+            PorterDuffColorFilter textFilter = new PorterDuffColorFilter(textColor, PorterDuff.Mode.SrcAtop);
+            Color toolBarColor = Storage.GetColor(_mainActivity.Designer.GetIdToolBarColor());
+            PorterDuffColorFilter toolBarFilter = new PorterDuffColorFilter(toolBarColor, PorterDuff.Mode.SrcAtop);
 
-            namePeriodView.SetBackgroundColor(Storage.GetColor(_mainActivity.Designer.GetIdToolBarColor()));
+            namePeriodView.Background.SetColorFilter(toolBarFilter);
 
-            mainLayout.SetBackgroundColor(textColor);
+            mainLayout.Background.SetColorFilter(textFilter);
             namePeriodView.SetTextColor(textColor);
 
             return view;

@@ -67,11 +67,14 @@ namespace Organizer.Internal.ArrayAdapters
             #region Paint text
 
             Color mainColor = Storage.GetColor(_mainActivity.Designer.GetIdMainColor());
+            PorterDuffColorFilter mainFilter = new PorterDuffColorFilter(mainColor, PorterDuff.Mode.SrcAtop);
             Color textColor = Storage.GetColor(_mainActivity.Designer.GetIdTextColor());
+            PorterDuffColorFilter textFilter = new PorterDuffColorFilter(textColor, PorterDuff.Mode.SrcAtop);
 
-            mainLayout.SetBackgroundColor(mainColor);
 
-            backgroundLayout.SetBackgroundColor(textColor);
+            mainLayout.Background.SetColorFilter(mainFilter);
+            backgroundLayout.Background.SetColorFilter(textFilter);
+
             _completeCheckBox.ButtonDrawable.SetColorFilter(new PorterDuffColorFilter(textColor, PorterDuff.Mode.SrcAtop));
             _titleTextView.SetTextColor(textColor);
             _firstLineTextView.SetBackgroundColor(textColor);
@@ -85,7 +88,7 @@ namespace Organizer.Internal.ArrayAdapters
 
             if (_isSimple)
             {
-                _completeCheckBox.Visibility = ViewStates.Gone;
+                _completeCheckBox.Visibility = ViewStates.Invisible;
             }
             else if (_isPast)
             {
@@ -135,7 +138,7 @@ namespace Organizer.Internal.ArrayAdapters
                 _tasksListLayout.Visibility = project.TasksVisible ? ViewStates.Visible : ViewStates.Gone;
                 _tasksListLayout.RemoveAllViews();
                 LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LayoutParams.MatchParent, LayoutParams.WrapContent);
-                layoutParams.SetMargins(0, 4, 0, 4);
+                layoutParams.SetMargins(0, 6, 0, 6);
                 project.Tasks.Sort();
                 foreach (BaseTask taskProject in project.Tasks)
                 {
@@ -186,7 +189,7 @@ namespace Organizer.Internal.ArrayAdapters
 
                     color = new Color(ContextCompat.GetColor(_context, Storage.PriorityToColorId[priorityTask]));
                     _priorityTextView.SetTextColor(color);
-                    color.A = 75;
+                    color.A = 50;
                     _priorityTextView.SetBackgroundColor(color);
                     break;
                 case (int) BaseTask.Type.Routine:

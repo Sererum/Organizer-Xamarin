@@ -29,6 +29,8 @@
         android:layout_height="match_parent"
         android:layout_toRightOf="@id/ScheduleItemHourTextView"
         android:layout_below="@id/ScheduleItemLineTextView"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
         />
 
 </RelativeLayout>

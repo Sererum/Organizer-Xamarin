@@ -17,6 +17,7 @@ namespace Organizer.Internal.Fragments
         private readonly Android.App.Activity _context;
         private readonly MainActivity _mainActivity;
 
+        private RelativeLayout _calendarLayout;
         private CalendarView _calendarView;
         private RelativeLayout _hideLayout;
         private ImageView _hideView;
@@ -35,8 +36,8 @@ namespace Organizer.Internal.Fragments
 
             #region Initialize CalendarViews
 
-            view.FindViewById<CalendarView>(Resource.Id.NeonCalendarMainView).Visibility = ViewStates.Invisible;
-            view.FindViewById<CalendarView>(Resource.Id.CalendarMainView).Visibility = ViewStates.Invisible;
+            view.FindViewById<CalendarView>(Resource.Id.NeonCalendarMainView).Visibility = ViewStates.Gone;
+            view.FindViewById<CalendarView>(Resource.Id.CalendarMainView).Visibility = ViewStates.Gone;
 
             int idMainCalendarView = Resource.Id.CalendarMainView;
             switch (_mainActivity.Designer.CurrentTheme)
@@ -50,6 +51,7 @@ namespace Organizer.Internal.Fragments
 
             #endregion
 
+            _calendarLayout = view.FindViewById<RelativeLayout>(Resource.Id.CalendarLayout);
             _hideLayout = view.FindViewById<RelativeLayout>(Resource.Id.CalendarHideLayout);
             _hideView = view.FindViewById<ImageView>(Resource.Id.CalendarHideImageView);
             _tasksLayout = view.FindViewById<LinearLayout>(Resource.Id.CalendarLinearLayout);

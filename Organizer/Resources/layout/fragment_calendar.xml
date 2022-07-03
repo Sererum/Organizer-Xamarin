@@ -5,26 +5,33 @@
 
     <!--Styles calendars-->
 
-    <CalendarView
-        android:id="@+id/CalendarMainView"
+    <RelativeLayout
+        android:id="@+id/CalendarLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
+        android:layout_height="wrap_content">
+    
+        <CalendarView
+            android:id="@+id/CalendarMainView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
 
-    <CalendarView
-        android:id="@+id/NeonCalendarMainView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:dateTextAppearance="@style/NeonText"
-        android:weekDayTextAppearance="@style/NeonText"
-        android:theme="@style/NeonTheme"
-        />
+        <CalendarView
+            android:id="@+id/NeonCalendarMainView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:dateTextAppearance="@style/NeonText"
+            android:weekDayTextAppearance="@style/NeonText"
+            android:theme="@style/NeonTheme"
+            />
+    
+    </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/CalendarHideLayout"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_below="@id/CalendarMainView"
+        android:layout_below="@id/CalendarLayout"
         >
     
         <ImageView

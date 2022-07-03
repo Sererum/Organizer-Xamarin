@@ -74,13 +74,15 @@ namespace Organizer.Internal.Fragments
         public void PaintViews ()
         {
             Color textColor = Storage.GetColor(_mainActivity.Designer.GetIdTextColor());
+            PorterDuffColorFilter textFilter = new PorterDuffColorFilter(textColor, PorterDuff.Mode.SrcAtop);
             Color toolBarColor = Storage.GetColor(_mainActivity.Designer.GetIdToolBarColor());
+            PorterDuffColorFilter toolBarFilter = new PorterDuffColorFilter(toolBarColor, PorterDuff.Mode.SrcAtop);
             Color toolElementsColor = Storage.GetColor(_mainActivity.Designer.GetIdToolBarElementsColor());
             PorterDuffColorFilter buttonFilter = new PorterDuffColorFilter(toolElementsColor, PorterDuff.Mode.SrcAtop);
 
-            _periodLayout.SetBackgroundColor(textColor);
-            _toolBarLayout.SetBackgroundColor(toolBarColor);
-            _periodTextView.SetBackgroundColor(toolBarColor);
+            _periodLayout.Background.SetColorFilter(textFilter);
+            _toolBarLayout.Background.SetColorFilter(toolBarFilter);
+            _periodTextView.Background.SetColorFilter(toolBarFilter);
             _periodTextView.SetTextColor(textColor);
 
             _lastPeriodButton.Background.SetColorFilter(buttonFilter);
