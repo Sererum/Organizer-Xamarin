@@ -9,6 +9,7 @@ using Organizer.Internal.ArrayAdapters;
 using Organizer.Internal.Data;
 using Organizer.Internal.Model.Task;
 using System;
+using static Android.App.ActionBar;
 
 namespace Organizer.Internal.Fragments
 {
@@ -18,6 +19,7 @@ namespace Organizer.Internal.Fragments
         private readonly MainActivity _mainActivity;
 
         private RelativeLayout _toolBarLayout;
+        private RelativeLayout _periodLayout;
         private TextView _periodTextView;
         private Spinner _periodSpinner;
         private ImageButton _nextPeriodButton;
@@ -37,6 +39,7 @@ namespace Organizer.Internal.Fragments
             View view =  inflater.Inflate(Resource.Layout.fragment_list, container, false);
 
             _toolBarLayout = view.FindViewById<RelativeLayout>(Resource.Id.ListToolBarLayout);
+            _periodLayout = view.FindViewById<RelativeLayout>(Resource.Id.ListPeriodLayout);
             _periodTextView = view.FindViewById<TextView>(Resource.Id.ListPeriodTextView);
             _periodSpinner = view.FindViewById<Spinner>(Resource.Id.ListPeriodSpinner);
             _lastPeriodButton = view.FindViewById<ImageButton>(Resource.Id.ListLastPeriodButton);
@@ -130,10 +133,14 @@ namespace Organizer.Internal.Fragments
             Storage.MainListTasks.Sort();
             _tasksLayout.RemoveAllViews();
 
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LayoutParams.MatchParent, LayoutParams.WrapContent);
+            layoutParams.SetMargins(4, 4, 2, 4);
+            bool isPast = Storage.IsPast(Storage.MainDate);
+
             foreach (BaseTask task in Storage.MainListTasks)
             {
-                TaskViewConstructor constructor = new TaskViewConstructor(_context);
-                _tasksLayout.AddView(constructor.GetTaskView(task));
+                TaskViewConstructor constructor = new TaskViewConstructor(_context, isPast);
+                _tasksLayout.AddView(constructor.GetTaskView(task), layoutParams);
             }
         }
 
@@ -150,6 +157,7 @@ namespace Organizer.Internal.Fragments
             Color toolElementsColor = Storage.GetColor(_mainActivity.Designer.GetIdToolBarElementsColor());
             PorterDuffColorFilter buttonFilter = new PorterDuffColorFilter(toolElementsColor, PorterDuff.Mode.SrcAtop);
 
+            _periodLayout.SetBackgroundColor(textColor);
             _toolBarLayout.SetBackgroundColor(toolBarColor);
             _periodTextView.SetBackgroundColor(toolBarColor);
             _periodTextView.SetTextColor(textColor);

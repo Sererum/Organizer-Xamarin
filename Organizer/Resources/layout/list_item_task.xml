@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/TaskBackgroundLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#000"
-    android:padding="1dp"
+    android:padding=".5dp"
     >
 
     <RelativeLayout
@@ -42,8 +43,9 @@
 
             <ImageView
                 android:id="@+id/TaskTypeImageView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_centerVertical="true"
                 android:contentDescription="@string/description_sign_type_task"
                 android:visibility="gone"
                 />

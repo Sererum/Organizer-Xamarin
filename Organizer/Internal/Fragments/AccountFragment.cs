@@ -7,6 +7,7 @@ using Organizer.Internal.Activity;
 using Organizer.Internal.Data;
 using Organizer.Internal.Model;
 using Organizer.Internal.Resources;
+using System;
 
 namespace Organizer.Internal.Fragments
 {
@@ -48,7 +49,7 @@ namespace Organizer.Internal.Fragments
 
             completedTaskTextView.Text = _mainActivity.Translater.GetString(Resource.String.complete_tasks);
 
-            ListTasks todayList = Storage.MainListTasks;
+            ListTasks todayList = Server.GetList(Server.Period.Day, DateTime.Now);
             int countAllTasks = todayList.GetCountTasks(ListTasks.TaskCounter.WithoutProject);
             int countCompleteTasks = todayList.GetCountTasks(ListTasks.TaskCounter.Complete_WithoutProject);
             counterTextView.Text = countCompleteTasks + " / " + countAllTasks;

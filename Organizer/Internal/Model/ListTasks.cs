@@ -98,6 +98,23 @@ namespace Organizer.Internal.Model
             return routines;
         }
 
+        public ListTasks CutUncompleteTask ()
+        {
+            ListTasks uncompletes = new ListTasks();
+            foreach (BaseTask task in _tasks)
+            {
+                if (task.Complete == false && task is Routine == false)
+                {
+                    uncompletes.Add(task);
+                }
+            }
+            foreach (BaseTask uncomplete in uncompletes)
+            {
+                _tasks.Remove(uncomplete);
+            }
+            return uncompletes;
+        }
+
         public ListTasks GetRootList(BaseTask findTask)
         {
             ListTasks rootList;

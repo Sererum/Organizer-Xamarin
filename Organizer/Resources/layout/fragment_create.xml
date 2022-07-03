@@ -160,6 +160,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/CreateTypeRadioGroup"
         android:layout_marginTop="20dp"
+        android:padding="10dp"
         android:visibility="gone"
         >
     
@@ -167,7 +168,7 @@
             android:id="@+id/PriorityTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/text_size"
+            android:textSize="@dimen/title_size"
             android:textColor="#000"
             />
 
@@ -190,7 +191,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/CreateTypeRadioGroup"
         android:layout_marginTop="20dp"
-        android:visibility="gone"
+        android:visibility="visible"
         >
     
         <TextView 
@@ -212,7 +213,8 @@
                 android:id="@+id/MondayCheckBox" 
                 android:layout_width="wrap_content" 
                 android:layout_height="wrap_content" 
-                android:textSize="@dimen/text_size"/>
+                android:textSize="@dimen/text_size"
+                />
             <CheckBox 
                 android:id="@+id/TuesdayCheckBox" 
                 android:layout_width="wrap_content" 

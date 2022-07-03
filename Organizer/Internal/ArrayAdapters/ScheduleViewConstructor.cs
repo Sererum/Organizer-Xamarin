@@ -34,7 +34,7 @@ namespace Organizer.Internal.ArrayAdapters
 
             Color textColor = Storage.GetColor(_mainActivity.Designer.GetIdTextColor());
 
-            lineTextView.SetTextColor(textColor);
+            lineTextView.SetBackgroundColor(textColor);
             hourTextView.SetTextColor(textColor);
 
             if (hour == DateTime.Now.Hour)
@@ -54,13 +54,14 @@ namespace Organizer.Internal.ArrayAdapters
             Storage.ScheduleListTasks.Sort();
 
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LayoutParams.MatchParent, LayoutParams.WrapContent);
-            layoutParams.SetMargins(0, 4, 0, 2);
+            layoutParams.SetMargins(4, 5, 2, 3);
+            bool isPast = Storage.IsPast(Storage.ScheduleDate);
 
             foreach (BaseTask task in Storage.ScheduleListTasks)
             {
                 if (HourContainsTask(task, sStartHour, sEndHour))
                 {
-                    TaskViewConstructor constructor = new TaskViewConstructor(_context);
+                    TaskViewConstructor constructor = new TaskViewConstructor(_context, isPast);
                     tasksLayout.AddView(constructor.GetTaskView(task), layoutParams);
                 }
             }

@@ -17,6 +17,8 @@ namespace Organizer.Internal.ArrayAdapters
     {
         private readonly Android.App.Activity _context;
         private readonly MainActivity _mainActivity;
+        private readonly bool _isPast;
+        private readonly bool _isSimple;
         private long _periodClick;
 
         private CheckBox _completeCheckBox;
@@ -31,19 +33,22 @@ namespace Organizer.Internal.ArrayAdapters
         private LinearLayout _tasksListLayout;
         private ImageButton _hideTasksButton;
 
-        public TaskViewConstructor (Android.App.Activity context)
+        public TaskViewConstructor (Android.App.Activity context, bool isPast = false, bool isSimple = false)
         {
             _context = context;
             _mainActivity = context as MainActivity;
+            _isPast = isPast;
+            _isSimple = isSimple;
             _periodClick = (new Date()).Time;
         }
 
-        public View GetTaskView (BaseTask task, bool isSimple = false)
+        public View GetTaskView (BaseTask task)
         {
             #region Initialize views
 
             View view = _context.LayoutInflater.Inflate(Resource.Layout.list_item_task, null);
 
+            RelativeLayout backgroundLayout = view.FindViewById<RelativeLayout>(Resource.Id.TaskBackgroundLayout);
             RelativeLayout mainLayout = view.FindViewById<RelativeLayout>(Resource.Id.TaskMainLayout);
             _completeCheckBox = view.FindViewById<CheckBox>(Resource.Id.TaskCompleteCheckBox);
             _priorityTextView = view.FindViewById<TextView>(Resource.Id.TaskPriorityTextView);
@@ -61,22 +66,30 @@ namespace Organizer.Internal.ArrayAdapters
 
             #region Paint text
 
+            Color mainColor = Storage.GetColor(_mainActivity.Designer.GetIdMainColor());
             Color textColor = Storage.GetColor(_mainActivity.Designer.GetIdTextColor());
 
+            mainLayout.SetBackgroundColor(mainColor);
+
+            backgroundLayout.SetBackgroundColor(textColor);
+            _completeCheckBox.ButtonDrawable.SetColorFilter(new PorterDuffColorFilter(textColor, PorterDuff.Mode.SrcAtop));
             _titleTextView.SetTextColor(textColor);
             _firstLineTextView.SetBackgroundColor(textColor);
             _timeTextView.SetTextColor(textColor);
             _secondLineTextView.SetBackgroundColor(textColor);
             _textTextView.SetTextColor(textColor);
             _thirdLineTextView.SetBackgroundColor(textColor);
+            
 
             #endregion
 
-            mainLayout.SetBackgroundColor(Storage.GetColor(_mainActivity.Designer.GetIdMainColor()));
-
-            if (isSimple)
+            if (_isSimple)
             {
                 _completeCheckBox.Visibility = ViewStates.Gone;
+            }
+            else if (_isPast)
+            {
+                _completeCheckBox.Enabled = false;
             }
 
             _completeCheckBox.Checked = task.Complete;
@@ -88,13 +101,13 @@ namespace Organizer.Internal.ArrayAdapters
 
             _titleTextView.Text = task.Title;
 
-            if (isSimple == false && (task.StartTime != "" || task.EndTime != ""))
+            if (_isSimple == false && (task.StartTime != "" || task.EndTime != ""))
             {
                 _firstLineTextView.Visibility = ViewStates.Visible;
                 _timeTextView.Visibility = ViewStates.Visible;
                 _timeTextView.Text = task.StartTime + " ~ " + task.EndTime;
             }
-            if (isSimple == false && (task.Text != ""))
+            if (_isSimple == false && (task.Text != ""))
             {
                 _secondLineTextView.Visibility = ViewStates.Visible;
                 _textTextView.Visibility = ViewStates.Visible;
@@ -122,11 +135,11 @@ namespace Organizer.Internal.ArrayAdapters
                 _tasksListLayout.Visibility = project.TasksVisible ? ViewStates.Visible : ViewStates.Gone;
                 _tasksListLayout.RemoveAllViews();
                 LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LayoutParams.MatchParent, LayoutParams.WrapContent);
-                layoutParams.SetMargins(0, 2, 0, 2);
+                layoutParams.SetMargins(0, 4, 0, 4);
                 project.Tasks.Sort();
                 foreach (BaseTask taskProject in project.Tasks)
                 {
-                    TaskViewConstructor constructor = new TaskViewConstructor(_context);
+                    TaskViewConstructor constructor = new TaskViewConstructor(_context, _isPast);
                     _tasksListLayout.AddView(constructor.GetTaskView(taskProject), layoutParams);
                 }
             }
@@ -223,10 +236,6 @@ namespace Organizer.Internal.ArrayAdapters
                     idMenu = Resource.Menu.task_action_menu_global;
                     disableRoutine = true;
                 }
-                if (Storage.IsPast(Storage.MainDate))
-                {
-                    idMenu = Resource.Menu.task_action_menu_past;
-                }
             }
             else if (_mainActivity.CurrentFragment is CalendarFragment)
             {
@@ -235,10 +244,6 @@ namespace Organizer.Internal.ArrayAdapters
                 currentPeriod = Server.Period.Day;
                 currentDate = Storage.CalendarDate;
                 nextDate = Storage.CalendarDate.AddDays(1);
-                if (Storage.IsPast(Storage.CalendarDate))
-                {
-                    idMenu = Resource.Menu.task_action_menu_past;
-                }
             }
             else if (_mainActivity.CurrentFragment is ScheduleFragment)
             {
@@ -247,14 +252,15 @@ namespace Organizer.Internal.ArrayAdapters
                 currentPeriod = Server.Period.Day;
                 currentDate = Storage.ScheduleDate;
                 nextDate = Storage.ScheduleDate.AddDays(1);
-                if (Storage.IsPast(Storage.ScheduleDate))
-                {
-                    idMenu = Resource.Menu.task_action_menu_past;
-                }
             }
             else
             {
                 return;
+            }
+
+            if (_isPast)
+            {
+                idMenu = Resource.Menu.task_action_menu_past;
             }
 
             PopupMenu popup = new PopupMenu(_context, view);

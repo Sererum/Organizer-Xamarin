@@ -40,6 +40,7 @@ namespace Organizer.Internal.Data
 
         public static void InitializeListsTasks (Android.App.Activity context)
         {
+            LoadLastTasks();
             _mainListTasks = GetList(Period.Day, DateTime.Now);
             _calendarListTasks = GetList(Period.Day, DateTime.Now);
             _scheduleListTasks = GetList(Period.Day, DateTime.Now);
@@ -114,6 +115,40 @@ namespace Organizer.Internal.Data
                 }
             }
         }
+
+        private static void LoadLastTasks ()
+        {
+            ListTasks nowDayList = GetList(Period.Day, DateTime.Now);
+            DateTime dayDate = DateTime.Now.AddDays(-1);
+            for (int i = 1; i <= 7; i++)
+            {
+                ListTasks lastList = GetList(Period.Day, dayDate);
+                nowDayList += lastList.CutUncompleteTask();
+                SetList(Period.Day, dayDate, lastList);
+
+                dayDate = dayDate.AddDays(-1);
+            }
+            SetList(Period.Day, DateTime.Now, nowDayList);
+
+            if (DateTime.Now.Day <= 7)
+            {
+                ListTasks nowMonthList = GetList(Period.Month, DateTime.Now);
+                ListTasks lastMonthList = GetList(Period.Month, DateTime.Now.AddMonths(-1));
+                nowMonthList += lastMonthList.CutUncompleteTask();
+                SetList(Period.Month, DateTime.Now, nowMonthList);
+                SetList(Period.Month, DateTime.Now.AddMonths(-1), lastMonthList);
+            }
+
+            if (DateTime.Now.Month == 1)
+            {
+                ListTasks nowYearList = GetList(Period.Year, DateTime.Now);
+                ListTasks lastYearList = GetList(Period.Year, DateTime.Now.AddYears(-1));
+                nowYearList += lastYearList.CutUncompleteTask();
+                SetList(Period.Year, DateTime.Now, nowYearList);
+                SetList(Period.Year, DateTime.Now.AddYears(-1), lastYearList);
+            }
+        }
+
 
         #region Dictionaries
 

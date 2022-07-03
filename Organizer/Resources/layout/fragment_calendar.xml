@@ -3,10 +3,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!--Styles calendars-->
+
     <CalendarView
         android:id="@+id/CalendarMainView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        />
+
+    <CalendarView
+        android:id="@+id/NeonCalendarMainView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:dateTextAppearance="@style/NeonText"
+        android:weekDayTextAppearance="@style/NeonText"
+        android:theme="@style/NeonTheme"
         />
 
     <RelativeLayout

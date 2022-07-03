@@ -16,6 +16,7 @@ namespace Organizer.Internal.Fragments
         private readonly MainActivity _mainActivity;
 
         private RelativeLayout _toolBarLayout;
+        private RelativeLayout _periodLayout;
         private TextView _periodTextView;
         private ImageButton _lastPeriodButton;
         private ImageButton _nextPeriodButton;
@@ -32,6 +33,7 @@ namespace Organizer.Internal.Fragments
             View view = inflater.Inflate(Resource.Layout.fragment_schedule, container, false);
 
             _toolBarLayout = view.FindViewById<RelativeLayout>(Resource.Id.ScheduleToolBarLayout);
+            _periodLayout = view.FindViewById<RelativeLayout>(Resource.Id.SchedulePeriodLayout);
             _periodTextView = view.FindViewById<TextView>(Resource.Id.SchedulePeriodTextView);
             _lastPeriodButton = view.FindViewById<ImageButton>(Resource.Id.ScheduleLastPeriodButton);
             _nextPeriodButton = view.FindViewById<ImageButton>(Resource.Id.ScheduleNextPeriodButton);
@@ -76,6 +78,7 @@ namespace Organizer.Internal.Fragments
             Color toolElementsColor = Storage.GetColor(_mainActivity.Designer.GetIdToolBarElementsColor());
             PorterDuffColorFilter buttonFilter = new PorterDuffColorFilter(toolElementsColor, PorterDuff.Mode.SrcAtop);
 
+            _periodLayout.SetBackgroundColor(textColor);
             _toolBarLayout.SetBackgroundColor(toolBarColor);
             _periodTextView.SetBackgroundColor(toolBarColor);
             _periodTextView.SetTextColor(textColor);

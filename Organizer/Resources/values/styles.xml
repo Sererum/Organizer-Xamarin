@@ -8,8 +8,14 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-	<style name="NeonTheme" parent="android:TextAppearance.DeviceDefault.Small">
-		<item name="android:textColor">#66FCF1</item>
+	<style name="NeonTheme" parent="Theme.AppCompat">
+		<item name="colorAccent">@color/neon_down_panel_elements</item>
+		<item name="colorPrimary">@android:color/darker_gray</item>
+		<item name="android:textColorPrimary">@color/neon_text</item>
+	</style>
+
+	<style name="NeonText" parent="android:TextAppearance.DeviceDefault.Small">
+		<item name="android:textColor">@color/neon_text</item>
 	</style>
 
 </resources>

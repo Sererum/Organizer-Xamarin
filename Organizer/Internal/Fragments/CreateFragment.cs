@@ -9,6 +9,7 @@ using Organizer.Internal.Data;
 using Organizer.Internal.Model;
 using Organizer.Internal.Model.Task;
 using System;
+using static Android.App.ActionBar;
 using Fragment = AndroidX.Fragment.App.Fragment;
 
 namespace Organizer.Internal.Fragments
@@ -104,36 +105,40 @@ namespace Organizer.Internal.Fragments
 
             #region Paint view
 
-            _titleEditText.SetBackgroundColor(Storage.GetColor(_mainActivity.Designer.GetIdToolBarColor()));
+            _titleEditText.SetBackgroundColor(Storage.GetColor(_mainActivity.Designer.GetIdDownPanelColor()));
 
             Color buttonColor = Storage.GetColor(_mainActivity.Designer.GetIdToolBarElementsColor());
-            PorterDuffColorFilter colorFilter = new PorterDuffColorFilter(buttonColor, PorterDuff.Mode.SrcAtop);
+            PorterDuffColorFilter buttonFilter = new PorterDuffColorFilter(buttonColor, PorterDuff.Mode.SrcAtop);
             Color textColor = Storage.GetColor(_mainActivity.Designer.GetIdTextColor());
+            PorterDuffColorFilter textFilter = new PorterDuffColorFilter(textColor, PorterDuff.Mode.SrcAtop);
 
-            okButton.Background.SetColorFilter(colorFilter);
-            cancelButton.Background.SetColorFilter(colorFilter);
-            addButton.Background.SetColorFilter(colorFilter);
+            okButton.Background.SetColorFilter(buttonFilter);
+            cancelButton.Background.SetColorFilter(buttonFilter);
+            addButton.Background.SetColorFilter(buttonFilter);
+
+            foreach (TextView textView in new TextView[] { _startTextView, startTextView,
+                _endTextView, endTextView, priorityTextView, routineDaysTextView })
+            {
+                textView.SetTextColor(textColor);
+            }
 
             _titleEditText.SetTextColor(textColor);
             _titleEditText.SetHintTextColor(textColor);
             _textEditText.SetTextColor(textColor);
             _textEditText.SetHintTextColor(textColor);
-            _startTextView.SetTextColor(textColor);
-            startTextView.SetTextColor(textColor);
-            _endTextView.SetTextColor(textColor);
-            endTextView.SetTextColor(textColor);
-            _regularRadioButton.SetTextColor(textColor);
-            _projectRadioButton.SetTextColor(textColor);
-            _routineRadioButton.SetTextColor(textColor);
-            priorityTextView.SetTextColor(textColor);
-            routineDaysTextView.SetTextColor(textColor);
-            _sundayCheckBox.SetTextColor(textColor);
-            _mondayCheckBox.SetTextColor(textColor);
-            _tuesdayCheckBox.SetTextColor(textColor);
-            _wednesdayCheckBox.SetTextColor(textColor);
-            _thursdayCheckBox.SetTextColor(textColor);
-            _fridayCheckBox.SetTextColor(textColor);
-            _saturdayCheckBox.SetTextColor(textColor);
+
+            foreach (RadioButton radio in new RadioButton[] { _regularRadioButton, _projectRadioButton, _routineRadioButton })
+            {
+                radio.ButtonDrawable.SetColorFilter(textFilter);
+                radio.SetTextColor(textColor);
+            }
+
+            foreach (CheckBox check in new CheckBox[] { _sundayCheckBox , _mondayCheckBox , _tuesdayCheckBox,
+                _wednesdayCheckBox, _thursdayCheckBox, _fridayCheckBox, _saturdayCheckBox })
+            {
+                check.ButtonDrawable.SetColorFilter(textFilter);
+                check.SetTextColor(textColor);
+            }
 
             #endregion
 
@@ -148,6 +153,15 @@ namespace Organizer.Internal.Fragments
             _projectRadioButton.Text = _mainActivity.Translater.GetString(Resource.String.project);
             priorityTextView.Text = _mainActivity.Translater.GetString(Resource.String.regular_priority);
             routineDaysTextView.Text = _mainActivity.Translater.GetString(Resource.String.routine_days);
+
+            int length = 2;
+            _sundayCheckBox.Text = _mainActivity.Translater.GetString(Resource.String.sunday_short).Substring(0, length);
+            _mondayCheckBox.Text = _mainActivity.Translater.GetString(Resource.String.monday_short).Substring(0, length);
+            _tuesdayCheckBox.Text = _mainActivity.Translater.GetString(Resource.String.tuesday_short).Substring(0, length);
+            _wednesdayCheckBox.Text = _mainActivity.Translater.GetString(Resource.String.wednesday_short).Substring(0, length);
+            _thursdayCheckBox.Text = _mainActivity.Translater.GetString(Resource.String.thursday_short).Substring(0, length);
+            _fridayCheckBox.Text = _mainActivity.Translater.GetString(Resource.String.friday_short).Substring(0, length);
+            _saturdayCheckBox.Text = _mainActivity.Translater.GetString(Resource.String.saturday_short).Substring(0, length);
 
             #endregion
 
@@ -246,10 +260,14 @@ namespace Organizer.Internal.Fragments
         private void UpdateProjectLayout ()
         {
             _projectTasksLayout.RemoveAllViews();
+
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LayoutParams.MatchParent, LayoutParams.WrapContent);
+            layoutParams.SetMargins(2, 4, 0, 4);
+
             foreach (BaseTask task in _projectList)
             {
-                TaskViewConstructor constructor = new TaskViewConstructor(_context);
-                _projectTasksLayout.AddView(constructor.GetTaskView(task, true));
+                TaskViewConstructor constructor = new TaskViewConstructor(_context, isSimple: true);
+                _projectTasksLayout.AddView(constructor.GetTaskView(task), layoutParams);
             }
         }
 

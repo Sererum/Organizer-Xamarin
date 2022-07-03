@@ -43,7 +43,10 @@ namespace Organizer.Internal.Data
             {
                 case Period.Day:
                     ListTasks dayList = new ListTasks(_preferences.GetString(GetKey(date, Period.Day), ""));
-                    dayList += GetRoutinesOnDay((int) date.DayOfWeek, dayList);
+                    if (Storage.IsPast(date) == false)
+                    {
+                        dayList += GetRoutinesOnDay((int) date.DayOfWeek, dayList);
+                    }
                     return dayList;
                 case Period.Month:
                     return new ListTasks(_preferences.GetString(GetKey(date, Period.Month), ""));

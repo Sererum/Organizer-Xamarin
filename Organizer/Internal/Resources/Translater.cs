@@ -32,7 +32,7 @@ namespace Organizer.Internal.Resources
 			{ Resource.String.end_time, new string[] { "Time End Task", "Время Конца Задачи" } },
 			{ Resource.String.regular_priority, new string[] { "Priority Of Tasks", "Приоритет Задачи" } },
 			{ Resource.String.routine_days, new string[] { "Days Of Routine", "Дни Рутин" } },
-			{ Resource.String.complete_tasks, new string[] { "Completed Tasks", "Выполненные Задания" } },
+			{ Resource.String.complete_tasks, new string[] { "Today Completed Tasks", "Выполненные Сегодня Задания" } },
 			{ Resource.String.current_language, new string[] { "Current Language - ", "Текущий Язык - " } },
 			{ Resource.String.english, new string[] { "English", "Английский" } },
 			{ Resource.String.russian, new string[] { "Russian", "Русский" } },

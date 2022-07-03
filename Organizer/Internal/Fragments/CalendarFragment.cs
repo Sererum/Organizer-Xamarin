@@ -8,6 +8,7 @@ using Organizer.Internal.ArrayAdapters;
 using Organizer.Internal.Data;
 using Organizer.Internal.Model.Task;
 using System;
+using static Android.App.ActionBar;
 
 namespace Organizer.Internal.Fragments
 {
@@ -32,7 +33,22 @@ namespace Organizer.Internal.Fragments
         {
             View view = inflater.Inflate(Resource.Layout.fragment_calendar, container, false);
 
-            _calendarView = view.FindViewById<CalendarView>(Resource.Id.CalendarMainView);
+            #region Initialize CalendarViews
+
+            view.FindViewById<CalendarView>(Resource.Id.NeonCalendarMainView).Visibility = ViewStates.Invisible;
+            view.FindViewById<CalendarView>(Resource.Id.CalendarMainView).Visibility = ViewStates.Invisible;
+
+            int idMainCalendarView = Resource.Id.CalendarMainView;
+            switch (_mainActivity.Designer.CurrentTheme)
+            {
+                case Internal.Resources.Designer.Theme.Neon:
+                    idMainCalendarView = Resource.Id.NeonCalendarMainView;
+                    break;
+            }
+            _calendarView = view.FindViewById<CalendarView>(idMainCalendarView);
+            _calendarView.Visibility = ViewStates.Visible;
+
+            #endregion
 
             _hideLayout = view.FindViewById<RelativeLayout>(Resource.Id.CalendarHideLayout);
             _hideView = view.FindViewById<ImageView>(Resource.Id.CalendarHideImageView);
@@ -72,10 +88,14 @@ namespace Organizer.Internal.Fragments
             Storage.CalendarListTasks.Sort();
             _tasksLayout.RemoveAllViews();
 
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LayoutParams.MatchParent, LayoutParams.WrapContent);
+            layoutParams.SetMargins(4, 4, 2, 4);
+            bool isPast = Storage.IsPast(Storage.CalendarDate);
+
             foreach (BaseTask task in Storage.CalendarListTasks)
             {
-                TaskViewConstructor constuctor = new TaskViewConstructor(_context);
-                _tasksLayout.AddView(constuctor.GetTaskView(task));
+                TaskViewConstructor constuctor = new TaskViewConstructor(_context, isPast);
+                _tasksLayout.AddView(constuctor.GetTaskView(task), layoutParams);
             }
         }
 
@@ -89,14 +109,6 @@ namespace Organizer.Internal.Fragments
 
             _hideView.Background.SetColorFilter(buttonFilter);
             _addButton.Background.SetColorFilter(buttonFilter);
-
-            switch (_mainActivity.Designer.CurrentTheme)
-            {
-                case Internal.Resources.Designer.Theme.Neon:
-                    _calendarView.DateTextAppearance = Resource.Style.NeonTheme;
-                    _calendarView.WeekDayTextAppearance = Resource.Style.NeonTheme;
-                    break;
-            }
         }
     }
 }
