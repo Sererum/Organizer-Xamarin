@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ChangeBackgroundLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/round_rect"
+    android:padding="1dp"
+    >
+
+    <RelativeLayout
+        android:id="@+id/ChangeMainLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/round_rect"
+        android:padding="10dp"
+        >
+    
+        <TextView
+            android:id="@+id/ChangeTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size"
+            android:textColor="#000"
+            />
+
+        <TextView
+            android:id="@+id/ChangeSelectTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:textSize="@dimen/text_size"
+            android:textColor="#000"
+            />
+    
+    </RelativeLayout>
+
+    
+
+</RelativeLayout>

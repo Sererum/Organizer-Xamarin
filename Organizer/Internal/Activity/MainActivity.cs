@@ -16,6 +16,8 @@ namespace Organizer.Internal.Activity
     [Activity(Theme = "@style/AppTheme", MainLauncher = true)]
     public class MainActivity : AppCompatActivity
     {
+        public enum StartScreen { List, Calendar, Schedule, Account }
+
         private ListTasksFragment _listTasksFragment;
         private CalendarFragment _calendarFragment;
         private ScheduleFragment _scheduleFragment;
@@ -80,7 +82,9 @@ namespace Organizer.Internal.Activity
             _accountFragment = new AccountFragment(this);
 
             Fragment[] fragments = { _listTasksFragment, _calendarFragment, _scheduleFragment, _accountFragment };
-            _currentFragment = _listTasksFragment;
+
+            _currentFragment = fragments[Server.StartScreen];
+
             var fragmentTransaction = SupportFragmentManager.BeginTransaction();
             if (savedInstanceState is null)
             {
@@ -131,6 +135,15 @@ namespace Organizer.Internal.Activity
             _listTasksFragment.Update();
             _calendarFragment.UpdateListView();
             _scheduleFragment.UpdateListView();
+            _accountFragment.UpdateListView();
+        }
+
+        public void RepaintFragments ()
+        {
+            PaintActivity();
+            _listTasksFragment.PaintViews();
+            _calendarFragment.PaintViews();
+            _scheduleFragment.PaintViews();
             _accountFragment.UpdateListView();
         }
 

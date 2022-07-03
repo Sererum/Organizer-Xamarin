@@ -20,12 +20,12 @@
 
 	<!--Check-->
 
-	<color name="check_tool_bar">#1F2833</color>
-	<color name="check_tool_bar_elements">#66FCF1</color>
-	<color name="check_main">#1F2833</color>
-	<color name="check_text">#66FCF1</color>
-	<color name="check_down_panel">#0B0C10</color>
-	<color name="check_down_panel_elements">#45A29E</color>
+	<color name="check_tool_bar">#fff</color>
+	<color name="check_tool_bar_elements">#000</color>
+	<color name="check_main">#fff</color>
+	<color name="check_text">#000</color>
+	<color name="check_down_panel">#888</color>
+	<color name="check_down_panel_elements">#000</color>
 
 	<!--Neon-->
 

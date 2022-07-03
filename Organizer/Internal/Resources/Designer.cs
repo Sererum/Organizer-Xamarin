@@ -12,7 +12,7 @@ namespace Organizer.Internal.Resources
         private static readonly int _downPanel = 4;
         private static readonly int _downPanelElements = 5;
 
-        public enum Theme { Neon, Check }
+        public enum Theme { GreenNeon, Check }
 
         private Theme _currentTheme = (Theme) Server.Theme;
         public Theme CurrentTheme
@@ -42,7 +42,7 @@ namespace Organizer.Internal.Resources
                     Resource.Color.check_down_panel, Resource.Color.check_down_panel_elements
                 }
             },
-            { Theme.Neon, new int[]
+            { Theme.GreenNeon, new int[]
                 {
                     Resource.Color.neon_tool_bar, Resource.Color.neon_tool_bar_elements,
                     Resource.Color.neon_main, Resource.Color.neon_text,

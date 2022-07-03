@@ -66,9 +66,7 @@ namespace Organizer.Internal.Fragments
 
             View view =  inflater.Inflate(Resource.Layout.fragment_create, container, false);
 
-            TextView startTimeTextView = view.FindViewById<TextView>(Resource.Id.ListStartTimeTextView);
-            TextView endTimeTextView = view.FindViewById<TextView>(Resource.Id.ListEndTimeTextView);
-
+            RelativeLayout titleLayout = view.FindViewById<RelativeLayout>(Resource.Id.CreateTitleLayout);
             _titleEditText = view.FindViewById<EditText>(Resource.Id.CreateTitleEditText);
             _textEditText = view.FindViewById<EditText>(Resource.Id.CreateTextEditText);
             TextView startTextView = view.FindViewById<TextView>(Resource.Id.ListStartTimeTextView);
@@ -81,6 +79,7 @@ namespace Organizer.Internal.Fragments
             _routineRadioButton = view.FindViewById<RadioButton>(Resource.Id.CreateRoutineRadioButton);
 
             _projectLayout = view.FindViewById<RelativeLayout>(Resource.Id.CreateProjectLayout);
+            TextView projectTextView = view.FindViewById<TextView>(Resource.Id.CreateProjectTextView);
             _projectTasksLayout = view.FindViewById<LinearLayout>(Resource.Id.ProjectTasksLayout);
 
             TextView priorityTextView = view.FindViewById<TextView>(Resource.Id.PriorityTextView);
@@ -105,12 +104,19 @@ namespace Organizer.Internal.Fragments
 
             #region Paint view
 
-            _titleEditText.SetBackgroundColor(Storage.GetColor(_mainActivity.Designer.GetIdDownPanelColor()));
-
+            Color mainColor = Storage.GetColor(_mainActivity.Designer.GetIdMainColor());
+            PorterDuffColorFilter mainFilter = new PorterDuffColorFilter(mainColor, PorterDuff.Mode.SrcAtop);
+            Color downColor = Storage.GetColor(_mainActivity.Designer.GetIdDownPanelColor());
+            PorterDuffColorFilter downFilter = new PorterDuffColorFilter(downColor, PorterDuff.Mode.SrcAtop);
             Color buttonColor = Storage.GetColor(_mainActivity.Designer.GetIdToolBarElementsColor());
             PorterDuffColorFilter buttonFilter = new PorterDuffColorFilter(buttonColor, PorterDuff.Mode.SrcAtop);
             Color textColor = Storage.GetColor(_mainActivity.Designer.GetIdTextColor());
             PorterDuffColorFilter textFilter = new PorterDuffColorFilter(textColor, PorterDuff.Mode.SrcAtop);
+
+            titleLayout.Background.SetColorFilter(downFilter);
+
+            _projectLayout.Background.SetColorFilter(textFilter);
+            projectTextView.Background.SetColorFilter(mainFilter);
 
             okButton.Background.SetColorFilter(buttonFilter);
             cancelButton.Background.SetColorFilter(buttonFilter);
@@ -146,9 +152,9 @@ namespace Organizer.Internal.Fragments
 
             _titleEditText.Hint = _mainActivity.Translater.GetString(Resource.String.hint_title);
             _textEditText.Hint = _mainActivity.Translater.GetString(Resource.String.hint_text);
-            startTimeTextView.Text = _mainActivity.Translater.GetString(Resource.String.start_time);
-            endTimeTextView.Text = _mainActivity.Translater.GetString(Resource.String.end_time);
-            _regularRadioButton.Text = _mainActivity.Translater.GetString(Resource.String.regular_task);
+            startTextView.Text = _mainActivity.Translater.GetString(Resource.String.start_time);
+            endTextView.Text = _mainActivity.Translater.GetString(Resource.String.end_time);
+            _regularRadioButton.Text = _mainActivity.Translater.GetString(Resource.String.regular);
             _routineRadioButton.Text = _mainActivity.Translater.GetString(Resource.String.routine);
             _projectRadioButton.Text = _mainActivity.Translater.GetString(Resource.String.project);
             priorityTextView.Text = _mainActivity.Translater.GetString(Resource.String.regular_priority);

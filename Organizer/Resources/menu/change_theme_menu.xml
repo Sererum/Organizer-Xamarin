@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<item
+	android:id="@+id/theme_check"
+	android:title="@string/check"
+	/>
+
+	<item
+	android:id="@+id/theme_neon_green"
+	android:title="@string/neon_green"
+	/>
+
+</menu>

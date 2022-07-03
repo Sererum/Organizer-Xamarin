@@ -4,17 +4,25 @@
     android:layout_height="match_parent"
     >
 
-    <EditText
-        android:id="@+id/CreateTitleEditText"
+    <RelativeLayout
+        android:id="@+id/CreateTitleLayout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_tool_bar"
+        android:background="@drawable/round_rect"
         android:padding="10dp"
-        android:textSize="@dimen/title_size"
-        android:textColorHint="#000"
-        android:textColor="#000"
-        android:background="#AAA"
-        android:inputType="textCapSentences"
-        />
+        >
+    
+        <EditText
+            android:id="@+id/CreateTitleEditText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="@dimen/title_size"
+            android:textColorHint="#000"
+            android:textColor="#000"
+            android:inputType="textCapSentences"
+            />
+    
+    </RelativeLayout>
 
     <EditText
         android:id="@+id/CreateTextEditText"
@@ -22,7 +30,7 @@
         android:layout_height="wrap_content"
         android:padding="12dp"
         android:layout_marginTop="5dp"
-        android:layout_below="@id/CreateTitleEditText"
+        android:layout_below="@id/CreateTitleLayout"
         android:textSize="@dimen/text_size"
         android:textColorHint="#000"
         android:textColor="#000"
@@ -98,7 +106,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/CreateEndLayout"
         android:layout_marginTop="20dp"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         >
     
         <RadioButton
@@ -131,8 +139,17 @@
         android:layout_below="@id/CreateTypeRadioGroup"
         android:layout_above="@id/OkCreateButton"
         android:layout_marginTop="20dp"
+        android:background="@drawable/round_rect"
+        android:padding="1dp"
         android:visibility="gone"
         >
+
+        <TextView
+            android:id="@+id/CreateProjectTextView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/round_rect"
+            />
     
         <LinearLayout
             android:id="@+id/ProjectTasksLayout"
@@ -191,7 +208,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/CreateTypeRadioGroup"
         android:layout_marginTop="20dp"
-        android:visibility="visible"
+        android:visibility="gone"
         >
     
         <TextView 

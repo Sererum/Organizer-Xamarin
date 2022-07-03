@@ -41,7 +41,7 @@ namespace Organizer.Internal.ArrayAdapters
             namePeriodView.Text = text;
             _namePeriods[position] = text;
 
-            int verticalPadding = (int) (_context.Resources.GetDimension(Resource.Dimension.height_tool_bar) - Storage.DpToPx(40));
+            int verticalPadding = (int) (_context.Resources.GetDimension(Resource.Dimension.height_tool_bar) - Storage.DpToPx(39));
             namePeriodView.SetPadding(0, verticalPadding / 2, 0, verticalPadding / 2);
 
             Color textColor = Storage.GetColor(_mainActivity.Designer.GetIdTextColor());

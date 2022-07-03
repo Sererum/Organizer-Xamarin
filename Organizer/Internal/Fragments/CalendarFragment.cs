@@ -42,7 +42,7 @@ namespace Organizer.Internal.Fragments
             int idMainCalendarView = Resource.Id.CalendarMainView;
             switch (_mainActivity.Designer.CurrentTheme)
             {
-                case Internal.Resources.Designer.Theme.Neon:
+                case Internal.Resources.Designer.Theme.GreenNeon:
                     idMainCalendarView = Resource.Id.NeonCalendarMainView;
                     break;
             }
