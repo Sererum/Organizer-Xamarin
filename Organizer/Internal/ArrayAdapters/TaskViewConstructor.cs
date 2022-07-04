@@ -213,8 +213,9 @@ namespace Organizer.Internal.ArrayAdapters
             }
             _periodClick = (new Date()).Time;
 
-            PopupMenu popup = new PopupMenu(_context, view);
-            popup.MenuInflater.Inflate(Resource.Menu.task_action_menu, popup.Menu);
+            PopupMenu popup = PopupConstructor.GetPopupMenu(_mainActivity, view, Resource.Menu.task_action_menu,
+                idItems: new int[] { Resource.Id.action_move_next, Resource.Id.action_move_lower, Resource.Id.action_edit, Resource.Id.action_delete },
+                idTitles: new int[] { Resource.String.move_next, Resource.String.move_lower, Resource.String.edit, Resource.String.delete });
 
             bool enableRoutine = false;
 
