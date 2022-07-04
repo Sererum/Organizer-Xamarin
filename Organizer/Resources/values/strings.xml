@@ -22,7 +22,7 @@
 
 	<string name="title_statistics">Statistics</string>
 	<string name="title_settings">Settings</string>
-	<string name="complete_tasks">Todey completed task</string>
+	<string name="complete_tasks">Completed task</string>
 	<string name="current_language">Language</string>
 	<string name="current_screen">Start screen</string>
 	<string name="current_theme">Theme</string>

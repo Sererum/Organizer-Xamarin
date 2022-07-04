@@ -37,7 +37,7 @@ namespace Organizer.Internal.Resources
 
 			{ Resource.String.title_statistics, new string[] { "Statistics", "Статистика" } },
 			{ Resource.String.title_settings, new string[] { "Settings", "Настройки" } },
-			{ Resource.String.complete_tasks, new string[] { "Today completed tasks", "Выполненные сегодня задачи" } },
+			{ Resource.String.complete_tasks, new string[] { "Completed tasks", "Выполненные задачи" } },
 			{ Resource.String.current_language, new string[] { "Language", "Язык" } },
 			{ Resource.String.current_screen, new string[] { "Start screen", "Начальный экран" } },
 			{ Resource.String.current_theme, new string[] { "Theme", "Тема" } },

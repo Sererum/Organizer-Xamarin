@@ -233,7 +233,7 @@ namespace Organizer.Internal.Fragments
             {
                 PopupMenu popup = PopupConstructor.GetPopupMenu(_mainActivity, view, Resource.Menu.change_screen_menu,
                     idItems: new int[] { Resource.Id.screen_calendar, Resource.Id.screen_schedule, Resource.Id.screen_list, Resource.Id.screen_account },
-                    idTitles: new int[] { Resource.String.calendar, Resource.String.list_tasks, Resource.String.schedule, Resource.String.account });
+                    idTitles: new int[] { Resource.String.calendar, Resource.String.schedule, Resource.String.list_tasks, Resource.String.account });
                 popup.Show();
 
                 popup.MenuItemClick += (s, e) =>
