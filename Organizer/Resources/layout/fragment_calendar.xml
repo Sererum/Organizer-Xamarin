@@ -17,12 +17,30 @@
             />
 
         <CalendarView
-            android:id="@+id/NeonCalendarMainView"
+            android:id="@+id/MainDarkCalendarMainView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:dateTextAppearance="@style/NeonText"
-            android:weekDayTextAppearance="@style/NeonText"
-            android:theme="@style/NeonTheme"
+            android:dateTextAppearance="@style/MainDarkText"
+            android:weekDayTextAppearance="@style/MainDarkText"
+            android:theme="@style/MainDarkTheme"
+            />
+
+        <CalendarView
+            android:id="@+id/DeepWaterCalendarMainView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:dateTextAppearance="@style/DeepWaterText"
+            android:weekDayTextAppearance="@style/DeepWaterText"
+            android:theme="@style/DeepWaterTheme"
+            />
+
+        <CalendarView
+            android:id="@+id/DarkPurpleCalendarMainView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:dateTextAppearance="@style/DarkPurpleText"
+            android:weekDayTextAppearance="@style/DarkPurpleText"
+            android:theme="@style/DarkPurpleTheme"
             />
     
     </RelativeLayout>

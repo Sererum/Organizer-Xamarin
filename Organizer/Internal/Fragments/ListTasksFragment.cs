@@ -154,13 +154,13 @@ namespace Organizer.Internal.Fragments
             PorterDuffColorFilter textFilter = new PorterDuffColorFilter(textColor, PorterDuff.Mode.SrcAtop);
             Color toolBarColor = Storage.GetColor(_mainActivity.Designer.GetIdToolBarColor());
             PorterDuffColorFilter toolBarFilter = new PorterDuffColorFilter(toolBarColor, PorterDuff.Mode.SrcAtop);
-            Color toolElementsColor = Storage.GetColor(_mainActivity.Designer.GetIdToolBarElementsColor());
+            Color toolElementsColor = Storage.GetColor(_mainActivity.Designer.GetIdElementsColor());
             PorterDuffColorFilter buttonFilter = new PorterDuffColorFilter(toolElementsColor, PorterDuff.Mode.SrcAtop);
 
             _periodLayout.Background.SetColorFilter(textFilter);
             _periodTextView.Background.SetColorFilter(toolBarFilter);
             _periodSpinner.Background.SetColorFilter(textFilter);
-            _toolBarLayout.SetBackgroundColor(toolBarColor);
+            _toolBarLayout.Background.SetColorFilter(toolBarFilter);
 
             _lastPeriodButton.Background.SetColorFilter(buttonFilter);
             _nextPeriodButton.Background.SetColorFilter(buttonFilter);

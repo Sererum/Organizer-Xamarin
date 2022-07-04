@@ -35,8 +35,12 @@
 	<string name="list_tasks">List tasks</string>
 	<string name="account">Account</string>
 
-	<string name="check">Check</string>
-	<string name="neon_green">Neon Green</string>
+	<string name="main">Main</string>
+	<string name="soft">Soft</string>
+	<string name="purple">Purple</string>
+	<string name="main_dark">Dark</string>
+	<string name="deep_water">Deep water</string>
+	<string name="dark_purple">Dark purple</string>
 
 	<!--Menu-->
 

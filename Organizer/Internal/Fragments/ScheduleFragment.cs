@@ -1,5 +1,6 @@
 ﻿using Android.Graphics;
 using Android.OS;
+using Android.Util;
 using Android.Views;
 using Android.Widget;
 using AndroidX.Fragment.App;
@@ -20,7 +21,9 @@ namespace Organizer.Internal.Fragments
         private TextView _periodTextView;
         private ImageButton _lastPeriodButton;
         private ImageButton _nextPeriodButton;
+        private ScrollView _scheduleScroll;
         private LinearLayout _scheduleLayout;
+        private View _nowHourView;
 
         public ScheduleFragment(Android.App.Activity context)
         {
@@ -37,6 +40,7 @@ namespace Organizer.Internal.Fragments
             _periodTextView = view.FindViewById<TextView>(Resource.Id.SchedulePeriodTextView);
             _lastPeriodButton = view.FindViewById<ImageButton>(Resource.Id.ScheduleLastPeriodButton);
             _nextPeriodButton = view.FindViewById<ImageButton>(Resource.Id.ScheduleNextPeriodButton);
+            _scheduleScroll = view.FindViewById<ScrollView>(Resource.Id.ScheduleMainScrollView);
             _scheduleLayout = view.FindViewById<LinearLayout>(Resource.Id.ScheduleMainLinearLayout);
 
             _periodTextView.Text = NameDatePeriod.GetNameDate(DateTime.Now);
@@ -45,6 +49,9 @@ namespace Organizer.Internal.Fragments
 
             UpdateListView();
             PaintViews();
+
+            _nowHourView = _scheduleLayout.GetChildAt(DateTime.Now.Hour);
+            var b = _scheduleLayout.GetChildAt(DateTime.Now.Hour).GetY();
 
             return view;
         }
@@ -77,7 +84,7 @@ namespace Organizer.Internal.Fragments
             PorterDuffColorFilter textFilter = new PorterDuffColorFilter(textColor, PorterDuff.Mode.SrcAtop);
             Color toolBarColor = Storage.GetColor(_mainActivity.Designer.GetIdToolBarColor());
             PorterDuffColorFilter toolBarFilter = new PorterDuffColorFilter(toolBarColor, PorterDuff.Mode.SrcAtop);
-            Color toolElementsColor = Storage.GetColor(_mainActivity.Designer.GetIdToolBarElementsColor());
+            Color toolElementsColor = Storage.GetColor(_mainActivity.Designer.GetIdElementsColor());
             PorterDuffColorFilter buttonFilter = new PorterDuffColorFilter(toolElementsColor, PorterDuff.Mode.SrcAtop);
 
             _periodLayout.Background.SetColorFilter(textFilter);

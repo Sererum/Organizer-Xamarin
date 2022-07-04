@@ -108,7 +108,7 @@ namespace Organizer.Internal.Fragments
             PorterDuffColorFilter mainFilter = new PorterDuffColorFilter(mainColor, PorterDuff.Mode.SrcAtop);
             Color downColor = Storage.GetColor(_mainActivity.Designer.GetIdDownPanelColor());
             PorterDuffColorFilter downFilter = new PorterDuffColorFilter(downColor, PorterDuff.Mode.SrcAtop);
-            Color buttonColor = Storage.GetColor(_mainActivity.Designer.GetIdToolBarElementsColor());
+            Color buttonColor = Storage.GetColor(_mainActivity.Designer.GetIdElementsColor());
             PorterDuffColorFilter buttonFilter = new PorterDuffColorFilter(buttonColor, PorterDuff.Mode.SrcAtop);
             Color textColor = Storage.GetColor(_mainActivity.Designer.GetIdTextColor());
             PorterDuffColorFilter textFilter = new PorterDuffColorFilter(textColor, PorterDuff.Mode.SrcAtop);

@@ -24,6 +24,8 @@ namespace Organizer.Internal.Fragments
         private LinearLayout _tasksLayout;
         private ImageButton _addButton;
 
+        private View _view;
+
         public CalendarFragment(Android.App.Activity context)
         {
             _context = context;
@@ -32,30 +34,15 @@ namespace Organizer.Internal.Fragments
 
         public override View OnCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            View view = inflater.Inflate(Resource.Layout.fragment_calendar, container, false);
+            _view = inflater.Inflate(Resource.Layout.fragment_calendar, container, false);
 
-            #region Initialize CalendarViews
+            InitializeCalendarView(_view);
 
-            view.FindViewById<CalendarView>(Resource.Id.NeonCalendarMainView).Visibility = ViewStates.Gone;
-            view.FindViewById<CalendarView>(Resource.Id.CalendarMainView).Visibility = ViewStates.Gone;
-
-            int idMainCalendarView = Resource.Id.CalendarMainView;
-            switch (_mainActivity.Designer.CurrentTheme)
-            {
-                case Internal.Resources.Designer.Theme.GreenNeon:
-                    idMainCalendarView = Resource.Id.NeonCalendarMainView;
-                    break;
-            }
-            _calendarView = view.FindViewById<CalendarView>(idMainCalendarView);
-            _calendarView.Visibility = ViewStates.Visible;
-
-            #endregion
-
-            _calendarLayout = view.FindViewById<RelativeLayout>(Resource.Id.CalendarLayout);
-            _hideLayout = view.FindViewById<RelativeLayout>(Resource.Id.CalendarHideLayout);
-            _hideView = view.FindViewById<ImageView>(Resource.Id.CalendarHideImageView);
-            _tasksLayout = view.FindViewById<LinearLayout>(Resource.Id.CalendarLinearLayout);
-            _addButton = view.FindViewById<ImageButton>(Resource.Id.CalendarAddTaskButton);
+            _calendarLayout = _view.FindViewById<RelativeLayout>(Resource.Id.CalendarLayout);
+            _hideLayout = _view.FindViewById<RelativeLayout>(Resource.Id.CalendarHideLayout);
+            _hideView = _view.FindViewById<ImageView>(Resource.Id.CalendarHideImageView);
+            _tasksLayout = _view.FindViewById<LinearLayout>(Resource.Id.CalendarLinearLayout);
+            _addButton = _view.FindViewById<ImageButton>(Resource.Id.CalendarAddTaskButton);
 
             _calendarView.DateChange += (s, e) => Calendar_DateChange(e.Year, e.Month + 1, e.DayOfMonth);
             _hideLayout.Click += (s, e) => HideButton_Click(_calendarView.Visibility == ViewStates.Visible);
@@ -64,7 +51,35 @@ namespace Organizer.Internal.Fragments
             UpdateListView();
             PaintViews();
 
-            return view;
+            return _view;
+        }
+
+        private void InitializeCalendarView (View view)
+        {
+            view.FindViewById<CalendarView>(Resource.Id.CalendarMainView).Visibility = ViewStates.Gone;
+            view.FindViewById<CalendarView>(Resource.Id.MainDarkCalendarMainView).Visibility = ViewStates.Gone;
+            view.FindViewById<CalendarView>(Resource.Id.DeepWaterCalendarMainView).Visibility = ViewStates.Gone;
+            view.FindViewById<CalendarView>(Resource.Id.DarkPurpleCalendarMainView).Visibility = ViewStates.Gone;
+
+            int idMainCalendarView;
+            switch (_mainActivity.Designer.CurrentTheme)
+            {
+                case Internal.Resources.Designer.Theme.MainDark:
+                    idMainCalendarView = Resource.Id.MainDarkCalendarMainView;
+                    break;
+                case Internal.Resources.Designer.Theme.DeepWater:
+                    idMainCalendarView = Resource.Id.DeepWaterCalendarMainView;
+                    break;
+                case Internal.Resources.Designer.Theme.DarkPurple:
+                    idMainCalendarView = Resource.Id.DarkPurpleCalendarMainView;
+                    break;
+                default:
+                    idMainCalendarView = Resource.Id.CalendarMainView;
+                    break;
+            }
+
+            _calendarView = view.FindViewById<CalendarView>(idMainCalendarView);
+            _calendarView.Visibility = ViewStates.Visible;
         }
 
         private void HideButton_Click (bool hideCalendar)
@@ -73,7 +88,7 @@ namespace Organizer.Internal.Fragments
             int idDrawable = hideCalendar ? Resource.Drawable.ic_show : Resource.Drawable.ic_hide;
             _hideView.Background = _context.GetDrawable(idDrawable);
 
-            Color toolElementsColor = Storage.GetColor(_mainActivity.Designer.GetIdToolBarElementsColor());
+            Color toolElementsColor = Storage.GetColor(_mainActivity.Designer.GetIdElementsColor());
             PorterDuffColorFilter buttonFilter = new PorterDuffColorFilter(toolElementsColor, PorterDuff.Mode.SrcAtop);
             _hideView.Background.SetColorFilter(buttonFilter);
         }
@@ -104,13 +119,14 @@ namespace Organizer.Internal.Fragments
         public void PaintViews ()
         {
             Color toolBarColor = Storage.GetColor(_mainActivity.Designer.GetIdToolBarColor());
-            Color toolElementsColor = Storage.GetColor(_mainActivity.Designer.GetIdToolBarElementsColor());
+            Color toolElementsColor = Storage.GetColor(_mainActivity.Designer.GetIdElementsColor());
             PorterDuffColorFilter buttonFilter = new PorterDuffColorFilter(toolElementsColor, PorterDuff.Mode.SrcAtop);
 
             _hideLayout.SetBackgroundColor(toolBarColor);
 
             _hideView.Background.SetColorFilter(buttonFilter);
             _addButton.Background.SetColorFilter(buttonFilter);
+            InitializeCalendarView(_view);
         }
     }
 }

@@ -18,36 +18,64 @@
 	<color name="routine">#35FFC2</color>
 	<color name="project">#FFD700</color>
 
-	<!--Check-->
-
-	<color name="check_tool_bar">#fff</color>
-	<color name="check_tool_bar_elements">#000</color>
-	<color name="check_main">#fff</color>
-	<color name="check_text">#000</color>
-	<color name="check_down_panel">#888</color>
-	<color name="check_down_panel_elements">#000</color>
-
-	<!--Neon-->
-
-	<color name="neon_tool_bar">#1F2833</color>
-	<color name="neon_tool_bar_elements">#66FCF1</color>
-	<color name="neon_main">#1F2833</color>
-	<color name="neon_text">#66FCF1</color>
-	<color name="neon_down_panel">#0B0C10</color>
-	<color name="neon_down_panel_elements">#36807C</color>
+	<!--MainTheme-->
 	
-
-	<!--
-	<!- ->
+	<color name="main_tool_bar">#FCFAFF</color>
+	<color name="main_elements">#B1AAFF</color>
+	<color name="main_main">#FCFAFF</color>
+	<color name="main_text">#000000</color>
+	<color name="main_task">#EEE9FF</color>
+	<color name="main_down_panel">#8A50F0</color>
+	<color name="main_down_buttons">#B0E1F0</color>
 	
-	<color name="tool_bar"></color>
-	<color name="tool_bar_elements"></color>
-	<color name="main"></color>
-	<color name="text"></color>
-	<color name="down_panel"></color>
-	<color name="down_panel_elements"></color>
-	-->
+	<!--SoftTheme-->
 	
+	<color name="soft_tool_bar">#FFEDDE</color>
+	<color name="soft_elements">#7A94FF</color>
+	<color name="soft_main">#FFEDDE</color>
+	<color name="soft_text">#000000</color>
+	<color name="soft_task">#FCF0E6</color>
+	<color name="soft_down_panel">#C8B8FF</color>
+	<color name="soft_down_buttons">#7773DB</color>
 	
+	<!--PurpleTheme-->
+	
+	<color name="purple_tool_bar">#D7B6FF</color>
+	<color name="purple_elements">#626BFF</color>
+	<color name="purple_main">#D7B6FF</color>
+	<color name="purple_text">#000000</color>
+	<color name="purple_task">#CDB0FF</color>
+	<color name="purple_down_panel">#B7D5FF</color>
+	<color name="purple_down_buttons">#5EB7FF</color>
+	
+	<!--MainDarkTheme-->
+	
+	<color name="main_dark_tool_bar">#1F1C59</color>
+	<color name="main_dark_elements">#79CFFF</color>
+	<color name="main_dark_main">#1F1C59</color>
+	<color name="main_dark_text">#BEE5FF</color>
+	<color name="main_dark_task">#344A80</color>
+	<color name="main_dark_down_panel">#424059</color>
+	<color name="main_dark_down_buttons">#6F84D9</color>
+	
+	<!--DeepWaterTheme-->
+	
+	<color name="deep_water_tool_bar">#0F1826</color>
+	<color name="deep_water_elements">#44E3BE</color>
+	<color name="deep_water_main">#0F1826</color>
+	<color name="deep_water_text">#62FFCC</color>
+	<color name="deep_water_task">#284066</color>
+	<color name="deep_water_down_panel">#243B59</color>
+	<color name="deep_water_down_buttons">#569988</color>
+	
+	<!--DarkPurpleTheme-->
+	
+	<color name="dark_purple_tool_bar">#361442</color>
+	<color name="dark_purple_elements">#AB6FFF</color>
+	<color name="dark_purple_main">#361442</color>
+	<color name="dark_purple_text">#ffffff</color>
+	<color name="dark_purple_task">#633680</color>
+	<color name="dark_purple_down_panel">#563880</color>
+	<color name="dark_purple_down_buttons">#5D45CF</color>
 	
 </resources>

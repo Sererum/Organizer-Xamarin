@@ -50,8 +50,12 @@ namespace Organizer.Internal.Resources
 			{ Resource.String.list_tasks, new string[] { "List tasks", "Список задач" } },
 			{ Resource.String.account, new string[] { "Account", "Аккаунт" } },
 
-			{ Resource.String.check, new string[] { "Check", "Проверка" } },
-			{ Resource.String.neon_green, new string[] { "Neon green", "Зеленый неон" } },
+			{ Resource.String.main, new string[] { "Main", "Основная" } },
+			{ Resource.String.soft, new string[] { "Soft", "Мягкая" } },
+			{ Resource.String.purple, new string[] { "Purple", "Фиолетовая" } },
+			{ Resource.String.main_dark, new string[] { "Dark", "Темная" } },
+			{ Resource.String.deep_water, new string[] { "Deep water", "Глубоководная" } },
+			{ Resource.String.dark_purple, new string[] { "Dark purple", "Темно-фиолетовая" } },
 
 			{ Resource.String.move_next, new string[] { "Move to next date", "Переместить на следующую дату" } },
 			{ Resource.String.move_lower, new string[] { "Move to shorter date", "Переместить на более короткую дату" } },

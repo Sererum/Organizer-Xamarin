@@ -66,13 +66,15 @@ namespace Organizer.Internal.ArrayAdapters
 
             #region Paint text
 
+            Color taskColor = Storage.GetColor(_mainActivity.Designer.GetIdTaskColor());
+            PorterDuffColorFilter taskFilter = new PorterDuffColorFilter(taskColor, PorterDuff.Mode.SrcAtop);
             Color mainColor = Storage.GetColor(_mainActivity.Designer.GetIdMainColor());
             PorterDuffColorFilter mainFilter = new PorterDuffColorFilter(mainColor, PorterDuff.Mode.SrcAtop);
             Color textColor = Storage.GetColor(_mainActivity.Designer.GetIdTextColor());
             PorterDuffColorFilter textFilter = new PorterDuffColorFilter(textColor, PorterDuff.Mode.SrcAtop);
 
 
-            mainLayout.Background.SetColorFilter(mainFilter);
+            mainLayout.Background.SetColorFilter(taskFilter);
             backgroundLayout.Background.SetColorFilter(textFilter);
 
             _completeCheckBox.ButtonDrawable.SetColorFilter(new PorterDuffColorFilter(textColor, PorterDuff.Mode.SrcAtop));
@@ -122,7 +124,7 @@ namespace Organizer.Internal.ArrayAdapters
 
                 _hideTasksButton.Visibility = ViewStates.Visible;
 
-                Color color = Storage.GetColor(_mainActivity.Designer.GetIdToolBarElementsColor());
+                Color color = Storage.GetColor(_mainActivity.Designer.GetIdElementsColor());
                 PorterDuffColorFilter colorFilter = new PorterDuffColorFilter(color, PorterDuff.Mode.SrcAtop);
                 _hideTasksButton.Background.SetColorFilter(colorFilter);
 
@@ -177,7 +179,7 @@ namespace Organizer.Internal.ArrayAdapters
                     _typeImageView.Visibility = ViewStates.Visible;
                     _typeImageView.Background = _context.GetDrawable(Resource.Drawable.ic_project);
 
-                    color = Storage.GetColor(_mainActivity.Designer.GetIdToolBarElementsColor());
+                    color = Storage.GetColor(_mainActivity.Designer.GetIdElementsColor());
                     colorFilter = new PorterDuffColorFilter(color, PorterDuff.Mode.SrcAtop);
                     _typeImageView.Background.SetColorFilter(colorFilter);
                     break;
@@ -196,7 +198,7 @@ namespace Organizer.Internal.ArrayAdapters
                     _typeImageView.Visibility = ViewStates.Visible;
                     _typeImageView.Background = _context.GetDrawable(Resource.Drawable.ic_routine);
 
-                    color = Storage.GetColor(_mainActivity.Designer.GetIdToolBarElementsColor());
+                    color = Storage.GetColor(_mainActivity.Designer.GetIdElementsColor());
                     colorFilter = new PorterDuffColorFilter(color, PorterDuff.Mode.SrcAtop);
                     _typeImageView.Background.SetColorFilter(colorFilter);
                     break;

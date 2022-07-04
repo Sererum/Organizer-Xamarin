@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_tool_bar"
         android:background="@drawable/round_rect"
-        android:padding="10dp"
+        android:padding="4dp"
         >
     
         <EditText

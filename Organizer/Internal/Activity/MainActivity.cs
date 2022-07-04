@@ -166,15 +166,16 @@ namespace Organizer.Internal.Activity
 
         private void PaintButtons ()
         {
-            Color buttonColor = Storage.GetColor(Designer.GetIdDownPanelElementsColor());
+            Color buttonColor = Storage.GetColor(Designer.GetIdDownButtonsColor());
             PorterDuffColorFilter colorFilter = new PorterDuffColorFilter(buttonColor, PorterDuff.Mode.SrcAtop);
-            Color textColor = Storage.GetColor(Designer.GetIdTextColor());
-            PorterDuffColorFilter textFilter = new PorterDuffColorFilter(textColor, PorterDuff.Mode.SrcAtop);
+            Color toolelementsColor = Storage.GetColor(Designer.GetIdElementsColor());
+            PorterDuffColorFilter toolElementsFilter = new PorterDuffColorFilter(toolelementsColor, PorterDuff.Mode.SrcAtop);
 
-            _calendarButton.Background.SetColorFilter(CurrentFragment is CalendarFragment ? textFilter : colorFilter);
-            _scheduleButton.Background.SetColorFilter(CurrentFragment is ScheduleFragment ? textFilter : colorFilter);
-            _listTasksButton.Background.SetColorFilter(CurrentFragment is ListTasksFragment ? textFilter : colorFilter);
-            _accountButton.Background.SetColorFilter(CurrentFragment is AccountFragment ? textFilter : colorFilter);
+            _calendarButton.Background.SetColorFilter(CurrentFragment is CalendarFragment ? toolElementsFilter : colorFilter);
+            _scheduleButton.Background.SetColorFilter(CurrentFragment is ScheduleFragment ? toolElementsFilter : colorFilter);
+            _listTasksButton.Background.SetColorFilter(CurrentFragment is ListTasksFragment ? toolElementsFilter : colorFilter);
+            _accountButton.Background.SetColorFilter(CurrentFragment is AccountFragment ? toolElementsFilter : colorFilter);
+
         }
 
         public override void OnBackPressed ()

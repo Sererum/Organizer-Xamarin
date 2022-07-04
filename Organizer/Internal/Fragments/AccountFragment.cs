@@ -294,15 +294,7 @@ namespace Organizer.Internal.Fragments
 
             #endregion
 
-            switch (_mainActivity.Designer.CurrentTheme)
-            {
-                case Designer.Theme.Check:
-                    selectTextView.Text = _mainActivity.Translater.GetString(Resource.String.check);
-                    break;
-                case Designer.Theme.GreenNeon:
-                    selectTextView.Text = _mainActivity.Translater.GetString(Resource.String.neon_green);
-                    break;
-            }
+            selectTextView.Text = GetThemeName(_mainActivity.Designer.CurrentTheme);
 
             mainLayout.Click += (s, e) =>
             {
@@ -314,13 +306,23 @@ namespace Organizer.Internal.Fragments
                 {
                     switch (e.Item.ItemId)
                     {
-                        case Resource.Id.theme_check:
-                            selectTextView.Text = _mainActivity.Translater.GetString(Resource.String.check);
-                            _mainActivity.Designer.CurrentTheme = Designer.Theme.Check;
+                        case Resource.Id.theme_main:
+                            selectTextView.Text = GetThemeName(Designer.Theme.Main);
                             break;
-                        case Resource.Id.theme_neon_green:
-                            selectTextView.Text = _mainActivity.Translater.GetString(Resource.String.neon_green);
-                            _mainActivity.Designer.CurrentTheme = Designer.Theme.GreenNeon;
+                        case Resource.Id.theme_soft:
+                            selectTextView.Text = GetThemeName(Designer.Theme.Soft);
+                            break;
+                        case Resource.Id.theme_purple:
+                            selectTextView.Text = GetThemeName(Designer.Theme.Purple);
+                            break;
+                        case Resource.Id.theme_main_dark:
+                            selectTextView.Text = GetThemeName(Designer.Theme.MainDark);
+                            break;
+                        case Resource.Id.theme_deep_water:
+                            selectTextView.Text = GetThemeName(Designer.Theme.DeepWater);
+                            break;
+                        case Resource.Id.theme_dark_purple:
+                            selectTextView.Text = GetThemeName(Designer.Theme.DarkPurple);
                             break;
                     }
                     _mainActivity.UpdateFragments();
@@ -329,6 +331,28 @@ namespace Organizer.Internal.Fragments
             };
 
             return view;
+        }
+
+        private string GetThemeName(Designer.Theme setTheme)
+        {
+            _mainActivity.Designer.CurrentTheme = setTheme;
+            switch (_mainActivity.Designer.CurrentTheme)
+            {
+                case Designer.Theme.Main:
+                    return _mainActivity.Translater.GetString(Resource.String.main);
+                case Designer.Theme.Soft:
+                    return _mainActivity.Translater.GetString(Resource.String.soft);
+                case Designer.Theme.Purple:
+                    return _mainActivity.Translater.GetString(Resource.String.purple);
+                case Designer.Theme.MainDark:
+                    return _mainActivity.Translater.GetString(Resource.String.main_dark);
+                case Designer.Theme.DeepWater:
+                    return _mainActivity.Translater.GetString(Resource.String.deep_water);
+                case Designer.Theme.DarkPurple:
+                    return _mainActivity.Translater.GetString(Resource.String.dark_purple);
+                default:
+                    throw new ArgumentException();
+            }
         }
 
         public override void OnHiddenChanged (bool hidden)

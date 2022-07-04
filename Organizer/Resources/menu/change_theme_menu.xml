@@ -2,13 +2,33 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
 	<item
-	android:id="@+id/theme_check"
-	android:title="@string/check"
+	android:id="@+id/theme_main"
+	android:title="@string/main"
 	/>
 
 	<item
-	android:id="@+id/theme_neon_green"
-	android:title="@string/neon_green"
+	android:id="@+id/theme_soft"
+	android:title="@string/soft"
+	/>
+
+	<item
+	android:id="@+id/theme_purple"
+	android:title="@string/purple"
+	/>
+
+	<item
+	android:id="@+id/theme_main_dark"
+	android:title="@string/main_dark"
+	/>
+
+	<item
+		android:id="@+id/theme_deep_water"
+		android:title="@string/deep_water"
+	/>
+
+	<item
+	android:id="@+id/theme_dark_purple"
+	android:title="@string/dark_purple"
 	/>
 
 </menu>

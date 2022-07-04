@@ -8,6 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_tool_bar"
         android:background="@drawable/round_rect"
+        android:layout_margin="4dp"
         >
 
         <ImageButton
@@ -54,6 +55,7 @@
     </RelativeLayout>
 
     <ScrollView
+        android:id="@+id/ScheduleMainScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/ScheduleToolBarLayout">
