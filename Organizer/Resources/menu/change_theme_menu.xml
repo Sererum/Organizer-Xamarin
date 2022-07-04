@@ -1,34 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-	<item
-	android:id="@+id/theme_main"
-	android:title="@string/main"
-	/>
+	<item android:id="@+id/theme_main"/>
 
-	<item
-	android:id="@+id/theme_soft"
-	android:title="@string/soft"
-	/>
+	<item android:id="@+id/theme_soft"/>
 
-	<item
-	android:id="@+id/theme_purple"
-	android:title="@string/purple"
-	/>
+	<item android:id="@+id/theme_purple"/>
 
-	<item
-	android:id="@+id/theme_main_dark"
-	android:title="@string/main_dark"
-	/>
+	<item android:id="@+id/theme_main_dark"/>
 
-	<item
-		android:id="@+id/theme_deep_water"
-		android:title="@string/deep_water"
-	/>
+	<item android:id="@+id/theme_deep_water"/>
 
-	<item
-	android:id="@+id/theme_dark_purple"
-	android:title="@string/dark_purple"
-	/>
+	<item android:id="@+id/theme_dark_purple"/>
 
 </menu>

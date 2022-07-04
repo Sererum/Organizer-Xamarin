@@ -106,7 +106,7 @@ namespace Organizer.Internal.Fragments
             _tasksLayout.RemoveAllViews();
 
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LayoutParams.MatchParent, LayoutParams.WrapContent);
-            layoutParams.SetMargins(4, 4, 2, 4);
+            layoutParams.SetMargins(16, 12, 14, 0);
             bool isPast = Storage.IsPast(Storage.CalendarDate);
 
             foreach (BaseTask task in Storage.CalendarListTasks)

@@ -8,11 +8,22 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+	<style name="MainPopup" parent="Widget.AppCompat.PopupMenu">
+		<item name="android:popupBackground">@color/main_main</item>
+	</style>
+
+	<style name="SoftPopup" parent="Widget.AppCompat.PopupMenu">
+		<item name="android:popupBackground">@color/soft_main</item>
+	</style>
+
+	<style name="PurplePopup" parent="Widget.AppCompat.PopupMenu">
+		<item name="android:popupBackground">@color/purple_main</item>
+	</style>
+
 	<!--MainDarkTheme-->
 
 	<style name="MainDarkTheme" parent="Theme.AppCompat">
 		<item name="colorAccent">@color/main_dark_down_buttons</item>
-		<item name="colorPrimary">@android:color/darker_gray</item>
 		<item name="android:textColorPrimary">@color/main_dark_text</item>
 	</style>
 
@@ -20,11 +31,14 @@
 		<item name="android:textColor">@color/main_dark_text</item>
 	</style>
 
+	<style name="MainDarkPopup" parent="Widget.AppCompat.PopupMenu">
+		<item name="android:popupBackground">@color/main_dark_text</item>
+	</style>
+
 	<!--DeepWaterTheme-->
 
 	<style name="DeepWaterTheme" parent="Theme.AppCompat">
 		<item name="colorAccent">@color/deep_water_down_buttons</item>
-		<item name="colorPrimary">@android:color/darker_gray</item>
 		<item name="android:textColorPrimary">@color/deep_water_text</item>
 	</style>
 
@@ -32,16 +46,23 @@
 		<item name="android:textColor">@color/deep_water_text</item>
 	</style>
 
+	<style name="DeepWaterPopup" parent="Widget.AppCompat.PopupMenu">
+		<item name="android:popupBackground">@color/deep_water_text</item>
+	</style>
+
 	<!--DarkPurpleTheme-->
 
 	<style name="DarkPurpleTheme" parent="Theme.AppCompat">
 		<item name="colorAccent">@color/dark_purple_down_buttons</item>
-		<item name="colorPrimary">@android:color/darker_gray</item>
 		<item name="android:textColorPrimary">@color/dark_purple_text</item>
 	</style>
 
 	<style name="DarkPurpleText" parent="android:TextAppearance.DeviceDefault.Small">
 		<item name="android:textColor">@color/dark_purple_text</item>
+	</style>
+
+	<style name="DarkPurplePopup" parent="Widget.AppCompat.PopupMenu">
+		<item name="android:popupBackground">@color/dark_purple_text</item>
 	</style>
 
 </resources>

@@ -1,7 +1,9 @@
 ﻿using Android.App;
 using Android.Content;
+using Organizer.Internal.Activity;
 using Organizer.Internal.Model;
 using Organizer.Internal.Model.Task;
+using Organizer.Internal.Resources;
 using System;
 
 namespace Organizer.Internal.Data
@@ -22,25 +24,25 @@ namespace Organizer.Internal.Data
 
         public static int SortType
         {
-            get { return _preferences.GetInt(Key.Sort.ToString(), 0); }
+            get { return _preferences.GetInt(Key.Sort.ToString(), (int) TaskSorter.Type.TimeStart); }
             set { _preferencesEdit.PutInt(Key.Sort.ToString(), value).Commit(); }
         }
 
         public static int Language
         {
-            get { return _preferences.GetInt(Key.Language.ToString(), 0); }
+            get { return _preferences.GetInt(Key.Language.ToString(), (int) Translater.Language.Russian); }
             set { _preferencesEdit.PutInt(Key.Language.ToString(), value).Commit(); }
         }
 
         public static int StartScreen
         {
-            get => _preferences.GetInt(Key.Screen.ToString(), 0);
+            get => _preferences.GetInt(Key.Screen.ToString(), (int) MainActivity.StartScreen.List);
             set { _preferencesEdit.PutInt(Key.Screen.ToString(), value).Commit(); }
         }
 
         public static int Theme
         {
-            get { return _preferences.GetInt(Key.Theme.ToString(), 0); }
+            get { return _preferences.GetInt(Key.Theme.ToString(), (int) Designer.Theme.Main); }
             set { _preferencesEdit.PutInt(Key.Theme.ToString(), value).Commit(); }
         }
 

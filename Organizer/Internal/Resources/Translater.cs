@@ -41,6 +41,7 @@ namespace Organizer.Internal.Resources
 			{ Resource.String.current_language, new string[] { "Language", "Язык" } },
 			{ Resource.String.current_screen, new string[] { "Start screen", "Начальный экран" } },
 			{ Resource.String.current_theme, new string[] { "Theme", "Тема" } },
+			{ Resource.String.current_sort, new string[] { "Sorting tasks", "Сортировка задач" } },
 
 			{ Resource.String.english, new string[] { "English", "Английский" } },
 			{ Resource.String.russian, new string[] { "Russian", "Русский" } },
@@ -57,13 +58,12 @@ namespace Organizer.Internal.Resources
 			{ Resource.String.deep_water, new string[] { "Deep water", "Глубоководная" } },
 			{ Resource.String.dark_purple, new string[] { "Dark purple", "Темно-фиолетовая" } },
 
+			{ Resource.String.type, new string[] { "Type of task", "Тип задачи" } },
+
 			{ Resource.String.move_next, new string[] { "Move to next date", "Переместить на следующую дату" } },
 			{ Resource.String.move_lower, new string[] { "Move to shorter date", "Переместить на более короткую дату" } },
 			{ Resource.String.edit, new string[] { "Edit", "Редактировать" } },
 			{ Resource.String.delete, new string[] { "Delete", "Удалить" } },
-
-			{ Resource.String.type_sort, new string[] { "Sort by type", "Сортировать по типу задачи" } },
-			{ Resource.String.time_start_sort, new string[] { "Sort by time start", "Сортировать по времени начала" } },
 
 			{ Resource.String.last_day, new string[] { "Yesterday", "Вчера" } },
 			{ Resource.String.this_day, new string[] { "Today", "Сегодня" } },

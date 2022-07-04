@@ -4,6 +4,7 @@ using Android.Views;
 using Android.Widget;
 using AndroidX.Fragment.App;
 using Organizer.Internal.Activity;
+using Organizer.Internal.ArrayAdapters;
 using Organizer.Internal.Data;
 using Organizer.Internal.Model;
 using Organizer.Internal.Resources;
@@ -45,9 +46,9 @@ namespace Organizer.Internal.Fragments
             _mainLayout.RemoveAllViews();
 
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LayoutParams.MatchParent, LayoutParams.WrapContent);
-            layoutParams.SetMargins(0, 10, 0, 10);
+            layoutParams.SetMargins(16, 10, 14, 10);
             LinearLayout.LayoutParams titleParams = new LinearLayout.LayoutParams(LayoutParams.MatchParent, LayoutParams.WrapContent);
-            titleParams.SetMargins(0, 80, 0, 10);
+            titleParams.SetMargins(16, 80, 14, 10);
 
             #region Initialize paints
 
@@ -67,6 +68,7 @@ namespace Organizer.Internal.Fragments
             _mainLayout.AddView(GetChangeLanguageView(), layoutParams);
             _mainLayout.AddView(GetChangeMainScreenView(), layoutParams);
             _mainLayout.AddView(GetThemeChangeView(), layoutParams);
+            _mainLayout.AddView(GetChangeSortView(), layoutParams);
         }
 
         private View GetTitleView(int idTitle)
@@ -159,20 +161,13 @@ namespace Organizer.Internal.Fragments
 
             #endregion
 
-            switch (_mainActivity.Translater.CurrentLanguage)
-            {
-                case Translater.Language.English:
-                    selectTextView.Text = _mainActivity.Translater.GetString(Resource.String.english);
-                    break;
-                case Translater.Language.Russian:
-                    selectTextView.Text = _mainActivity.Translater.GetString(Resource.String.russian);
-                    break;
-            }
+            selectTextView.Text = GetLanguageName(_mainActivity.Translater.CurrentLanguage);
 
             mainLayout.Click += (s, e) =>
             {
-                PopupMenu popup = new PopupMenu(_context, view);
-                popup.MenuInflater.Inflate(Resource.Menu.change_language_menu, popup.Menu);
+                PopupMenu popup = PopupConstructor.GetPopupMenu(_mainActivity, view, Resource.Menu.change_language_menu,
+                    idItems: new int[] { Resource.Id.language_english, Resource.Id.language_russian },
+                    idTitles: new int[] { Resource.String.english, Resource.String.russian });
                 popup.Show();
 
                 popup.MenuItemClick += (s, e) =>
@@ -180,12 +175,10 @@ namespace Organizer.Internal.Fragments
                     switch (e.Item.ItemId)
                     {
                         case Resource.Id.language_english:
-                            selectTextView.Text = _mainActivity.Translater.GetString(Resource.String.english);
-                            _mainActivity.Translater.CurrentLanguage = Translater.Language.English;
+                            selectTextView.Text = GetLanguageName(Translater.Language.English);
                             break;
                         case Resource.Id.language_russian:
-                            selectTextView.Text = _mainActivity.Translater.GetString(Resource.String.russian);
-                            _mainActivity.Translater.CurrentLanguage = Translater.Language.Russian;
+                            selectTextView.Text = GetLanguageName(Translater.Language.Russian);
                             break;
                     }
                     _mainActivity.UpdateFragments();
@@ -193,6 +186,20 @@ namespace Organizer.Internal.Fragments
             };
 
             return view;
+        }
+
+        private string GetLanguageName (Translater.Language setLanguage)
+        {
+            _mainActivity.Translater.CurrentLanguage = setLanguage;
+            switch (setLanguage)
+            {
+                case Translater.Language.English:
+                    return _mainActivity.Translater.GetString(Resource.String.english);
+                case Translater.Language.Russian:
+                    return _mainActivity.Translater.GetString(Resource.String.russian);
+                default:
+                    throw new ArgumentException();
+            }
         }
 
         private View GetChangeMainScreenView ()
@@ -220,26 +227,13 @@ namespace Organizer.Internal.Fragments
 
             #endregion
 
-            switch (Server.StartScreen)
-            {
-                case (int) MainActivity.StartScreen.Calendar:
-                    selectTextView.Text = _mainActivity.Translater.GetString(Resource.String.calendar);
-                    break;
-                case (int) MainActivity.StartScreen.Schedule:
-                    selectTextView.Text = _mainActivity.Translater.GetString(Resource.String.schedule);
-                    break;
-                case (int) MainActivity.StartScreen.List:
-                    selectTextView.Text = _mainActivity.Translater.GetString(Resource.String.list_tasks);
-                    break;
-                case (int) MainActivity.StartScreen.Account:
-                    selectTextView.Text = _mainActivity.Translater.GetString(Resource.String.account);
-                    break;
-            }
+            selectTextView.Text = GetScreenName(Server.StartScreen);
 
             mainLayout.Click += (s, e) =>
             {
-                PopupMenu popup = new PopupMenu(_context, view);
-                popup.MenuInflater.Inflate(Resource.Menu.change_screen_menu, popup.Menu);
+                PopupMenu popup = PopupConstructor.GetPopupMenu(_mainActivity, view, Resource.Menu.change_screen_menu,
+                    idItems: new int[] { Resource.Id.screen_calendar, Resource.Id.screen_schedule, Resource.Id.screen_list, Resource.Id.screen_account },
+                    idTitles: new int[] { Resource.String.calendar, Resource.String.list_tasks, Resource.String.schedule, Resource.String.account });
                 popup.Show();
 
                 popup.MenuItemClick += (s, e) =>
@@ -247,26 +241,40 @@ namespace Organizer.Internal.Fragments
                     switch (e.Item.ItemId)
                     {
                         case Resource.Id.screen_list:
-                            selectTextView.Text = _mainActivity.Translater.GetString(Resource.String.list_tasks);
-                            Server.StartScreen = (int) MainActivity.StartScreen.List;
+                            selectTextView.Text = GetScreenName((int) MainActivity.StartScreen.List);
                             break;
                         case Resource.Id.screen_schedule:
-                            selectTextView.Text = _mainActivity.Translater.GetString(Resource.String.schedule);
-                            Server.StartScreen = (int) MainActivity.StartScreen.Schedule;
+                            selectTextView.Text = GetScreenName((int) MainActivity.StartScreen.Schedule);
                             break;
                         case Resource.Id.screen_calendar:
-                            selectTextView.Text = _mainActivity.Translater.GetString(Resource.String.calendar);
-                            Server.StartScreen = (int) MainActivity.StartScreen.Calendar;
+                            selectTextView.Text = GetScreenName((int) MainActivity.StartScreen.Calendar);
                             break;
                         case Resource.Id.screen_account:
-                            selectTextView.Text = _mainActivity.Translater.GetString(Resource.String.account);
-                            Server.StartScreen = (int) MainActivity.StartScreen.Account;
+                            selectTextView.Text = GetScreenName((int) MainActivity.StartScreen.Account);
                             break;
                     }
                 };
             };
 
             return view;
+        }
+
+        private string GetScreenName (int startScreen)
+        {
+            Server.StartScreen = startScreen;
+            switch (startScreen)
+            {
+                case (int) MainActivity.StartScreen.Calendar:
+                    return _mainActivity.Translater.GetString(Resource.String.calendar);
+                case (int) MainActivity.StartScreen.Schedule:
+                    return _mainActivity.Translater.GetString(Resource.String.schedule);
+                case (int) MainActivity.StartScreen.List:
+                    return _mainActivity.Translater.GetString(Resource.String.list_tasks);
+                case (int) MainActivity.StartScreen.Account:
+                    return _mainActivity.Translater.GetString(Resource.String.account);
+                default:
+                    throw new ArgumentException();
+            }
         }
 
         private View GetThemeChangeView ()
@@ -298,8 +306,11 @@ namespace Organizer.Internal.Fragments
 
             mainLayout.Click += (s, e) =>
             {
-                PopupMenu popup = new PopupMenu(_context, view);
-                popup.MenuInflater.Inflate(Resource.Menu.change_theme_menu, popup.Menu);
+                PopupMenu popup = PopupConstructor.GetPopupMenu(_mainActivity, view, Resource.Menu.change_theme_menu,
+                    idItems: new int[] { Resource.Id.theme_main, Resource.Id.theme_soft, Resource.Id.theme_purple,
+                        Resource.Id.theme_main_dark, Resource.Id.theme_deep_water, Resource.Id.theme_dark_purple },
+                    idTitles: new int[] { Resource.String.main, Resource.String.soft, Resource.String.purple,
+                        Resource.String.main_dark, Resource.String.deep_water, Resource.String.dark_purple});
                 popup.Show();
 
                 popup.MenuItemClick += (s, e) =>
@@ -336,7 +347,7 @@ namespace Organizer.Internal.Fragments
         private string GetThemeName(Designer.Theme setTheme)
         {
             _mainActivity.Designer.CurrentTheme = setTheme;
-            switch (_mainActivity.Designer.CurrentTheme)
+            switch (setTheme)
             {
                 case Designer.Theme.Main:
                     return _mainActivity.Translater.GetString(Resource.String.main);
@@ -350,6 +361,71 @@ namespace Organizer.Internal.Fragments
                     return _mainActivity.Translater.GetString(Resource.String.deep_water);
                 case Designer.Theme.DarkPurple:
                     return _mainActivity.Translater.GetString(Resource.String.dark_purple);
+                default:
+                    throw new ArgumentException();
+            }
+        }
+
+        private View GetChangeSortView ()
+        {
+            #region Initialize views
+
+            View view = _context.LayoutInflater.Inflate(Resource.Layout.list_item_account_change, null);
+
+            RelativeLayout backgroundLayout = view.FindViewById<RelativeLayout>(Resource.Id.ChangeBackgroundLayout);
+            RelativeLayout mainLayout = view.FindViewById<RelativeLayout>(Resource.Id.ChangeMainLayout);
+            TextView screenTextView = view.FindViewById<TextView>(Resource.Id.ChangeTextView);
+            TextView selectTextView = view.FindViewById<TextView>(Resource.Id.ChangeSelectTextView);
+
+            #endregion
+
+            screenTextView.Text = _mainActivity.Translater.GetString(Resource.String.current_sort);
+
+            #region Paint views
+
+            backgroundLayout.Background.SetColorFilter(_textFilter);
+            mainLayout.Background.SetColorFilter(_mainFilter);
+
+            screenTextView.SetTextColor(_textColor);
+            selectTextView.SetTextColor(_textColor);
+
+            #endregion
+
+            selectTextView.Text = GetSortName(Server.SortType);
+
+            mainLayout.Click += (s, e) =>
+            {
+                PopupMenu popup = PopupConstructor.GetPopupMenu(_mainActivity, view, Resource.Menu.change_sort_menu,
+                    idItems: new int[] { Resource.Id.sort_time_start, Resource.Id.sort_type},
+                    idTitles: new int[] { Resource.String.start_time, Resource.String.type});
+                popup.Show();
+
+                popup.MenuItemClick += (s, e) =>
+                {
+                    switch (e.Item.ItemId)
+                    {
+                        case Resource.Id.sort_time_start:
+                            selectTextView.Text = GetSortName((int) TaskSorter.Type.TimeStart);
+                            break;
+                        case Resource.Id.sort_type:
+                            selectTextView.Text = GetSortName((int) TaskSorter.Type.TypeTask);
+                            break;
+                    }
+                };
+            };
+
+            return view;
+        }
+
+        private string GetSortName (int sortType)
+        {
+            Server.SortType = sortType;
+            switch (sortType)
+            {
+                case (int) TaskSorter.Type.TimeStart:
+                    return _mainActivity.Translater.GetString(Resource.String.start_time);
+                case (int) TaskSorter.Type.TypeTask:
+                    return _mainActivity.Translater.GetString(Resource.String.type);
                 default:
                     throw new ArgumentException();
             }

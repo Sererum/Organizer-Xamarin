@@ -268,7 +268,7 @@ namespace Organizer.Internal.Fragments
             _projectTasksLayout.RemoveAllViews();
 
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LayoutParams.MatchParent, LayoutParams.WrapContent);
-            layoutParams.SetMargins(2, 4, 0, 4);
+            layoutParams.SetMargins(12, 10, 10, 0);
 
             foreach (BaseTask task in _projectList)
             {

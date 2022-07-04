@@ -26,6 +26,7 @@
 	<string name="current_language">Language</string>
 	<string name="current_screen">Start screen</string>
 	<string name="current_theme">Theme</string>
+	<string name="current_sort">Sort</string>
 
 	<string name="english">English</string>
 	<string name="russian">Russian</string>
@@ -42,15 +43,14 @@
 	<string name="deep_water">Deep water</string>
 	<string name="dark_purple">Dark purple</string>
 
+	<string name="type">Type</string>
+
 	<!--Menu-->
 
 	<string name="move_next">Move to next date</string>
 	<string name="move_lower">Lower to shorter date</string>
 	<string name="edit">Edit</string>
 	<string name="delete">Delete</string>
-
-	<string name="type_sort">Sort by type</string>
-	<string name="time_start_sort">Sort by time start</string>
 
 	<!--Name of periods-->
 

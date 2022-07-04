@@ -10,6 +10,7 @@
         android:layout_height="@dimen/height_tool_bar"
         android:background="@drawable/round_rect"
         android:padding="4dp"
+        android:layout_margin="6dp"
         >
     
         <EditText

@@ -54,7 +54,7 @@ namespace Organizer.Internal.ArrayAdapters
             Storage.ScheduleListTasks.Sort();
 
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LayoutParams.MatchParent, LayoutParams.WrapContent);
-            layoutParams.SetMargins(4, 7, 2, 5);
+            layoutParams.SetMargins(4, 7, 14, 5);
             bool isPast = Storage.IsPast(Storage.ScheduleDate);
 
             foreach (BaseTask task in Storage.ScheduleListTasks)

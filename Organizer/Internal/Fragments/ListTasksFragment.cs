@@ -48,7 +48,7 @@ namespace Organizer.Internal.Fragments
             _tasksLayout = view.FindViewById<LinearLayout>(Resource.Id.ListTasksLinearLayout);
 
             _periodSpinner.ItemSelected += (s, e) => PeriodSpinner_ItemSelected();
-            UpdatePeriods();
+            UpdatePeriods(firstCreate: true);
 
             _lastPeriodButton.Click += (s, e) => PeriodButton_Click(isNext: false);
             _nextPeriodButton.Click += (s, e) => PeriodButton_Click(isNext: true);
@@ -115,7 +115,7 @@ namespace Organizer.Internal.Fragments
                 viewAddButton = ViewStates.Invisible;
             }
             _addButton.Visibility = viewAddButton;
-            UpdatePeriods((int) _periodSpinner.SelectedItemId);
+            UpdatePeriods();
             UpdateListView();
         }
 
@@ -125,13 +125,13 @@ namespace Organizer.Internal.Fragments
             UpdatePeriods();
         }
 
-        public void UpdateListView ()
+        private void UpdateListView ()
         {
             Storage.MainListTasks.Sort();
             _tasksLayout.RemoveAllViews();
 
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LayoutParams.MatchParent, LayoutParams.WrapContent);
-            layoutParams.SetMargins(4, 6, 2, 6);
+            layoutParams.SetMargins(16, 12, 14, 0);
             bool isPast = Storage.IsPast(Storage.MainDate);
 
             foreach (BaseTask task in Storage.MainListTasks)
@@ -141,11 +141,16 @@ namespace Organizer.Internal.Fragments
             }
         }
 
-        private void UpdatePeriods (int selectedItem = 3)
+        private void UpdatePeriods (bool firstCreate = false)
         {
+            int selectItem = 3;
+            if (firstCreate == false)
+            {
+                selectItem = _periodSpinner.SelectedItemPosition;
+            }
             _periodSpinner.Adapter = new PeriodArrayAdapter(_context);
             _periodSpinner.SetPopupBackgroundDrawable(null);
-            _periodSpinner.SetSelection(selectedItem);
+            _periodSpinner.SetSelection(selectItem);
         }
 
         public void PaintViews ()

@@ -213,39 +213,43 @@ namespace Organizer.Internal.ArrayAdapters
             }
             _periodClick = (new Date()).Time;
 
-            int idMenu = task is Routine ? Resource.Menu.task_action_menu_routine : Resource.Menu.task_action_menu_day;
-            ListTasks currentList = new ListTasks();
-            bool disableRoutine = task is Project;
+            PopupMenu popup = new PopupMenu(_context, view);
+            popup.MenuInflater.Inflate(Resource.Menu.task_action_menu, popup.Menu);
 
+            bool enableRoutine = false;
+
+            ListTasks currentList = new ListTasks();
             Server.Period currentPeriod = Storage.MainPeriod;
             DateTime currentDate = DateTime.MinValue;
             DateTime nextDate = DateTime.MinValue;
             ListTasks nextList = null;
 
+            if (_mainActivity.CurrentFragment is ListTasksFragment == false || currentPeriod == Server.Period.Day)
+            {
+                popup.Menu.RemoveItem(Resource.Id.action_move_lower);
+                enableRoutine = task is Project == false;
+            }
+            if (task is Routine)
+            {
+                popup.Menu.RemoveItem(Resource.Id.action_move_next);
+            }
+
             if (_mainActivity.CurrentFragment is ListTasksFragment)
             {
                 currentList = Storage.MainListTasks.GetRootList(task) ?? throw new ArgumentException();
-
                 currentDate = Storage.MainDate;
-                nextDate = Storage.MainDate;
-                nextDate = nextDate.AddDays(Storage.MainPeriod == Server.Period.Day ? 1 : 0);
+                nextDate = Storage.MainDate.AddDays(Storage.MainPeriod == Server.Period.Day ? 1 : 0);
                 nextDate = nextDate.AddMonths(Storage.MainPeriod == Server.Period.Month ? 1 : 0);
                 nextDate = nextDate.AddYears(Storage.MainPeriod == Server.Period.Year ? 1 : 0);
-                if (Storage.MainPeriod == Server.Period.Month || Storage.MainPeriod == Server.Period.Year)
-                {
-                    idMenu = Resource.Menu.task_action_menu;
-                    disableRoutine = true;
-                }
+
                 if (Storage.MainPeriod == Server.Period.Global)
                 {
-                    idMenu = Resource.Menu.task_action_menu_global;
-                    disableRoutine = true;
+                    popup.Menu.RemoveItem(Resource.Id.action_move_next);
                 }
             }
             else if (_mainActivity.CurrentFragment is CalendarFragment)
             {
                 currentList = Storage.CalendarListTasks.GetRootList(task) ?? throw new ArgumentException();
-
                 currentPeriod = Server.Period.Day;
                 currentDate = Storage.CalendarDate;
                 nextDate = Storage.CalendarDate.AddDays(1);
@@ -253,7 +257,6 @@ namespace Organizer.Internal.ArrayAdapters
             else if (_mainActivity.CurrentFragment is ScheduleFragment)
             {
                 currentList = Storage.ScheduleListTasks.GetRootList(task) ?? throw new ArgumentException();
-
                 currentPeriod = Server.Period.Day;
                 currentDate = Storage.ScheduleDate;
                 nextDate = Storage.ScheduleDate.AddDays(1);
@@ -265,19 +268,18 @@ namespace Organizer.Internal.ArrayAdapters
 
             if (_isPast)
             {
-                idMenu = Resource.Menu.task_action_menu_past;
+                popup.Menu.RemoveItem(Resource.Id.action_edit);
+                popup.Menu.RemoveItem(Resource.Id.action_move_next);
+                popup.Menu.RemoveItem(Resource.Id.action_move_lower);
             }
 
-            PopupMenu popup = new PopupMenu(_context, view);
-            popup.MenuInflater.Inflate(idMenu, popup.Menu);
             popup.Show();
-
             popup.MenuItemClick += (s, e) =>
             {
                 switch (e.Item.ItemId)
                 {
                     case Resource.Id.action_edit:
-                        _mainActivity.ShowCreateFragment(currentList, task, disableRoutine);
+                        _mainActivity.ShowCreateFragment(currentList, task, enableRoutine == false);
                         break;
                     case Resource.Id.action_delete:
                         currentList.Remove(task);
