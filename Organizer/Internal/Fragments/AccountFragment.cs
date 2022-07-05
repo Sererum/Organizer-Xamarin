@@ -234,22 +234,29 @@ namespace Organizer.Internal.Fragments
             mainLayout.Click += (s, e) =>
             {
                 PopupMenu popup = PopupConstructor.GetPopupMenu(_mainActivity, view, Resource.Menu.change_screen_menu,
-                    idItems: new int[] { Resource.Id.screen_calendar, Resource.Id.screen_schedule, Resource.Id.screen_list, Resource.Id.screen_account },
-                    idTitles: new int[] { Resource.String.calendar, Resource.String.schedule, Resource.String.list_tasks, Resource.String.account });
+                    idItems: new int[] { 
+                        Resource.Id.screen_calendar, Resource.Id.screen_schedule, 
+                        Resource.Id.screen_list, Resource.Id.screen_inbox, Resource.Id.screen_account },
+                    idTitles: new int[] { 
+                        Resource.String.calendar, Resource.String.schedule, 
+                        Resource.String.list_tasks, Resource.String.inbox, Resource.String.account });
                 popup.Show();
 
                 popup.MenuItemClick += (s, e) =>
                 {
                     switch (e.Item.ItemId)
                     {
-                        case Resource.Id.screen_list:
-                            selectTextView.Text = GetScreenName((int) MainActivity.StartScreen.List);
-                            break;
                         case Resource.Id.screen_schedule:
                             selectTextView.Text = GetScreenName((int) MainActivity.StartScreen.Schedule);
                             break;
                         case Resource.Id.screen_calendar:
                             selectTextView.Text = GetScreenName((int) MainActivity.StartScreen.Calendar);
+                            break;
+                        case Resource.Id.screen_list:
+                            selectTextView.Text = GetScreenName((int) MainActivity.StartScreen.List);
+                            break;
+                        case Resource.Id.screen_inbox:
+                            selectTextView.Text = GetScreenName((int) MainActivity.StartScreen.Inbox);
                             break;
                         case Resource.Id.screen_account:
                             selectTextView.Text = GetScreenName((int) MainActivity.StartScreen.Account);
@@ -272,6 +279,8 @@ namespace Organizer.Internal.Fragments
                     return _mainActivity.Translater.GetString(Resource.String.schedule);
                 case (int) MainActivity.StartScreen.List:
                     return _mainActivity.Translater.GetString(Resource.String.list_tasks);
+                case (int) MainActivity.StartScreen.Inbox:
+                    return _mainActivity.Translater.GetString(Resource.String.inbox);
                 case (int) MainActivity.StartScreen.Account:
                     return _mainActivity.Translater.GetString(Resource.String.account);
                 default:

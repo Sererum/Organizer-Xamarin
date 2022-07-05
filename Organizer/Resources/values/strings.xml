@@ -35,6 +35,7 @@
 	<string name="calendar">Calendar</string>
 	<string name="schedule">Schedule</string>
 	<string name="list_tasks">List tasks</string>
+	<string name="inbox">Inbox list</string>
 	<string name="account">Account</string>
 
 	<string name="main">Main</string>

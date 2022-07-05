@@ -260,42 +260,6 @@
     <AndroidResource Include="Resources\menu\change_sort_menu.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-anydpi-v26\organizer_icon.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-hdpi\organizer_icon.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-mdpi\organizer_icon.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xhdpi\Organizer.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xxhdpi\organizer_icon.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xxxhdpi\organizer_icon.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-anydpi-v26\organizer_round_icon.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-hdpi\organizer_round_icon.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-mdpi\organizer_round_icon.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xhdpi\organizer_round_icon.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xxhdpi\organizer_round_icon.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xxxhdpi\organizer_round_icon.xml" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\layout\fragment_inbox.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
@@ -305,6 +269,12 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\ic_search.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\mipmap-anydpi-v26\ic_organizer_rect.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\mipmap-anydpi-v26\ic_organizer_round.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

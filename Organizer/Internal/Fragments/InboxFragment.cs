@@ -1,6 +1,7 @@
 ﻿using Android.Graphics;
 using Android.OS;
 using Android.Views;
+using Android.Views.InputMethods;
 using Android.Widget;
 using AndroidX.Fragment.App;
 using Organizer.Internal.Activity;
@@ -42,6 +43,7 @@ namespace Organizer.Internal.Fragments
             _listLayout = view.FindViewById<LinearLayout>(Resource.Id.InboxTasksLayout);
             _addButton = view.FindViewById<ImageButton>(Resource.Id.InboxAddTaskButton);
 
+            _searchEditText.ClearFocus();
             _searchEditText.Hint = _mainActivity.Translater.GetString(Resource.String.search);
             _searchEditText.AfterTextChanged += (s, e) => Search_AfterTextChanged();
 

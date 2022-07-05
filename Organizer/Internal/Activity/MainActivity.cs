@@ -56,6 +56,7 @@ namespace Organizer.Internal.Activity
 
             InitializeButtons();
             InitializeFragments(savedInstanceState);
+            Window.SetSoftInputMode(SoftInput.StateHidden);
 
             PaintActivity();
         }

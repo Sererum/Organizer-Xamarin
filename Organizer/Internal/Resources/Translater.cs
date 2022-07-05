@@ -50,6 +50,7 @@ namespace Organizer.Internal.Resources
 			{ Resource.String.calendar, new string[] { "Calendar", "Календарь" } },
 			{ Resource.String.schedule, new string[] { "Schedule", "Расписание" } },
 			{ Resource.String.list_tasks, new string[] { "List tasks", "Список задач" } },
+			{ Resource.String.inbox, new string[] { "Inbox list", "Список входящих задач" } },
 			{ Resource.String.account, new string[] { "Account", "Аккаунт" } },
 
 			{ Resource.String.main, new string[] { "Main", "Основная" } },
