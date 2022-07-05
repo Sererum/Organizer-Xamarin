@@ -17,7 +17,7 @@
             android:id="@+id/CreateTitleEditText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textSize="@dimen/title_size"
+            android:textSize="@dimen/create_title_size"
             android:textColorHint="#000"
             android:textColor="#000"
             android:inputType="textCapSentences"
@@ -32,7 +32,7 @@
         android:padding="12dp"
         android:layout_marginTop="5dp"
         android:layout_below="@id/CreateTitleLayout"
-        android:textSize="@dimen/text_size"
+        android:textSize="@dimen/create_text_size"
         android:textColorHint="#000"
         android:textColor="#000"
         android:inputType="textCapSentences | textMultiLine"
@@ -44,7 +44,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/CreateTextEditText"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         android:paddingLeft="10dp"
         android:paddingRight="20dp"
         >
@@ -55,7 +55,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:textColor="#000"
-            android:textSize="@dimen/text_size"
+            android:textSize="@dimen/create_text_size"
             />
 
         <TextView
@@ -64,7 +64,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:textColor="#000"
-            android:textSize="@dimen/text_size"
+            android:textSize="@dimen/create_text_size"
             android:text="@string/empty_time"
             />
     
@@ -75,7 +75,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/CreateStartLayout"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
         android:paddingLeft="10dp"
         android:paddingRight="20dp"
         >
@@ -86,7 +86,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:textColor="#000"
-            android:textSize="@dimen/text_size"
+            android:textSize="@dimen/create_text_size"
             />
 
         <TextView
@@ -95,7 +95,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:textColor="#000"
-            android:textSize="@dimen/text_size"
+            android:textSize="@dimen/create_text_size"
             android:text="@string/empty_time"
             />
     
@@ -106,7 +106,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/CreateEndLayout"
-        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
         android:orientation="horizontal"
         >
     
@@ -114,21 +115,23 @@
             android:id="@+id/CreateRegularRadioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/text_size"
+            android:textSize="@dimen/create_text_size"
             />
 
         <RadioButton
             android:id="@+id/CreateRoutineRadioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/text_size"
+            android:textSize="@dimen/create_text_size"
+            android:layout_marginLeft="10dp"
             />
 
         <RadioButton
             android:id="@+id/CreateProjectRadioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/text_size"
+            android:textSize="@dimen/create_text_size"
+            android:layout_marginLeft="10dp"
             />
     
     </RadioGroup>
@@ -186,7 +189,7 @@
             android:id="@+id/PriorityTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/title_size"
+            android:textSize="@dimen/create_title_size"
             android:textColor="#000"
             />
 
@@ -231,44 +234,44 @@
                 android:id="@+id/MondayCheckBox" 
                 android:layout_width="wrap_content" 
                 android:layout_height="wrap_content" 
-                android:textSize="@dimen/text_size"
+                android:textSize="@dimen/create_text_size"
                 />
             <CheckBox 
                 android:id="@+id/TuesdayCheckBox" 
                 android:layout_width="wrap_content" 
                 android:layout_height="wrap_content" 
                 android:layout_toEndOf="@id/MondayCheckBox" 
-                android:textSize="@dimen/text_size"/>
+                android:textSize="@dimen/create_text_size"/>
             <CheckBox 
                 android:id="@+id/WednesdayCheckBox" 
                 android:layout_width="wrap_content" 
                 android:layout_height="wrap_content" 
                 android:layout_toEndOf="@id/TuesdayCheckBox" 
-                android:textSize="@dimen/text_size"/>
+                android:textSize="@dimen/create_text_size"/>
             <CheckBox 
                 android:id="@+id/ThursdayCheckBox" 
                 android:layout_width="wrap_content" 
                 android:layout_height="wrap_content" 
                 android:layout_toEndOf="@id/WednesdayCheckBox" 
-                android:textSize="@dimen/text_size"/>
+                android:textSize="@dimen/create_text_size"/>
             <CheckBox 
                 android:id="@+id/FridayCheckBox" 
                 android:layout_width="wrap_content" 
                 android:layout_height="wrap_content" 
                 android:layout_toEndOf="@id/ThursdayCheckBox" 
-                android:textSize="@dimen/text_size"/>
+                android:textSize="@dimen/create_text_size"/>
             <CheckBox 
                 android:id="@+id/SaturdayCheckBox" 
                 android:layout_width="wrap_content" 
                 android:layout_height="wrap_content" 
                 android:layout_toEndOf="@id/FridayCheckBox" 
-                android:textSize="@dimen/text_size"/>
+                android:textSize="@dimen/create_text_size"/>
             <CheckBox 
                 android:id="@+id/SundayCheckBox" 
                 android:layout_width="wrap_content" 
                 android:layout_height="wrap_content" 
                 android:layout_toEndOf="@id/SaturdayCheckBox" 
-                android:textSize="@dimen/text_size"/>
+                android:textSize="@dimen/create_text_size"/>
     
         </RelativeLayout>
     

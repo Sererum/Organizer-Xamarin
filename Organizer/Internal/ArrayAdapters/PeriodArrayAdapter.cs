@@ -3,17 +3,18 @@ using Android.Views;
 using Android.Widget;
 using Organizer.Internal.Activity;
 using Organizer.Internal.Data;
+using System;
 using Period = Organizer.Internal.Data.Server.Period;
 
 namespace Organizer.Internal.ArrayAdapters
 {
     class PeriodArrayAdapter : BaseAdapter<string>
     {
-        private Android.App.Activity _context;
-        private MainActivity _mainActivity;
+        private readonly Android.App.Activity _context;
+        private readonly MainActivity _mainActivity;
         private string[] _namePeriods = new string[4];
 
-        public PeriodArrayAdapter (Android.App.Activity context)
+        public PeriodArrayAdapter (Android.App.Activity context, bool firstCreate = false)
         {
             _context = context;
             _mainActivity = context as MainActivity;
@@ -27,6 +28,8 @@ namespace Organizer.Internal.ArrayAdapters
 
         public override View GetView (int position, View convertView, ViewGroup parent)
         {
+            #region Initialize
+
             View view = convertView;
 
             if (view is null)
@@ -37,12 +40,32 @@ namespace Organizer.Internal.ArrayAdapters
             RelativeLayout mainLayout = view.FindViewById<RelativeLayout>(Resource.Id.PeriodItemMainLayout);
             TextView namePeriodView = view.FindViewById<TextView>(Resource.Id.NamePeriodTextView);
 
-            string text = NameDatePeriod.GetNameDate(Storage.MainDate, (Period) position);
+            #endregion
+
+            string text = "";
+            switch ((Period) position)
+            {
+                case Period.Day:
+                    text = NameDatePeriod.GetNameDate(Storage.DayDate, Period.Day);
+                    break;
+                case Period.Month:
+                    text = NameDatePeriod.GetNameDate(Storage.MonthDate, Period.Month);
+                    break;
+                case Period.Year:
+                    text = NameDatePeriod.GetNameDate(Storage.YearDate, Period.Year);
+                    break;
+                case Period.Global:
+                    text = NameDatePeriod.GetNameDate(DateTime.Now, Period.Global);
+                    break;
+            }
+
             namePeriodView.Text = text;
             _namePeriods[position] = text;
 
             int verticalPadding = (int) (_context.Resources.GetDimension(Resource.Dimension.height_tool_bar) - Storage.DpToPx(39));
             namePeriodView.SetPadding(0, verticalPadding / 2, 0, verticalPadding / 2);
+
+            #region Paint view
 
             Color textColor = Storage.GetColor(_mainActivity.Designer.GetIdTextColor());
             PorterDuffColorFilter textFilter = new PorterDuffColorFilter(textColor, PorterDuff.Mode.SrcAtop);
@@ -53,6 +76,8 @@ namespace Organizer.Internal.ArrayAdapters
 
             mainLayout.Background.SetColorFilter(textFilter);
             namePeriodView.SetTextColor(textColor);
+
+            #endregion
 
             return view;
         }

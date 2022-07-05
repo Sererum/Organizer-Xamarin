@@ -160,7 +160,7 @@ namespace Organizer.Internal.Fragments
             priorityTextView.Text = _mainActivity.Translater.GetString(Resource.String.regular_priority);
             routineDaysTextView.Text = _mainActivity.Translater.GetString(Resource.String.routine_days);
 
-            int length = 2;
+            int length = 1;
             _sundayCheckBox.Text = _mainActivity.Translater.GetString(Resource.String.sunday_short).Substring(0, length);
             _mondayCheckBox.Text = _mainActivity.Translater.GetString(Resource.String.monday_short).Substring(0, length);
             _tuesdayCheckBox.Text = _mainActivity.Translater.GetString(Resource.String.tuesday_short).Substring(0, length);

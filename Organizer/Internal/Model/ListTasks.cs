@@ -30,19 +30,23 @@ namespace Organizer.Internal.Model
                 {
                     continue;
                 }
-                int typeTask = Int32.Parse(sTask.Split(BaseTask.TaskSep)[0].ToString());
-                switch (typeTask)
+                try
                 {
-                    case (int) BaseTask.Type.Project:
-                        _tasks.Add(new Project(sTask));
-                        break;
-                    case (int) BaseTask.Type.Regular:
-                        _tasks.Add(new Regular(sTask));
-                        break;
-                    case (int) BaseTask.Type.Routine:
-                        _tasks.Add(new Routine(sTask));
-                        break;
+                    int typeTask = Int32.Parse(sTask.Split(BaseTask.TaskSep)[0].ToString());
+                    switch (typeTask)
+                    {
+                        case (int) BaseTask.Type.Project:
+                            _tasks.Add(new Project(sTask));
+                            break;
+                        case (int) BaseTask.Type.Regular:
+                            _tasks.Add(new Regular(sTask));
+                            break;
+                        case (int) BaseTask.Type.Routine:
+                            _tasks.Add(new Routine(sTask));
+                            break;
+                    }
                 }
+                catch (Exception) { }
             }
         }
 

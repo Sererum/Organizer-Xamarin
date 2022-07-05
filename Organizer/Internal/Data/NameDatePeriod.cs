@@ -31,30 +31,30 @@ namespace Organizer.Internal.Data
                     nameDate += ", " + mainActivity.Translater.GetString(Storage.DayWeekToNameId[(int) date.DayOfWeek]);
                     break;
                 case Period.Month:
-                    if (Storage.EqualsDate(date, now.AddMonths(-1)))
+                    if (Storage.EqualsMonths(date, now.AddMonths(-1)))
                     {
                         nameDate += mainActivity.Translater.GetString(Resource.String.last_month) + ", ";
                     }
-                    if (Storage.EqualsDate(date, now))
+                    if (Storage.EqualsMonths(date, now))
                     {
                         nameDate += mainActivity.Translater.GetString(Resource.String.this_month) + ", ";
                     }
-                    if (Storage.EqualsDate(date, now.AddMonths(1)))
+                    if (Storage.EqualsMonths(date, now.AddMonths(1)))
                     {
                         nameDate += mainActivity.Translater.GetString(Resource.String.next_month) + ", ";
                     }
                     nameDate += Server.GetKey(date, Period.Month);
                     break;
                 case Period.Year:
-                    if (Storage.EqualsDate(date, now.AddYears(-1)))
+                    if (Storage.EqualsYears(date, now.AddYears(-1)))
                     {
                         nameDate += mainActivity.Translater.GetString(Resource.String.last_year) + ", ";
                     }
-                    if (Storage.EqualsDate(date, now))
+                    if (Storage.EqualsYears(date, now))
                     {
                         nameDate += mainActivity.Translater.GetString(Resource.String.this_year) + ", ";
                     }
-                    if (Storage.EqualsDate(date, now.AddYears(1)))
+                    if (Storage.EqualsYears(date, now.AddYears(1)))
                     {
                         nameDate += mainActivity.Translater.GetString(Resource.String.next_year) + ", ";
                     }

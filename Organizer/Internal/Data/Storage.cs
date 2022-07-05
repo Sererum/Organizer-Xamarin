@@ -24,6 +24,10 @@ namespace Organizer.Internal.Data
 
         private static Period _mainPeriod = Period.Day;
 
+        private static DateTime _dayDate = DateTime.Now;
+        private static DateTime _monthDate = DateTime.Now;
+        private static DateTime _yearDate = DateTime.Now;
+
         public static ListTasks MainListTasks => _mainListTasks;
         public static ListTasks CalendarListTasks => _calendarListTasks;
         public static ListTasks ScheduleListTasks => _scheduleListTasks;
@@ -33,6 +37,10 @@ namespace Organizer.Internal.Data
         public static DateTime ScheduleDate => _scheduleDate;
 
         public static Period MainPeriod => _mainPeriod;
+
+        public static DateTime DayDate => _dayDate;
+        public static DateTime MonthDate => _monthDate;
+        public static DateTime YearDate => _yearDate;
 
         public static Android.App.Activity Context { get; set; }
 
@@ -51,6 +59,11 @@ namespace Organizer.Internal.Data
         {
             SetList(_mainPeriod, _mainDate, _mainListTasks);
             _mainPeriod = period;
+
+            _dayDate = period == Period.Day ? date : _dayDate;
+            _monthDate = period == Period.Month ? date : _monthDate;
+            _yearDate = period == Period.Year ? date : _yearDate;
+
             _mainDate = date;
             _mainListTasks = GetList(_mainPeriod, _mainDate);
         }
@@ -185,6 +198,10 @@ namespace Organizer.Internal.Data
         public static string TimeToStandart (int hour, int minute) => (hour <= 9 ? "0" : "") + hour + ":" + (minute <= 9 ? "0" : "") + minute;
 
         public static bool EqualsDate (DateTime dateOne, DateTime dateTwo) => dateOne.ToShortDateString() == dateTwo.ToShortDateString();
+
+        public static bool EqualsMonths (DateTime dateOne, DateTime dateTwo) => dateOne.Month == dateTwo.Month && dateOne.Year == dateTwo.Year;
+
+        public static bool EqualsYears(DateTime dateOne, DateTime dateTwo) => dateOne.Year == dateTwo.Year;
 
         public static bool IsPast (DateTime date)
             => DateTime.Now.CompareTo(date) > 0 && EqualsDate(DateTime.Now, date) == false;

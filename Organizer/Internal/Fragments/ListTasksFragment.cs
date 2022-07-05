@@ -115,8 +115,7 @@ namespace Organizer.Internal.Fragments
                 viewAddButton = ViewStates.Invisible;
             }
             _addButton.Visibility = viewAddButton;
-            UpdatePeriods();
-            UpdateListView();
+            Update();
         }
 
         public void Update ()
@@ -148,7 +147,7 @@ namespace Organizer.Internal.Fragments
             {
                 selectItem = _periodSpinner.SelectedItemPosition;
             }
-            _periodSpinner.Adapter = new PeriodArrayAdapter(_context);
+            _periodSpinner.Adapter = new PeriodArrayAdapter(_context, firstCreate: firstCreate);
             _periodSpinner.SetPopupBackgroundDrawable(null);
             _periodSpinner.SetSelection(selectItem);
         }

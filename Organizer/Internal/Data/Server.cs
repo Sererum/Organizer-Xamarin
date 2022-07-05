@@ -124,7 +124,7 @@ namespace Organizer.Internal.Data
                 case Period.Day:
                     return day + "/" + month + "/" + year;
                 case Period.Month:
-                    return month + "/" + year;
+                    return month + "/" + (year % 100);
                 case Period.Year:
                     return year.ToString();
             }
