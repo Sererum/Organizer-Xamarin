@@ -11,10 +11,16 @@ namespace Organizer.Internal.Data
     public static class Server
     {
         public enum Period { Global, Year, Month, Day }
-        private enum Key { Global, Routine, Sort, Language, Screen, Theme }
+        private enum Key { Global, Inbox, Routine, Sort, Language, Screen, Theme }
 
         private static ISharedPreferences _preferences = Application.Context.GetSharedPreferences("Settings", FileCreationMode.Private);
         private static ISharedPreferencesEditor _preferencesEdit = _preferences.Edit();
+
+        public static ListTasks InboxList
+        {
+            get { return new ListTasks(_preferences.GetString(Key.Inbox.ToString(), "")); }
+            set { _preferencesEdit.PutString(Key.Inbox.ToString(), value.Archive()).Commit(); }
+        }
 
         public static ListTasks Routines
         {

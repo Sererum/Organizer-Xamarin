@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/InboxSearchLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_tool_bar"
+        android:background="@drawable/round_rect"
+        android:padding="1dp"
+        tools:ignore="PossiblyUselessParentWithBackground"
+        >
+
+        <TextView
+            android:id="@+id/InboxSearchTextView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/round_rect"
+            />
+
+        <ImageButton
+            android:id="@+id/InboxSearchButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/ic_search"
+            android:layout_alignParentRight="true"
+            android:contentDescription="@string/description_search_task" 
+            />
+
+        <EditText
+            android:id="@+id/InboxSearchEditText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_toLeftOf="@id/InboxSearchButton"
+            android:inputType="textCapSentences"
+            />
+
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/InboxTasksListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/InboxSearchLayout"
+        />
+
+</RelativeLayout>

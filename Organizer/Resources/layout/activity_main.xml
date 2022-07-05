@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/MainButtonsLayout"
+        android:minHeight="800dp"
         />
 
     <RelativeLayout
@@ -28,7 +29,7 @@
             android:layout_width="@dimen/height_tool_bar"
             android:layout_height="@dimen/height_tool_bar"
             android:layout_toLeftOf="@id/MainScheduleButton"
-            android:layout_marginRight="30dp"
+            android:layout_marginRight="15dp"
             android:background="@drawable/ic_calendar"
             android:contentDescription="@string/description_calendar_button" 
             />
@@ -37,35 +38,37 @@
             android:id="@+id/MainScheduleButton"
             android:layout_width="@dimen/height_tool_bar"
             android:layout_height="@dimen/height_tool_bar"
-            android:layout_toLeftOf="@id/CenterButtonsLayout"
+            android:layout_toLeftOf="@id/MainListButton"
             android:layout_marginRight="15dp"
             android:background="@drawable/ic_schedule"
             android:contentDescription="@string/description_schedule_button" 
-            />
-
-        <TextView
-            android:id="@+id/CenterButtonsLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_centerHorizontal="true"
             />
 
         <ImageButton
             android:id="@+id/MainListButton"
             android:layout_width="@dimen/height_tool_bar"
             android:layout_height="@dimen/height_tool_bar"
-            android:layout_toRightOf="@id/CenterButtonsLayout"
-            android:layout_marginLeft="15dp"
+            android:layout_centerHorizontal="true"
             android:background="@drawable/ic_list"
             android:contentDescription="@string/description_list_button" 
+            />
+
+        <ImageButton
+            android:id="@+id/MainInboxButton"
+            android:layout_width="@dimen/height_tool_bar"
+            android:layout_height="@dimen/height_tool_bar"
+            android:layout_toRightOf="@id/MainListButton"
+            android:layout_marginLeft="15dp"
+            android:background="@drawable/ic_inbox"
+            android:contentDescription="@string/description_account_button" 
             />
 
         <ImageButton
             android:id="@+id/MainAccountButton"
             android:layout_width="@dimen/height_tool_bar"
             android:layout_height="@dimen/height_tool_bar"
-            android:layout_toRightOf="@id/MainListButton"
-            android:layout_marginLeft="30dp"
+            android:layout_toRightOf="@id/MainInboxButton"
+            android:layout_marginLeft="15dp"
             android:background="@drawable/ic_account"
             android:contentDescription="@string/description_account_button" 
             />

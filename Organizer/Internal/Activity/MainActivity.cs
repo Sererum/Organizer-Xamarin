@@ -1,6 +1,8 @@
 ﻿using Android.App;
 using Android.Graphics;
 using Android.OS;
+using Android.Util;
+using Android.Views;
 using Android.Widget;
 using AndroidX.AppCompat.App;
 using Organizer.Internal.Data;
@@ -8,7 +10,9 @@ using Organizer.Internal.Fragments;
 using Organizer.Internal.Model;
 using Organizer.Internal.Model.Task;
 using Organizer.Internal.Resources;
+using System;
 using System.Collections.Generic;
+using System.Runtime.Remoting.Contexts;
 using Fragment = AndroidX.Fragment.App.Fragment;
 
 namespace Organizer.Internal.Activity
@@ -16,22 +20,26 @@ namespace Organizer.Internal.Activity
     [Activity(Theme = "@style/AppTheme", MainLauncher = true)]
     public class MainActivity : AppCompatActivity
     {
-        public enum StartScreen { List, Calendar, Schedule, Account }
+        public enum StartScreen { Calendar, Schedule, List, Inbox, Account }
 
-        private ListTasksFragment _listTasksFragment;
         private CalendarFragment _calendarFragment;
         private ScheduleFragment _scheduleFragment;
+        private ListTasksFragment _listTasksFragment;
+        private InboxFragment _inboxFragment;
         private AccountFragment _accountFragment;
         private CreateFragment _createFragment;
 
         private Fragment _currentFragment;
         private Stack<Fragment> _lastFragments;
+        private Fragment[] _fragments;
+
         private Translater _translater;
         private Designer _designer;
 
         private ImageButton _calendarButton;
         private ImageButton _scheduleButton;
         private ImageButton _listTasksButton;
+        private ImageButton _inboxButton;
         private ImageButton _accountButton;
 
         public Fragment CurrentFragment => _currentFragment;
@@ -63,11 +71,13 @@ namespace Organizer.Internal.Activity
             _calendarButton = FindViewById<ImageButton>(Resource.Id.MainCalendarButton);
             _scheduleButton = FindViewById<ImageButton>(Resource.Id.MainScheduleButton);
             _listTasksButton = FindViewById<ImageButton>(Resource.Id.MainListButton);
+            _inboxButton = FindViewById<ImageButton>(Resource.Id.MainInboxButton);
             _accountButton = FindViewById<ImageButton>(Resource.Id.MainAccountButton);
 
             _calendarButton.Click += (s, e) => ShowFragment(_calendarFragment);
             _scheduleButton.Click += (s, e) => ShowFragment(_scheduleFragment);
             _listTasksButton.Click += (s, e) => ShowFragment(_listTasksFragment);
+            _inboxButton.Click += (s, e) => ShowFragment(_inboxFragment);
             _accountButton.Click += (s, e) => ShowFragment(_accountFragment);
         }
 
@@ -76,19 +86,20 @@ namespace Organizer.Internal.Activity
         {
             _lastFragments = new Stack<Fragment>();
 
-            _listTasksFragment = new ListTasksFragment(this);
             _calendarFragment = new CalendarFragment(this);
             _scheduleFragment = new ScheduleFragment(this);
+            _listTasksFragment = new ListTasksFragment(this);
+            _inboxFragment = new InboxFragment(this);
             _accountFragment = new AccountFragment(this);
 
-            Fragment[] fragments = { _listTasksFragment, _calendarFragment, _scheduleFragment, _accountFragment };
+            _fragments = new Fragment[] { _calendarFragment, _scheduleFragment, _listTasksFragment, _inboxFragment, _accountFragment };
 
-            _currentFragment = fragments[Server.StartScreen];
+            _currentFragment = _fragments[Server.StartScreen];
 
             var fragmentTransaction = SupportFragmentManager.BeginTransaction();
             if (savedInstanceState is null)
             {
-                foreach (Fragment fragment in fragments)
+                foreach (Fragment fragment in _fragments)
                 {
                     fragmentTransaction.Add(Resource.Id.MainFragmentLayout, fragment).Hide(fragment);
                 }
@@ -135,15 +146,17 @@ namespace Organizer.Internal.Activity
             _listTasksFragment.Update();
             _calendarFragment.UpdateListView();
             _scheduleFragment.UpdateListView();
+            _inboxFragment.UpdateListView();
             _accountFragment.UpdateListView();
         }
 
         public void RepaintFragments ()
         {
             PaintActivity();
-            _listTasksFragment.PaintViews();
             _calendarFragment.PaintViews();
             _scheduleFragment.PaintViews();
+            _listTasksFragment.PaintViews();
+            _inboxFragment.PaintViews();
             _accountFragment.UpdateListView();
         }
 
@@ -174,6 +187,7 @@ namespace Organizer.Internal.Activity
             _calendarButton.Background.SetColorFilter(CurrentFragment is CalendarFragment ? toolElementsFilter : colorFilter);
             _scheduleButton.Background.SetColorFilter(CurrentFragment is ScheduleFragment ? toolElementsFilter : colorFilter);
             _listTasksButton.Background.SetColorFilter(CurrentFragment is ListTasksFragment ? toolElementsFilter : colorFilter);
+            _inboxButton.Background.SetColorFilter(CurrentFragment is ListTasksFragment ? toolElementsFilter : colorFilter);
             _accountButton.Background.SetColorFilter(CurrentFragment is AccountFragment ? toolElementsFilter : colorFilter);
 
         }

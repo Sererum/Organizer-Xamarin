@@ -55,16 +55,6 @@
             android:contentDescription="@string/description_next_button"
             />
 
-        <ImageButton
-            android:id="@+id/ListSortButton"
-            android:layout_width="60dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:background="@drawable/ic_sort"
-            android:contentDescription="@string/description_sort_button"
-            android:visibility="gone"
-            />
-    
     </RelativeLayout>
 
     <ScrollView

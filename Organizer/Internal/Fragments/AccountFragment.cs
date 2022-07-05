@@ -64,6 +64,8 @@ namespace Organizer.Internal.Fragments
             _mainLayout.AddView(GetTitleView(Resource.String.title_statistics), titleParams);
             _mainLayout.AddView(GetCounterView(), layoutParams);
 
+            _mainLayout.AddView(GetTitleView(Resource.String.title_time_management), titleParams);
+
             _mainLayout.AddView(GetTitleView(Resource.String.title_settings), titleParams);
             _mainLayout.AddView(GetChangeLanguageView(), layoutParams);
             _mainLayout.AddView(GetChangeMainScreenView(), layoutParams);

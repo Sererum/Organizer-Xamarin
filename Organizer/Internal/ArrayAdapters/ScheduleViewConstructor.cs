@@ -59,7 +59,7 @@ namespace Organizer.Internal.ArrayAdapters
 
             foreach (BaseTask task in Storage.ScheduleListTasks)
             {
-                if (HourContainsTask(task, sStartHour, sEndHour))
+                if (task.StartTime != "" && task.EndTime != "" && HourContainsTask(task, sStartHour, sEndHour))
                 {
                     TaskViewConstructor constructor = new TaskViewConstructor(_context, isPast);
                     tasksLayout.AddView(constructor.GetTaskView(task), layoutParams);

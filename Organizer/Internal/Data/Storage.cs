@@ -17,6 +17,7 @@ namespace Organizer.Internal.Data
         private static ListTasks _mainListTasks;
         private static ListTasks _calendarListTasks;
         private static ListTasks _scheduleListTasks;
+        private static ListTasks _inboxListTasks;
 
         private static DateTime _mainDate = DateTime.Now;
         private static DateTime _calendarDate = DateTime.Now;
@@ -31,6 +32,7 @@ namespace Organizer.Internal.Data
         public static ListTasks MainListTasks => _mainListTasks;
         public static ListTasks CalendarListTasks => _calendarListTasks;
         public static ListTasks ScheduleListTasks => _scheduleListTasks;
+        public static ListTasks InboxListTasks => _inboxListTasks;
 
         public static DateTime MainDate => _mainDate;
         public static DateTime CalendarDate => _calendarDate;
@@ -52,6 +54,7 @@ namespace Organizer.Internal.Data
             _mainListTasks = GetList(Period.Day, DateTime.Now);
             _calendarListTasks = GetList(Period.Day, DateTime.Now);
             _scheduleListTasks = GetList(Period.Day, DateTime.Now);
+            _inboxListTasks = InboxList;
             Context = context;
         }
 
@@ -84,9 +87,10 @@ namespace Organizer.Internal.Data
 
         public static void SaveListsTasks ()
         {
-             SetList(_mainPeriod, _mainDate, _mainListTasks);
-             SetList(Period.Day, _calendarDate, _calendarListTasks);
-             SetList(Period.Day, _scheduleDate, _scheduleListTasks);
+            SetList(_mainPeriod, _mainDate, _mainListTasks);
+            SetList(Period.Day, _calendarDate, _calendarListTasks);
+            SetList(Period.Day, _scheduleDate, _scheduleListTasks);
+            InboxList = _inboxListTasks;
         }
 
         public static void SynchronizeLists (Fragment currentFragment)

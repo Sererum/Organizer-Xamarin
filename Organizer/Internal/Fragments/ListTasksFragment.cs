@@ -23,7 +23,6 @@ namespace Organizer.Internal.Fragments
         private Spinner _periodSpinner;
         private ImageButton _nextPeriodButton;
         private ImageButton _lastPeriodButton;
-        private ImageButton _sortButton;
         private ImageButton _addButton;
         private LinearLayout _tasksLayout;
 
@@ -43,7 +42,6 @@ namespace Organizer.Internal.Fragments
             _periodSpinner = view.FindViewById<Spinner>(Resource.Id.ListPeriodSpinner);
             _lastPeriodButton = view.FindViewById<ImageButton>(Resource.Id.ListLastPeriodButton);
             _nextPeriodButton = view.FindViewById<ImageButton>(Resource.Id.ListNextPeriodButton);
-            _sortButton = view.FindViewById<ImageButton>(Resource.Id.ListSortButton);
             _addButton = view.FindViewById<ImageButton>(Resource.Id.ListAddTaskButton);
             _tasksLayout = view.FindViewById<LinearLayout>(Resource.Id.ListTasksLinearLayout);
 
@@ -52,7 +50,6 @@ namespace Organizer.Internal.Fragments
 
             _lastPeriodButton.Click += (s, e) => PeriodButton_Click(isNext: false);
             _nextPeriodButton.Click += (s, e) => PeriodButton_Click(isNext: true);
-            _sortButton.Click += (s, e) => SortButton_Click(_sortButton);
             _addButton.Click += (s, e) => _mainActivity.ShowCreateFragment(Storage.MainListTasks);
 
             UpdateListView();
@@ -168,7 +165,6 @@ namespace Organizer.Internal.Fragments
 
             _lastPeriodButton.Background.SetColorFilter(buttonFilter);
             _nextPeriodButton.Background.SetColorFilter(buttonFilter);
-            _sortButton.Background.SetColorFilter(buttonFilter);
             _addButton.Background.SetColorFilter(buttonFilter);
         }
     }

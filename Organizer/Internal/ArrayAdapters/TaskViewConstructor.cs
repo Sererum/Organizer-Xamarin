@@ -19,6 +19,7 @@ namespace Organizer.Internal.ArrayAdapters
         private readonly MainActivity _mainActivity;
         private readonly bool _isPast;
         private readonly bool _isSimple;
+        private readonly bool _isInbox;
         private long _periodClick;
 
         private CheckBox _completeCheckBox;
@@ -33,12 +34,13 @@ namespace Organizer.Internal.ArrayAdapters
         private LinearLayout _tasksListLayout;
         private ImageButton _hideTasksButton;
 
-        public TaskViewConstructor (Android.App.Activity context, bool isPast = false, bool isSimple = false)
+        public TaskViewConstructor (Android.App.Activity context, bool isPast = false, bool isSimple = false, bool isInbox = false)
         {
             _context = context;
             _mainActivity = context as MainActivity;
             _isPast = isPast;
             _isSimple = isSimple;
+            _isInbox = isInbox;
             _periodClick = (new Date()).Time;
         }
 

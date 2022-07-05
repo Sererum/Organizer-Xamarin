@@ -59,6 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/TaskTypeLayout"
             android:layout_toLeftOf="@id/TaskHideProjectButton"
+            android:gravity="center_vertical"
             android:minHeight="38dp"
             
             android:paddingTop="3dp"

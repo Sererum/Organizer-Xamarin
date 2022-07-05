@@ -240,9 +240,20 @@ namespace Organizer.Internal.Fragments
             return view;
         }
 
-        private void TimeLayout_Click (TextView textView) => new TimePickerDialog(
-                _context, (s, e) => textView.Text = Storage.TimeToStandart(e.HourOfDay, e.Minute),
-                DateTime.Now.Hour, DateTime.Now.Minute, true).Show();
+        private void TimeLayout_Click (TextView textView)
+        {
+            int hour = DateTime.Now.Hour;
+            int minute = DateTime.Now.Minute;
+            string emptyTime = _context.GetString(Resource.String.empty_time);
+            if (textView.Text != emptyTime)
+            {
+                hour = Int32.Parse(textView.Text.Substring(0, 2));
+                minute = Int32.Parse(textView.Text.Substring(3, 2));
+            }
+            new TimePickerDialog(
+                _context, (s, e) => textView.Text = Storage.TimeToStandart(e.HourOfDay, e.Minute), hour, minute, true
+                ).Show();
+        }
 
         private void ChangeTasksLayoutVisible ()
         {
