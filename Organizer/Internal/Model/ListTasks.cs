@@ -186,6 +186,8 @@ namespace Organizer.Internal.Model
             _tasks.Sort((taskOne, taskTwo) => TaskSorter.Compare(taskOne, taskTwo));
         }
 
+        public void Sort (Comparison<BaseTask> comparison) => _tasks.Sort(comparison);
+
         public void Synchronize(ListTasks list)
         {
             Sort();

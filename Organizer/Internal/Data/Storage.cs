@@ -227,6 +227,38 @@ namespace Organizer.Internal.Data
 
         public static Color GetColor(int id) => new Color(ContextCompat.GetColor(Context, id));
 
+        public static int GetEditRatio (string searchText, string compareText)
+        {
+            int lengthSearch = searchText.Length + 1;
+            int lengthCompare = compareText.Length + 1;
+            int[,] matrix = new int[lengthSearch, lengthCompare];
+
+            if (lengthSearch == 1 || lengthCompare == 1)
+            {
+                return lengthSearch == 1 ? lengthCompare - 1 : lengthSearch - 1;
+            }
+
+            searchText = searchText.ToLower();
+            compareText = compareText.ToLower();
+
+            for (int i = 0; i < lengthSearch; matrix[i, 0] = i++){ }
+            for (int j = 0; j < lengthCompare; matrix[0, j] = j++){ }
+
+            for (int i = 1; i < lengthSearch; i++)
+            {
+                for (int j = 1; j < lengthCompare; j++)
+                {
+                    int cost = (searchText[i - 1] == compareText[j - 1]) ? 0 : 1;
+                    matrix[i, j] = Math.Min(Math.Min(matrix[i - 1, j] + 1, matrix[i, j - 1] + 1), matrix[i - 1, j - 1] + cost);
+                }
+            }
+            if (lengthCompare > lengthSearch)
+            {
+                return matrix[lengthSearch - 1, lengthCompare - 1] - (lengthCompare - lengthSearch);
+            } 
+            return matrix[lengthSearch - 1, lengthCompare - 1];
+        }
+
         #endregion
     }
 }

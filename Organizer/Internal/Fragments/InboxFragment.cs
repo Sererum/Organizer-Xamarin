@@ -6,7 +6,9 @@ using AndroidX.Fragment.App;
 using Organizer.Internal.Activity;
 using Organizer.Internal.ArrayAdapters;
 using Organizer.Internal.Data;
+using Organizer.Internal.Model;
 using Organizer.Internal.Model.Task;
+using System.Collections.Generic;
 using static Android.App.ActionBar;
 
 namespace Organizer.Internal.Fragments
@@ -41,6 +43,7 @@ namespace Organizer.Internal.Fragments
             _addButton = view.FindViewById<ImageButton>(Resource.Id.InboxAddTaskButton);
 
             _searchEditText.Hint = _mainActivity.Translater.GetString(Resource.String.search);
+            _searchEditText.AfterTextChanged += (s, e) => Search_AfterTextChanged();
 
             _addButton.Click += (s, e) => _mainActivity.ShowCreateFragment(Storage.InboxListTasks, disableRoutine: true);
 
@@ -50,16 +53,36 @@ namespace Organizer.Internal.Fragments
             return view;
         }
 
-        public void UpdateListView ()
+        private void Search_AfterTextChanged ()
         {
-            Storage.InboxListTasks.Sort();
+            ListTasks nowList = new ListTasks();
+            string searchText = _searchEditText.Text;
+
+            foreach (BaseTask task in Storage.InboxListTasks)
+            {
+                string title = task.Title;
+                if (Storage.GetEditRatio(searchText, title) < 2)
+                {
+                    nowList.Add(task);
+                }
+            }
+            nowList.Sort((task1, task2) => Storage.GetEditRatio(searchText, task1.Title) - Storage.GetEditRatio(searchText, task2.Title));
+            UpdateListView(searchText == "" ? null : nowList);
+        }
+
+        public void UpdateListView (ListTasks list = null)
+        {
+            if (list is null)
+            {
+                list = Storage.InboxListTasks;
+                list.Sort();
+            }
 
             _listLayout.RemoveAllViews();
-
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LayoutParams.MatchParent, LayoutParams.WrapContent);
             layoutParams.SetMargins(16, 12, 14, 0);
 
-            foreach (BaseTask task in Storage.InboxListTasks)
+            foreach (BaseTask task in list)
             {
                 TaskViewConstructor constructor = new TaskViewConstructor (_context, isInbox: true);
                 _listLayout.AddView(constructor.GetTaskView(task), layoutParams);
