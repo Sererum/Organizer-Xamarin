@@ -216,21 +216,24 @@ namespace Organizer.Internal.ArrayAdapters
             _periodClick = (new Date()).Time;
 
             PopupMenu popup = PopupConstructor.GetPopupMenu(_mainActivity, view, Resource.Menu.task_action_menu,
-                idItems: new int[] { Resource.Id.action_move_next, Resource.Id.action_move_lower, Resource.Id.action_edit, Resource.Id.action_delete },
-                idTitles: new int[] { Resource.String.move_next, Resource.String.move_lower, Resource.String.edit, Resource.String.delete });
+                idItems: new int[] { 
+                    Resource.Id.action_move_next, Resource.Id.action_move_lower, Resource.Id.action_edit, Resource.Id.action_delete,
+                    Resource.Id.action_move_today, Resource.Id.action_move_this_month, Resource.Id.action_move_this_year, Resource.Id.action_move_main_tasks},
+                idTitles: new int[] { 
+                    Resource.String.move_next, Resource.String.move_lower, Resource.String.edit, Resource.String.delete,
+                    Resource.String.move_today, Resource.String.move_this_month, Resource.String.move_this_year, Resource.String.move_main_tasks});
 
             bool enableRoutine = false;
 
-            ListTasks currentList = new ListTasks();
-            Server.Period currentPeriod = Storage.MainPeriod;
+            ListTasks currentList;
             DateTime currentDate = DateTime.MinValue;
             DateTime nextDate = DateTime.MinValue;
-            ListTasks nextList = null;
+            Server.Period currentPeriod = _mainActivity.CurrentFragment is ListTasksFragment ? Storage.MainPeriod : Server.Period.Day;
 
             if (_mainActivity.CurrentFragment is ListTasksFragment == false || currentPeriod == Server.Period.Day)
             {
                 popup.Menu.RemoveItem(Resource.Id.action_move_lower);
-                enableRoutine = task is Project == false;
+                enableRoutine = (task is Project == false);
             }
             if (task is Routine)
             {
@@ -241,10 +244,10 @@ namespace Organizer.Internal.ArrayAdapters
             {
                 currentList = Storage.MainListTasks.GetRootList(task) ?? throw new ArgumentException();
                 currentDate = Storage.MainDate;
-                nextDate = Storage.MainDate.AddDays(Storage.MainPeriod == Server.Period.Day ? 1 : 0);
-                nextDate = nextDate.AddMonths(Storage.MainPeriod == Server.Period.Month ? 1 : 0);
-                nextDate = nextDate.AddYears(Storage.MainPeriod == Server.Period.Year ? 1 : 0);
-
+                nextDate = Storage.MainDate
+                    .AddDays(Storage.MainPeriod == Server.Period.Day ? 1 : 0)
+                    .AddMonths(Storage.MainPeriod == Server.Period.Month ? 1 : 0)
+                    .AddYears(Storage.MainPeriod == Server.Period.Year ? 1 : 0);
                 if (Storage.MainPeriod == Server.Period.Global)
                 {
                     popup.Menu.RemoveItem(Resource.Id.action_move_next);
@@ -253,16 +256,20 @@ namespace Organizer.Internal.ArrayAdapters
             else if (_mainActivity.CurrentFragment is CalendarFragment)
             {
                 currentList = Storage.CalendarListTasks.GetRootList(task) ?? throw new ArgumentException();
-                currentPeriod = Server.Period.Day;
                 currentDate = Storage.CalendarDate;
-                nextDate = Storage.CalendarDate.AddDays(1);
+                nextDate = currentDate.AddDays(1);
             }
             else if (_mainActivity.CurrentFragment is ScheduleFragment)
             {
                 currentList = Storage.ScheduleListTasks.GetRootList(task) ?? throw new ArgumentException();
-                currentPeriod = Server.Period.Day;
                 currentDate = Storage.ScheduleDate;
-                nextDate = Storage.ScheduleDate.AddDays(1);
+                nextDate = currentDate.AddDays(1);
+            }
+            else if (_mainActivity.CurrentFragment is InboxFragment)
+            {
+                currentList = Storage.InboxListTasks.GetRootList(task) ?? throw new ArgumentException();
+                popup.Menu.RemoveItem(Resource.Id.action_move_next);
+                popup.Menu.RemoveItem(Resource.Id.action_move_lower);
             }
             else
             {
@@ -274,6 +281,13 @@ namespace Organizer.Internal.ArrayAdapters
                 popup.Menu.RemoveItem(Resource.Id.action_edit);
                 popup.Menu.RemoveItem(Resource.Id.action_move_next);
                 popup.Menu.RemoveItem(Resource.Id.action_move_lower);
+            }
+            if (_isInbox == false)
+            {
+                popup.Menu.RemoveItem(Resource.Id.action_move_today);
+                popup.Menu.RemoveItem(Resource.Id.action_move_this_month);
+                popup.Menu.RemoveItem(Resource.Id.action_move_this_year);
+                popup.Menu.RemoveItem(Resource.Id.action_move_main_tasks);
             }
 
             popup.Show();
@@ -292,29 +306,36 @@ namespace Organizer.Internal.ArrayAdapters
                             routines.Remove(task);
                             Server.Routines = routines;
                         }
-                        _mainActivity.UpdateFragments();
                         break;
                     case Resource.Id.action_move_next:
-                        currentList.Remove(task);
-
-                        nextList = Server.GetList(currentPeriod, nextDate);
-                        nextList.Add(task);
-                        Server.SetList(currentPeriod, nextDate, nextList);
-
-                        _mainActivity.UpdateFragments();
+                        MoveTask(task, currentList, currentPeriod, nextDate);
                         break;
                     case Resource.Id.action_move_lower:
-                        currentList.Remove(task);
-
-                        Server.Period nextPeriod = (Server.Period) ((int) currentPeriod + 1);
-                        nextList = Server.GetList(nextPeriod, currentDate);
-                        nextList.Add(task);
-                        Server.SetList(nextPeriod, currentDate, nextList);
-
-                        _mainActivity.UpdateFragments();
+                        MoveTask(task, currentList, (Server.Period) ((int) currentPeriod + 1), currentDate);
+                        break;
+                    case Resource.Id.action_move_today:
+                        MoveTask(task, currentList, Server.Period.Day, DateTime.Now);
+                        break;
+                    case Resource.Id.action_move_this_month:
+                        MoveTask(task, currentList, Server.Period.Month, DateTime.Now);
+                        break;
+                    case Resource.Id.action_move_this_year:
+                        MoveTask(task, currentList, Server.Period.Year, DateTime.Now);
+                        break;
+                    case Resource.Id.action_move_main_tasks:
+                        MoveTask(task, currentList, Server.Period.Global, DateTime.Now);
                         break;
                 }
+                _mainActivity.UpdateFragments();
             };
+        }
+
+        private void MoveTask(BaseTask task, ListTasks oldList, Server.Period nextPeriod, DateTime nextDate)
+        {
+            oldList.Remove(task);
+            ListTasks nextList = Server.GetList(nextPeriod, nextDate);
+            nextList.Add(task);
+            Server.SetList(nextPeriod, nextDate, nextList);
         }
     }
 }

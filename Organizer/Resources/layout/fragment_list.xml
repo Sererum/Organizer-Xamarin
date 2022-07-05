@@ -79,7 +79,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_margin="20dp"
-        android:background="@android:drawable/ic_input_add"
+        android:background="@drawable/ic_add"
         android:contentDescription="@string/description_add_button"
         />
 

@@ -187,7 +187,7 @@ namespace Organizer.Internal.Activity
             _calendarButton.Background.SetColorFilter(CurrentFragment is CalendarFragment ? toolElementsFilter : colorFilter);
             _scheduleButton.Background.SetColorFilter(CurrentFragment is ScheduleFragment ? toolElementsFilter : colorFilter);
             _listTasksButton.Background.SetColorFilter(CurrentFragment is ListTasksFragment ? toolElementsFilter : colorFilter);
-            _inboxButton.Background.SetColorFilter(CurrentFragment is ListTasksFragment ? toolElementsFilter : colorFilter);
+            _inboxButton.Background.SetColorFilter(CurrentFragment is InboxFragment ? toolElementsFilter : colorFilter);
             _accountButton.Background.SetColorFilter(CurrentFragment is AccountFragment ? toolElementsFilter : colorFilter);
 
         }

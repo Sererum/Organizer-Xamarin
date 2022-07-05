@@ -61,8 +61,15 @@ namespace Organizer.Internal.Resources
 
 			{ Resource.String.type, new string[] { "Type of task", "Тип задачи" } },
 
+			{ Resource.String.search, new string[] { "Search", "Поиск" } },
+
 			{ Resource.String.move_next, new string[] { "Move to next date", "Переместить на следующую дату" } },
 			{ Resource.String.move_lower, new string[] { "Move to shorter date", "Переместить на более короткую дату" } },
+			{ Resource.String.move_today, new string[] { "Move to list on today", "Переместить в список на сегодня" } },
+			{ Resource.String.move_this_month, new string[] { "Move to list on month", "Переместить в список на месяц" } },
+			{ Resource.String.move_this_year, new string[] { "Move to list on year", "Переместить в список на год" } },
+			{ Resource.String.move_main_tasks, new string[] { "Move to main list", "Переместить в главный список" } },
+
 			{ Resource.String.edit, new string[] { "Edit", "Редактировать" } },
 			{ Resource.String.delete, new string[] { "Delete", "Удалить" } },
 

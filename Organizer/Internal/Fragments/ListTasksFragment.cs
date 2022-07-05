@@ -58,27 +58,6 @@ namespace Organizer.Internal.Fragments
             return view;
         }
 
-        private void SortButton_Click (View view)
-        {
-            PopupMenu popup = new PopupMenu(_context, view);
-            popup.MenuInflater.Inflate(Resource.Menu.type_sort_menu, popup.Menu);
-            popup.Show();
-
-            popup.MenuItemClick += (s, e) =>
-            {
-                switch (e.Item.ItemId)
-                {
-                    case Resource.Id.time_start_sort:
-                        TaskSorter.CurrentType = TaskSorter.Type.TimeStart;
-                        break;
-                    case Resource.Id.type_sort:
-                        TaskSorter.CurrentType = TaskSorter.Type.TypeTask;
-                        break;
-                }
-                _mainActivity.UpdateFragments();
-            };
-        }
-
         private void PeriodSpinner_ItemSelected ()
         {
             _nextPeriodButton.Visibility = ViewStates.Visible;

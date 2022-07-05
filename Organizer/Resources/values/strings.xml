@@ -46,10 +46,18 @@
 
 	<string name="type">Type</string>
 
+	<!--InboxFragment-->
+
+	<string name="search">Search</string>
+
 	<!--Menu-->
 
 	<string name="move_next">Move to next date</string>
 	<string name="move_lower">Lower to shorter date</string>
+	<string name="move_today">Move to today</string>
+	<string name="move_this_month">Move to this month</string>
+	<string name="move_this_year">Move to this year</string>
+	<string name="move_main_tasks">Move to main tasks</string>
 	<string name="edit">Edit</string>
 	<string name="delete">Delete</string>
 

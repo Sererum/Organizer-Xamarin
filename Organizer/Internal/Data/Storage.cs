@@ -131,6 +131,21 @@ namespace Organizer.Internal.Data
                     _calendarListTasks = ScheduleListTasks;
                 }
             }
+            if (currentFragment is InboxFragment)
+            {
+                if (EqualsDate(MainDate, DateTime.Now))
+                {
+                    _mainListTasks = GetList(MainPeriod, DateTime.Now);
+                }
+                if (EqualsDate(CalendarDate, DateTime.Now))
+                {
+                    _calendarListTasks = GetList(Period.Day, DateTime.Now);
+                }
+                if (EqualsDate(ScheduleDate, DateTime.Now))
+                {
+                    _scheduleListTasks = GetList(Period.Day, DateTime.Now);
+                }
+            }
         }
 
         private static void LoadLastTasks ()

@@ -48,7 +48,7 @@ namespace Organizer.Internal.Fragments
         private CheckBox _fridayCheckBox;
         private CheckBox _saturdayCheckBox;
 
-        public CreateFragment (Android.App.Activity context, ListTasks mainList, bool disableRoutine = false, BaseTask editTask = null, int scheduleHour = -1)
+        public CreateFragment (Android.App.Activity context, ListTasks mainList, bool disableRoutine, BaseTask editTask, int scheduleHour)
         {
             _context = context;
             _mainActivity = context as MainActivity;

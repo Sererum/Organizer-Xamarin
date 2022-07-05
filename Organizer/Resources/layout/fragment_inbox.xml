@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -10,8 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_tool_bar"
         android:background="@drawable/round_rect"
+        android:layout_margin="10dp"
         android:padding="1dp"
-        tools:ignore="PossiblyUselessParentWithBackground"
         >
 
         <TextView
@@ -37,16 +36,37 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="20dp"
             android:layout_toLeftOf="@id/InboxSearchButton"
+            android:textSize="@dimen/title_size"
             android:inputType="textCapSentences"
             />
 
     </RelativeLayout>
 
-    <ListView
-        android:id="@+id/InboxTasksListView"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/InboxSearchLayout"
+        android:layout_marginTop="5dp"
+        >
+
+        <LinearLayout
+            android:id="@+id/InboxTasksLayout"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    
+    
+    </ScrollView>
+
+    <ImageButton
+        android:id="@+id/InboxAddTaskButton"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="20dp"
+        android:background="@drawable/ic_add"
+        android:contentDescription="@string/description_add_button"
         />
 
 </RelativeLayout>

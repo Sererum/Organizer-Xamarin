@@ -5,6 +5,14 @@
 
 	<item android:id="@+id/action_move_lower"/>
 
+	<item android:id="@+id/action_move_today"/>
+
+	<item android:id="@+id/action_move_this_month"/>
+
+	<item android:id="@+id/action_move_this_year"/>
+
+	<item android:id="@+id/action_move_main_tasks"/>
+
 	<item android:id="@+id/action_edit"/>
 
 	<item android:id="@+id/action_delete"/>

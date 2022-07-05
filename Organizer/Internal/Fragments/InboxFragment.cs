@@ -1,8 +1,13 @@
-﻿using Android.OS;
+﻿using Android.Graphics;
+using Android.OS;
 using Android.Views;
 using Android.Widget;
 using AndroidX.Fragment.App;
 using Organizer.Internal.Activity;
+using Organizer.Internal.ArrayAdapters;
+using Organizer.Internal.Data;
+using Organizer.Internal.Model.Task;
+using static Android.App.ActionBar;
 
 namespace Organizer.Internal.Fragments
 {
@@ -15,7 +20,8 @@ namespace Organizer.Internal.Fragments
         private TextView _searchBackgroundView;
         private ImageButton _searchButton;
         private EditText _searchEditText;
-        private ListView _listView;
+        private LinearLayout _listLayout;
+        private ImageButton _addButton;
 
         public InboxFragment(Android.App.Activity context)
         {
@@ -31,19 +37,52 @@ namespace Organizer.Internal.Fragments
             _searchBackgroundView = view.FindViewById<TextView>(Resource.Id.InboxSearchTextView);
             _searchButton = view.FindViewById<ImageButton>(Resource.Id.InboxSearchButton);
             _searchEditText = view.FindViewById<EditText>(Resource.Id.InboxSearchEditText);
-            _listView = view.FindViewById<ListView>(Resource.Id.InboxTasksListView);
+            _listLayout = view.FindViewById<LinearLayout>(Resource.Id.InboxTasksLayout);
+            _addButton = view.FindViewById<ImageButton>(Resource.Id.InboxAddTaskButton);
+
+            _searchEditText.Hint = _mainActivity.Translater.GetString(Resource.String.search);
+
+            _addButton.Click += (s, e) => _mainActivity.ShowCreateFragment(Storage.InboxListTasks, disableRoutine: true);
+
+            UpdateListView();
+            PaintViews();
 
             return view;
         }
 
         public void UpdateListView ()
         {
+            Storage.InboxListTasks.Sort();
 
+            _listLayout.RemoveAllViews();
+
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LayoutParams.MatchParent, LayoutParams.WrapContent);
+            layoutParams.SetMargins(16, 12, 14, 0);
+
+            foreach (BaseTask task in Storage.InboxListTasks)
+            {
+                TaskViewConstructor constructor = new TaskViewConstructor (_context, isInbox: true);
+                _listLayout.AddView(constructor.GetTaskView(task), layoutParams);
+            }
         }
 
         public void PaintViews ()
         {
+            Color textColor = Storage.GetColor(_mainActivity.Designer.GetIdTextColor());
+            PorterDuffColorFilter textFilter = new PorterDuffColorFilter(textColor, PorterDuff.Mode.SrcAtop);
+            Color toolBarColor = Storage.GetColor(_mainActivity.Designer.GetIdToolBarColor());
+            PorterDuffColorFilter toolBarFilter = new PorterDuffColorFilter(toolBarColor, PorterDuff.Mode.SrcAtop);
+            Color toolElementsColor = Storage.GetColor(_mainActivity.Designer.GetIdElementsColor());
+            PorterDuffColorFilter buttonFilter = new PorterDuffColorFilter(toolElementsColor, PorterDuff.Mode.SrcAtop);
 
+            _searchLayout.Background.SetColorFilter(textFilter);
+            _searchBackgroundView.Background.SetColorFilter(toolBarFilter);
+
+            _addButton.Background.SetColorFilter(buttonFilter);
+            _searchButton.Background.SetColorFilter(buttonFilter);
+
+            _searchEditText.SetTextColor(textColor);
+            _searchEditText.SetHintTextColor(textColor);
         }
     }
 }
