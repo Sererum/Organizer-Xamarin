@@ -10,22 +10,33 @@ using static Android.App.ActionBar;
 
 namespace Organizer.Internal.ArrayAdapters
 {
-    public class ScheduleViewConstructor
+    class ScheduleArrayAdapter : BaseAdapter<string>
     {
         private readonly Android.App.Activity _context;
         private readonly MainActivity _mainActivity;
+
         private long _periodClick;
 
-        public ScheduleViewConstructor (Android.App.Activity context)
+        public ScheduleArrayAdapter (Android.App.Activity context)
         {
             _context = context;
             _mainActivity = context as MainActivity;
             _periodClick = (new Date()).Time;
         }
+        public override string this[int position] => GetSHour(position);
 
-        public View GetView (int hour)
+        public override int Count => 24;
+
+        public override long GetItemId (int position) => position;
+
+        public override View GetView (int position, View convertView, ViewGroup parent)
         {
-            View view = _context.LayoutInflater.Inflate(Resource.Layout.list_tasks_schedule, null);
+            View view = convertView;
+
+            if (view is null)
+            {
+                view = _context.LayoutInflater.Inflate(Resource.Layout.list_item_schedule, null);
+            }
 
             RelativeLayout mainLayout = view.FindViewById<RelativeLayout>(Resource.Id.ScheduleItemMainLayout);
             TextView lineTextView = view.FindViewById<TextView>(Resource.Id.ScheduleItemLineTextView);
@@ -37,7 +48,7 @@ namespace Organizer.Internal.ArrayAdapters
             lineTextView.SetBackgroundColor(textColor);
             hourTextView.SetTextColor(textColor);
 
-            if (hour == DateTime.Now.Hour)
+            if (position == DateTime.Now.Hour)
             {
                 mainLayout.SetBackgroundColor(Storage.GetColor(_mainActivity.Designer.GetIdDownPanelColor()));
             }
@@ -46,8 +57,8 @@ namespace Organizer.Internal.ArrayAdapters
                 mainLayout.SetBackgroundColor(Storage.GetColor(_mainActivity.Designer.GetIdMainColor()));
             }
 
-            string sStartHour = (hour < 10 ? "0" : "") + hour + ":00";
-            string sEndHour = (hour < 9 ? "0" : "") + (hour + 1) + ":00";
+            string sStartHour = GetSHour(position);
+            string sEndHour = GetSHour(position + 1);
             hourTextView.Text = sStartHour;
 
             tasksLayout.RemoveAllViews();
@@ -68,16 +79,19 @@ namespace Organizer.Internal.ArrayAdapters
 
             view.Click += (s, e) =>
             {
-                if ((new Date()).Time - _periodClick < 500)
+                long oldTime = _periodClick;
+                _periodClick = (new Date()).Time;
+                if (_periodClick - oldTime < 1000)
                 {
                     return;
                 }
-                _periodClick = (new Date()).Time;
-                _mainActivity.ShowCreateFragment(Storage.ScheduleListTasks, scheduleHour: hour);
+                _mainActivity.ShowCreateFragment(Storage.ScheduleListTasks, scheduleHour: position);
             };
 
             return view;
         }
+
+        private string GetSHour (int hour) => Storage.TimeToStandart(hour, 0);
 
         private bool HourContainsTask (BaseTask task, string startHour, string endHour)
         {

@@ -1,6 +1,5 @@
 ﻿using Android.Graphics;
 using Android.OS;
-using Android.Util;
 using Android.Views;
 using Android.Widget;
 using AndroidX.Fragment.App;
@@ -21,9 +20,9 @@ namespace Organizer.Internal.Fragments
         private TextView _periodTextView;
         private ImageButton _lastPeriodButton;
         private ImageButton _nextPeriodButton;
-        private ScrollView _scheduleScroll;
-        private LinearLayout _scheduleLayout;
-        private View _nowHourView;
+        private ListView _listView;
+
+        private int _countHidden = 0;
 
         public ScheduleFragment(Android.App.Activity context)
         {
@@ -40,18 +39,13 @@ namespace Organizer.Internal.Fragments
             _periodTextView = view.FindViewById<TextView>(Resource.Id.SchedulePeriodTextView);
             _lastPeriodButton = view.FindViewById<ImageButton>(Resource.Id.ScheduleLastPeriodButton);
             _nextPeriodButton = view.FindViewById<ImageButton>(Resource.Id.ScheduleNextPeriodButton);
-            _scheduleScroll = view.FindViewById<ScrollView>(Resource.Id.ScheduleMainScrollView);
-            _scheduleLayout = view.FindViewById<LinearLayout>(Resource.Id.ScheduleMainLinearLayout);
+            _listView = view.FindViewById<ListView>(Resource.Id.ScheduleMainListView);
 
             _periodTextView.Text = NameDatePeriod.GetNameDate(DateTime.Now);
             _lastPeriodButton.Click += (s, e) => PeriodButton_Click(isNext: false);
             _nextPeriodButton.Click += (s, e) => PeriodButton_Click(isNext: true);
 
-            UpdateListView();
             PaintViews();
-
-            _nowHourView = _scheduleLayout.GetChildAt(DateTime.Now.Hour);
-            var b = _scheduleLayout.GetChildAt(DateTime.Now.Hour).GetY();
 
             return view;
         }
@@ -69,13 +63,9 @@ namespace Organizer.Internal.Fragments
             _periodTextView.Text = NameDatePeriod.GetNameDate(Storage.ScheduleDate);
 
             Storage.ScheduleListTasks.Sort();
-            _scheduleLayout.RemoveAllViews();
-
-            for (int i = 0; i < 24; i++)
-            {
-                ScheduleViewConstructor constructor = new ScheduleViewConstructor(_context);
-                _scheduleLayout.AddView(constructor.GetView(i));
-            }
+            int firstVisiblePosition = _listView.FirstVisiblePosition;
+            _listView.Adapter = new ScheduleArrayAdapter(_context);
+            _listView.SetSelection(firstVisiblePosition);
         }
 
         public void PaintViews ()
@@ -94,6 +84,20 @@ namespace Organizer.Internal.Fragments
 
             _lastPeriodButton.Background.SetColorFilter(buttonFilter);
             _nextPeriodButton.Background.SetColorFilter(buttonFilter);
+        }
+
+        public override void OnHiddenChanged (bool hidden)
+        {
+            base.OnHiddenChanged(hidden);
+            if (hidden)
+            {
+                UpdateListView();
+                _countHidden++;
+            }
+            if (_countHidden == 1)
+            {
+                _listView.SetSelection(DateTime.Now.Hour);
+            }
         }
     }
 }

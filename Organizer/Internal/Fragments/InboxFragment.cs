@@ -1,7 +1,6 @@
 ﻿using Android.Graphics;
 using Android.OS;
 using Android.Views;
-using Android.Views.InputMethods;
 using Android.Widget;
 using AndroidX.Fragment.App;
 using Organizer.Internal.Activity;
@@ -9,7 +8,6 @@ using Organizer.Internal.ArrayAdapters;
 using Organizer.Internal.Data;
 using Organizer.Internal.Model;
 using Organizer.Internal.Model.Task;
-using System.Collections.Generic;
 using static Android.App.ActionBar;
 
 namespace Organizer.Internal.Fragments
