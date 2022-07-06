@@ -74,7 +74,7 @@ namespace Organizer.Internal.Activity
                 return;
             }
             AlertDialog.Builder alert = new AlertDialog.Builder(this)
-                .SetTitle("Привет, давай я быстренько объясню что здесь происходит")
+                .SetMessage("Привет, давай я быстренько объясню что здесь происходит")
                 .SetPositiveButton("Да, давай", (s, e) => { StartTutorial(); })
                 .SetNegativeButton("Нет, я сам", (s, e) => { return;});
             alert.Create().Show();
