@@ -65,6 +65,7 @@ namespace Organizer.Internal.Fragments
             _mainLayout.AddView(GetCounterView(), layoutParams);
 
             _mainLayout.AddView(GetTitleView(Resource.String.title_time_management), titleParams);
+            _mainLayout.AddView(GetTutorialView(), layoutParams);
 
             _mainLayout.AddView(GetTitleView(Resource.String.title_settings), titleParams);
             _mainLayout.AddView(GetChangeLanguageView(), layoutParams);
@@ -202,6 +203,33 @@ namespace Organizer.Internal.Fragments
                 default:
                     throw new ArgumentException();
             }
+        }
+
+        private View GetTutorialView ()
+        {
+            #region Initialize views
+
+            View view = _context.LayoutInflater.Inflate(Resource.Layout.list_item_account_title, null);
+
+            RelativeLayout backgroundLayout = view.FindViewById<RelativeLayout>(Resource.Id.TitleBackgroundLayout);
+            RelativeLayout mainLayout = view.FindViewById<RelativeLayout>(Resource.Id.TitleMainLayout);
+            TextView titleTextView = view.FindViewById<TextView>(Resource.Id.TitleTextView);
+
+            #endregion
+
+            titleTextView.Text = _mainActivity.Translater.GetString(Resource.String.start_tutorial);
+
+            #region Paint view
+
+            backgroundLayout.Background.SetColorFilter(_textFilter);
+            mainLayout.Background.SetColorFilter(_mainFilter);
+
+            titleTextView.SetTextColor(_textColor);
+
+            #endregion
+
+            view.Click += (s, e) => _mainActivity.StartTutorial();
+            return view;
         }
 
         private View GetChangeMainScreenView ()

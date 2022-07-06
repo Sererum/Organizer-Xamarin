@@ -217,11 +217,11 @@ namespace Organizer.Internal.ArrayAdapters
 
             PopupMenu popup = PopupConstructor.GetPopupMenu(_mainActivity, view, Resource.Menu.task_action_menu,
                 idItems: new int[] { 
-                    Resource.Id.action_move_next, Resource.Id.action_move_lower, Resource.Id.action_edit, Resource.Id.action_delete,
-                    Resource.Id.action_move_today, Resource.Id.action_move_this_month, Resource.Id.action_move_this_year, Resource.Id.action_move_main_tasks},
+                    Resource.Id.action_move_next, Resource.Id.action_move_lower, Resource.Id.action_move_today, Resource.Id.action_move_this_month, 
+                    Resource.Id.action_move_this_year, Resource.Id.action_move_main_tasks, Resource.Id.action_edit, Resource.Id.action_delete},
                 idTitles: new int[] { 
-                    Resource.String.move_next, Resource.String.move_lower, Resource.String.edit, Resource.String.delete,
-                    Resource.String.move_today, Resource.String.move_this_month, Resource.String.move_this_year, Resource.String.move_main_tasks});
+                    Resource.String.move_next, Resource.String.move_lower, Resource.String.move_today, Resource.String.move_this_month, 
+                    Resource.String.move_this_year, Resource.String.move_main_tasks, Resource.String.edit, Resource.String.delete});
 
             bool enableRoutine = false;
 

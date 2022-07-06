@@ -44,7 +44,6 @@ namespace Organizer.Internal.Fragments
             _addButton = view.FindViewById<ImageButton>(Resource.Id.InboxAddTaskButton);
 
             _searchEditText.ClearFocus();
-            _searchEditText.Hint = _mainActivity.Translater.GetString(Resource.String.search);
             _searchEditText.AfterTextChanged += (s, e) => Search_AfterTextChanged();
 
             _addButton.Click += (s, e) => _mainActivity.ShowCreateFragment(Storage.InboxListTasks, disableRoutine: true);
@@ -74,6 +73,8 @@ namespace Organizer.Internal.Fragments
 
         public void UpdateListView (ListTasks list = null)
         {
+            _searchEditText.Hint = _mainActivity.Translater.GetString(Resource.String.search);
+
             if (list is null)
             {
                 list = Storage.InboxListTasks;

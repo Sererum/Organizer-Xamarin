@@ -62,7 +62,7 @@ namespace Organizer.Internal.ArrayAdapters
             namePeriodView.Text = text;
             _namePeriods[position] = text;
 
-            int verticalPadding = (int) (_context.Resources.GetDimension(Resource.Dimension.height_tool_bar) - Storage.DpToPx(39));
+            int verticalPadding = (int) Storage.DpToPx(26);
             namePeriodView.SetPadding(0, verticalPadding / 2, 0, verticalPadding / 2);
 
             #region Paint view

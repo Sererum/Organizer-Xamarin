@@ -1,7 +1,6 @@
 ﻿using Android.App;
 using Android.Graphics;
 using Android.OS;
-using Android.Util;
 using Android.Views;
 using Android.Widget;
 using AndroidX.AppCompat.App;
@@ -10,9 +9,8 @@ using Organizer.Internal.Fragments;
 using Organizer.Internal.Model;
 using Organizer.Internal.Model.Task;
 using Organizer.Internal.Resources;
-using System;
 using System.Collections.Generic;
-using System.Runtime.Remoting.Contexts;
+using AlertDialog = AndroidX.AppCompat.App.AlertDialog;
 using Fragment = AndroidX.Fragment.App.Fragment;
 
 namespace Organizer.Internal.Activity
@@ -28,6 +26,7 @@ namespace Organizer.Internal.Activity
         private InboxFragment _inboxFragment;
         private AccountFragment _accountFragment;
         private CreateFragment _createFragment;
+        private TutorialFragment _tutorialFragment;
 
         private Fragment _currentFragment;
         private Stack<Fragment> _lastFragments;
@@ -46,6 +45,12 @@ namespace Organizer.Internal.Activity
         public Translater Translater => _translater;
         public Designer Designer => _designer;
 
+        public ImageButton CalendarButton => _calendarButton;
+        public ImageButton ScheduleButton => _scheduleButton;
+        public ImageButton ListTasksButton => _listTasksButton;
+        public ImageButton InboxButton => _inboxButton;
+        public ImageButton AccountButton => _accountButton;
+
         protected override void OnCreate (Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -59,6 +64,39 @@ namespace Organizer.Internal.Activity
             Window.SetSoftInputMode(SoftInput.StateHidden);
 
             PaintActivity();
+            TutorialCheck();
+        }
+
+        private void TutorialCheck ()
+        {
+            if (Server.Tutorial == false)
+            {
+                return;
+            }
+            AlertDialog.Builder alert = new AlertDialog.Builder(this)
+                .SetTitle("Привет, давай я быстренько объясню что здесь происходит")
+                .SetPositiveButton("Да, давай", (s, e) => { StartTutorial(); })
+                .SetNegativeButton("Нет, я сам", (s, e) => { return;});
+            alert.Create().Show();
+        }
+
+        public void StartTutorial ()
+        {
+            var fragmentTransaction = SupportFragmentManager.BeginTransaction();
+            fragmentTransaction.Show(_tutorialFragment);
+            fragmentTransaction.AddToBackStack(null);
+            fragmentTransaction.Commit();
+            _tutorialFragment.StartTutorial();
+        }
+
+        public void EndTutorial ()
+        {
+            var fragmentTransaction = SupportFragmentManager.BeginTransaction();
+            fragmentTransaction.Hide(_tutorialFragment);
+            fragmentTransaction.AddToBackStack(null);
+            fragmentTransaction.Commit();
+            PaintButtons();
+            Server.Tutorial = false;
         }
 
         private void InitializeResources ()
@@ -93,7 +131,11 @@ namespace Organizer.Internal.Activity
             _inboxFragment = new InboxFragment(this);
             _accountFragment = new AccountFragment(this);
 
-            _fragments = new Fragment[] { _calendarFragment, _scheduleFragment, _listTasksFragment, _inboxFragment, _accountFragment };
+            _tutorialFragment = new TutorialFragment(this);
+
+            _fragments = new Fragment[] { 
+                _calendarFragment, _scheduleFragment, _listTasksFragment, 
+                _inboxFragment, _accountFragment, _tutorialFragment };
 
             _currentFragment = _fragments[Server.StartScreen];
 
@@ -192,6 +234,12 @@ namespace Organizer.Internal.Activity
             _accountButton.Background.SetColorFilter(CurrentFragment is AccountFragment ? toolElementsFilter : colorFilter);
 
         }
+
+        public void ShowCalendar () => ShowFragment(_calendarFragment);
+        public void ShowSchedule () => ShowFragment(_scheduleFragment);
+        public void ShowListTasks () => ShowFragment(_listTasksFragment);
+        public void ShowInbox () => ShowFragment(_inboxFragment);
+        public void ShowAccount () => ShowFragment(_accountFragment);
 
         public override void OnBackPressed ()
         {

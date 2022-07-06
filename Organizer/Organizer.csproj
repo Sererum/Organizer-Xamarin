@@ -81,6 +81,7 @@
     <Compile Include="Internal\Fragments\InboxFragment.cs" />
     <Compile Include="Internal\Fragments\ListTasksFragment.cs" />
     <Compile Include="Internal\Fragments\ScheduleFragment.cs" />
+    <Compile Include="Internal\Fragments\TutorialFragment.cs" />
     <Compile Include="Internal\Model\ListTasks.cs" />
     <Compile Include="Internal\Model\Task\BaseTask.cs" />
     <Compile Include="Internal\Model\Task\Project.cs" />
@@ -271,10 +272,12 @@
     <AndroidResource Include="Resources\drawable\ic_search.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-anydpi-v26\ic_organizer_rect.xml" />
+    <AndroidResource Include="Resources\mipmap-anydpi-v26\organizer.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-anydpi-v26\ic_organizer_round.xml" />
+    <AndroidResource Include="Resources\layout\fragment_tutorial.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

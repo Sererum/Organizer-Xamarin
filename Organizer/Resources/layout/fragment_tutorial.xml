@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/TutorialToolBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        />
+
+    <RelativeLayout
+        android:id="@+id/TutorialCenterLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/TutorialToolBarLayout"
+        />
+
+    <ImageButton
+        android:id="@+id/TutorialLastStepButton"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/ic_left"
+        android:layout_centerVertical="true"
+        android:contentDescription="@string/description_left_button"
+        />
+
+    <ImageButton
+        android:id="@+id/TutorialNextStepButton"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/ic_right"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:contentDescription="@string/description_right_button"
+        />
+
+    <TextView
+        android:id="@+id/TutorialTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:layout_margin="60dp"
+        android:textSize="@dimen/create_title_size"
+        />
+
+</RelativeLayout>

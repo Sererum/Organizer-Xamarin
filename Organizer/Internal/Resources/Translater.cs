@@ -39,6 +39,7 @@ namespace Organizer.Internal.Resources
 			{ Resource.String.title_settings, new string[] { "Settings", "Настройки" } },
 			{ Resource.String.title_time_management, new string[] { "Time management", "Тайм-менеджмент" } },
 			{ Resource.String.complete_tasks, new string[] { "Completed tasks", "Выполненные задачи" } },
+			{ Resource.String.start_tutorial, new string[] { "Start tutorial", "Пройти обучение" } },
 			{ Resource.String.current_language, new string[] { "Language", "Язык" } },
 			{ Resource.String.current_screen, new string[] { "Start screen", "Начальный экран" } },
 			{ Resource.String.current_theme, new string[] { "Theme", "Тема" } },
@@ -91,7 +92,51 @@ namespace Organizer.Internal.Resources
 			{ Resource.String.wednesday_short, new string[] { "Wed.", "Ср" } },
 			{ Resource.String.thursday_short, new string[] { "Thur.", "Чт" } },
 			{ Resource.String.friday_short, new string[] { "Fri.", "Пт" } },
-			{ Resource.String.saturday_short, new string[] { "Sat.", "Сб" } }
+			{ Resource.String.saturday_short, new string[] { "Sat.", "Сб" } },
+
+			{ Resource.String.text_step_one, new string[] {
+				"This is the main list in the application, where you can view your " +
+				"tasks for different time periods: day, month, year and main tasks.",
+				"Это главный список в приложении, в нем можно просмотреть свои " +
+				"задачи на разные периоды времени: день, месяц, год и главные задачи." } },
+			{ Resource.String.text_step_two, new string[] {
+				"By clicking on the side arrows on top, you can change the date of the list," +
+				"by clicking on the text, you can select the period of interest.",
+				"Нажимая на боковые стрелки сверху можно менять дату списка, " +
+				"при нажатии на текст можно выбрать интересующий период." } },
+			{ Resource.String.text_step_three, new string[] {
+				"In the calendar, you can add tasks to the list on a specific date.",
+				"В календаре можно добавлять задачи в список на определенную дату." } },
+			{ Resource.String.text_step_four, new string[] {
+				"The Council:\n\nAs soon as you have any task for a certain date, you should " +
+				"immediately enter it in the calendar, so as not to forget.",
+				"Совет:\n\nКак только у вас появляется какая-либо задача на определенную дату, " +
+				"ее сразу надо заносить в календарь, чтоб не забыть, а также очистить голову." } },
+			{ Resource.String.text_step_five, new string[] { 
+				"The schedule tab contains a list divided into hourly segments.\nWhen creating a task with a start " +
+				"and end time, the task is displayed in the schedule.\nWhen you click on the hour, a task is created.",
+				"Во вкладке расписание находится список, разделенный на часовые отрезки.\nПри создании задачи с " +
+				"временем начала и конца задача отображается в расписании.\nПри нажатии на час создается задача." } },
+			{ Resource.String.text_step_six, new string[] {
+				"The Council:\n\nLeave enough free time between tasks for unforeseen situations, " +
+				"and also try to avoid excessive planning.\n A good habit is to create a task list " +
+				"in the evening of the previous day and edit the compiled list in the morning.",
+				"Совет:\n\nОставляйте между задачами достаточно свободного времени на непредвиденные " +
+				"ситуации, также старайтесь избегать избыточного планирования.\nХорошей привычкой будет " +
+				"создание списка задач вечером предыдущего дня и редактирование составленного списка утром." } },
+			{ Resource.String.text_step_seven, new string[] {
+				"This list is intended for tasks that you find it difficult to identify " +
+				"in any list right now. You can also use this list for notes that are easy " +
+				"to search by name using the search bar at the top of the screen.",
+				"Данный список предназначен для задач, которые вы затрудняетесь определить в " +
+				"какой-либо список прямо сейчас. Также этот список можно использовать для " +
+				"заметок, которые легко искать по названию с помощью поисковой строки вверху экрана." } },
+			{ Resource.String.text_step_eight, new string[] {
+				"Here is the progress of the application configuration tasks completed " +
+				"for today, as well as the button for re-passing the training.",
+				"Здесь находится прогресс выполненых на сегодня задач и " +
+				"настройки приложения, а также кнопка повторного прохождения обучения." } },
+			{ Resource.String.text_step_nine, new string[] { "That's all, good lack", "На этом все, удачи." } }
 		};
 	}
 }
