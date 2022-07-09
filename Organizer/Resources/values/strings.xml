@@ -116,5 +116,8 @@
 	<string name="description_sign_type_task">Sign of type task</string>
 	<string name="description_left_button">Last step tutorial</string>
 	<string name="description_right_button">Next step tutorial</string>
+	<string name="description_delete_button">Hide button</string>
+	<string name="description_move_left_button">Move button left</string>
+	<string name="description_move_right_button">Move button right</string>
     
 </resources>

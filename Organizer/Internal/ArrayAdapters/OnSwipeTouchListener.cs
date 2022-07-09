@@ -13,10 +13,7 @@ namespace Organizer.Internal.ArrayAdapters
             _gestureDetector = new GestureDetector(mainActivity, new GestureListener(mainActivity));
         }
 
-        public bool OnTouch (View v, MotionEvent e)
-        {
-            return _gestureDetector.OnTouchEvent(e);
-        }
+        public bool OnTouch (View v, MotionEvent e) => _gestureDetector.OnTouchEvent(e);
     }
 
     public class GestureListener : GestureDetector.SimpleOnGestureListener

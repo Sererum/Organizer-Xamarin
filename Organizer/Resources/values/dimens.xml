@@ -2,6 +2,7 @@
 <resources>
 
 	<dimen name="height_tool_bar">60dp</dimen>
+	<dimen name="half_tool_bar">30dp</dimen>
 
 	<dimen name="title_size">16sp</dimen>
 	<dimen name="text_size">14sp</dimen>

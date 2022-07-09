@@ -70,6 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Internal\Activity\MainActivity.cs" />
+    <Compile Include="Internal\ArrayAdapters\AccountConstructors\ButtonsChangeConstructor.cs" />
     <Compile Include="Internal\ArrayAdapters\OnSwipeTouchListener.cs" />
     <Compile Include="Internal\ArrayAdapters\PeriodArrayAdapter.cs" />
     <Compile Include="Internal\ArrayAdapters\PopupConstructor.cs" />
@@ -311,6 +312,11 @@
   <ItemGroup>
     <AndroidResource Include="Resources\mipmap-xxxhdpi\organizer.xml">
       <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\list_item_account_buttons.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

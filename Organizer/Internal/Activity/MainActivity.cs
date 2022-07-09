@@ -6,6 +6,7 @@ using Android.Util;
 using Android.Views;
 using Android.Widget;
 using AndroidX.AppCompat.App;
+using Organizer.Internal.ArrayAdapters.AccountConstructors;
 using Organizer.Internal.Data;
 using Organizer.Internal.Fragments;
 using Organizer.Internal.Model;
@@ -44,6 +45,12 @@ namespace Organizer.Internal.Activity
         private ImageButton _listTasksButton;
         private ImageButton _inboxButton;
         private ImageButton _accountButton;
+
+        private RelativeLayout _calendarLayout;
+        private RelativeLayout _scheduleLayout;
+        private RelativeLayout _listLayout;
+        private RelativeLayout _inboxLayout;
+        private RelativeLayout _accountLayout;
 
         public Fragment CurrentFragment => _currentFragment;
         public Translater Translater => _translater;
@@ -122,6 +129,14 @@ namespace Organizer.Internal.Activity
             _listTasksButton.Click += (s, e) => ShowFragment(_listTasksFragment);
             _inboxButton.Click += (s, e) => ShowFragment(_inboxFragment);
             _accountButton.Click += (s, e) => ShowFragment(_accountFragment);
+
+            _calendarLayout = FindViewById<RelativeLayout>(Resource.Id.MainCalendarLayout);
+            _scheduleLayout = FindViewById<RelativeLayout>(Resource.Id.MainScheduleLayout);
+            _listLayout = FindViewById<RelativeLayout>(Resource.Id.MainListLayout);
+            _inboxLayout = FindViewById<RelativeLayout>(Resource.Id.MainInboxLayout);
+            _accountLayout = FindViewById<RelativeLayout>(Resource.Id.MainAccountLayout);
+
+            UpdateButtonsPositions();
         }
 
         #region Initialize fragments
@@ -213,11 +228,11 @@ namespace Organizer.Internal.Activity
             _accountFragment.UpdateListView();
         }
 
-        private void PaintActivity ()
+        public void PaintActivity ()
         {
             RelativeLayout mainLayout = FindViewById<RelativeLayout>(Resource.Id.MainLayout);
             RelativeLayout fragmentLayout = FindViewById<RelativeLayout>(Resource.Id.MainFragmentLayout);
-            RelativeLayout buttonsLayout = FindViewById<RelativeLayout>(Resource.Id.MainButtonsLayout);
+            LinearLayout buttonsLayout = FindViewById<LinearLayout>(Resource.Id.MainButtonsLayout);
 
             Color mainColor = Storage.GetColor(Designer.GetIdMainColor());
             Color downColor = Storage.GetColor(Designer.GetIdDownPanelColor());
@@ -244,6 +259,21 @@ namespace Organizer.Internal.Activity
             _accountButton.Background.SetColorFilter(CurrentFragment is AccountFragment ? toolElementsFilter : colorFilter);
 
         }
+
+        public void UpdateButtonsPositions ()
+        {
+            string[] buttonProperties = Server.Buttons.Split(ButtonsChangeConstructor.Sep);
+            char[] positions = buttonProperties[0].ToCharArray();
+            char[] visibility = buttonProperties[1].ToCharArray();
+
+            _calendarLayout.Visibility = ButtonVisible(visibility, StartScreen.Calendar) ? ViewStates.Visible : ViewStates.Gone;
+            _scheduleLayout.Visibility = ButtonVisible(visibility, StartScreen.Schedule) ? ViewStates.Visible : ViewStates.Gone;
+            _listLayout.Visibility = ButtonVisible(visibility, StartScreen.List) ? ViewStates.Visible : ViewStates.Gone;
+            _inboxLayout.Visibility = ButtonVisible(visibility, StartScreen.Inbox) ? ViewStates.Visible : ViewStates.Gone;
+            _accountLayout.Visibility = ButtonVisible(visibility, StartScreen.Account) ? ViewStates.Visible : ViewStates.Gone;
+        }
+
+        private bool ButtonVisible (char[] visibility, StartScreen startScreen) => visibility[(int) startScreen] == '1';
 
         public void ShowCalendar () => ShowFragment(_calendarFragment);
         public void ShowSchedule () => ShowFragment(_scheduleFragment);

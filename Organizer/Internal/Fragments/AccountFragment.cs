@@ -6,6 +6,7 @@ using Android.Widget;
 using AndroidX.Fragment.App;
 using Organizer.Internal.Activity;
 using Organizer.Internal.ArrayAdapters;
+using Organizer.Internal.ArrayAdapters.AccountConstructors;
 using Organizer.Internal.Data;
 using Organizer.Internal.Model;
 using Organizer.Internal.Resources;
@@ -43,11 +44,7 @@ namespace Organizer.Internal.Fragments
 
             UpdateListView();
 
-            _mainLayout.Touch += (s, e) => 
-            {
-                Log.Debug("MotionEvent", e.Event.Action.ToString());
-                _gestureDetector.OnTouchEvent(e.Event); 
-            };
+            _mainLayout.Touch += (s, e) => { _gestureDetector.OnTouchEvent(e.Event); };
 
             return view;
         }
@@ -79,6 +76,8 @@ namespace Organizer.Internal.Fragments
             _mainLayout.AddView(GetTutorialView(), layoutParams);
 
             _mainLayout.AddView(GetTitleView(Resource.String.title_settings), titleParams);
+            ButtonsChangeConstructor constructor = new ButtonsChangeConstructor(_mainActivity);
+            _mainLayout.AddView(constructor.GetView(), layoutParams);
             _mainLayout.AddView(GetChangeLanguageView(), layoutParams);
             _mainLayout.AddView(GetChangeMainScreenView(), layoutParams);
             _mainLayout.AddView(GetThemeChangeView(), layoutParams);

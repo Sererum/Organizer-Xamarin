@@ -11,7 +11,7 @@ namespace Organizer.Internal.Data
     public static class Server
     {
         public enum Period { Global, Year, Month, Day }
-        private enum Key { Global, Inbox, Routine, Sort, Language, Screen, Theme, Tutorial }
+        private enum Key { Global, Inbox, Routine, Sort, Language, Screen, Theme, Tutorial, Buttons }
 
         private static ISharedPreferences _preferences = Application.Context.GetSharedPreferences("Settings", FileCreationMode.Private);
         private static ISharedPreferencesEditor _preferencesEdit = _preferences.Edit();
@@ -56,6 +56,12 @@ namespace Organizer.Internal.Data
         {
             get { return _preferences.GetBoolean(Key.Tutorial.ToString(), true); }
             set { _preferencesEdit.PutBoolean(Key.Tutorial.ToString(), value).Commit(); }
+        }
+
+        public static string Buttons
+        {
+            get => _preferences.GetString(Key.Buttons.ToString(), "01234_11111");
+            set { _preferencesEdit.PutString(Key.Buttons.ToString(), value).Commit(); }
         }
 
         public static ListTasks GetList (Period period, DateTime date)
