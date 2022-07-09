@@ -9,7 +9,7 @@ namespace Organizer.Internal.Model
     public class ListTasks : IEnumerable
     {
         public enum TaskCounter { WithoutProject, Complete_WithoutProject }
-        public static readonly string ListSep = "_";
+        public static readonly string ListSep = "╬";
 
         private List<BaseTask> _tasks;
 

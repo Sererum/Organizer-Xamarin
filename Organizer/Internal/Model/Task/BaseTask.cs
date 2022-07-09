@@ -6,7 +6,7 @@ namespace Organizer.Internal.Model.Task
     {
         #region Fields and Properties
 
-        public static readonly string TaskSep = "|";
+        public static readonly string TaskSep = "═";
 
         private int _typeTask;
         private string _title;

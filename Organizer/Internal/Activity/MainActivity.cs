@@ -1,6 +1,8 @@
 ﻿using Android.App;
+using Android.Content;
 using Android.Graphics;
 using Android.OS;
+using Android.Util;
 using Android.Views;
 using Android.Widget;
 using AndroidX.AppCompat.App;
@@ -9,6 +11,7 @@ using Organizer.Internal.Fragments;
 using Organizer.Internal.Model;
 using Organizer.Internal.Model.Task;
 using Organizer.Internal.Resources;
+using System;
 using System.Collections.Generic;
 using AlertDialog = AndroidX.AppCompat.App.AlertDialog;
 using Fragment = AndroidX.Fragment.App.Fragment;
@@ -31,6 +34,7 @@ namespace Organizer.Internal.Activity
         private Fragment _currentFragment;
         private Stack<Fragment> _lastFragments;
         private Fragment[] _fragments;
+        private Fragment[] _fragmentsCustom;
 
         private Translater _translater;
         private Designer _designer;
@@ -149,6 +153,8 @@ namespace Organizer.Internal.Activity
                 fragmentTransaction.Commit();
             }
             ShowFragment(_currentFragment);
+
+            _fragmentsCustom = new Fragment[] { _calendarFragment, _scheduleFragment, _listTasksFragment, _inboxFragment, _accountFragment };
         }
 
         public void ShowFragment (Fragment fragment, bool returnBack = false)
@@ -176,6 +182,10 @@ namespace Organizer.Internal.Activity
 
         public void ShowCreateFragment (ListTasks list, BaseTask editTask = null, bool disableRoutine = false, int scheduleHour = -1)
         {
+            if (list.Equals(Storage.MainListTasks) && Storage.MainPeriod != Server.Period.Day)
+            {
+                disableRoutine = true;
+            }
             _createFragment = new CreateFragment(this, list, disableRoutine, editTask, scheduleHour);
             var fragmentTransaction = SupportFragmentManager.BeginTransaction();
             fragmentTransaction.Add(Resource.Id.MainFragmentLayout, _createFragment).Hide(_createFragment);
@@ -240,6 +250,24 @@ namespace Organizer.Internal.Activity
         public void ShowListTasks () => ShowFragment(_listTasksFragment);
         public void ShowInbox () => ShowFragment(_inboxFragment);
         public void ShowAccount () => ShowFragment(_accountFragment);
+
+        public void OnSwipe(bool inLeft)
+        {
+            int nextIndex = -10;
+            for (int i = 0; i < _fragmentsCustom.Length; i++)
+            {
+                if (_currentFragment == _fragmentsCustom[i])
+                {
+                    nextIndex = i + (inLeft ? -1 : 1);
+                    break;
+                }
+            }
+            if (nextIndex < 0 || _fragmentsCustom.Length <= nextIndex)
+            {
+                return;
+            }
+            ShowFragment(_fragmentsCustom[nextIndex]);
+        }
 
         public override void OnBackPressed ()
         {

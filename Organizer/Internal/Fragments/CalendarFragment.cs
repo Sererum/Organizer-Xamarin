@@ -43,6 +43,7 @@ namespace Organizer.Internal.Fragments
             _hideView = _view.FindViewById<ImageView>(Resource.Id.CalendarHideImageView);
             _tasksLayout = _view.FindViewById<LinearLayout>(Resource.Id.CalendarLinearLayout);
             _addButton = _view.FindViewById<ImageButton>(Resource.Id.CalendarAddTaskButton);
+            ScrollView scrollView = _view.FindViewById<ScrollView>(Resource.Id.CalendarScrollView);
 
             _calendarView.DateChange += (s, e) => Calendar_DateChange(e.Year, e.Month + 1, e.DayOfMonth);
             _hideLayout.Click += (s, e) => HideButton_Click(_calendarView.Visibility == ViewStates.Visible);
@@ -50,6 +51,8 @@ namespace Organizer.Internal.Fragments
 
             UpdateListView();
             PaintViews();
+
+            scrollView.SetOnTouchListener(new OnSwipeTouchListener(_mainActivity));
 
             return _view;
         }

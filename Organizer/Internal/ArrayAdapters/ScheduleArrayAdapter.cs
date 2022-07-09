@@ -88,6 +88,8 @@ namespace Organizer.Internal.ArrayAdapters
                 _mainActivity.ShowCreateFragment(Storage.ScheduleListTasks, scheduleHour: position);
             };
 
+            view.SetOnTouchListener(new OnSwipeTouchListener(_mainActivity));
+
             return view;
         }
 

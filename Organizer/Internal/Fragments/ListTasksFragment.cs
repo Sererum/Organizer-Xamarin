@@ -9,6 +9,7 @@ using Organizer.Internal.Data;
 using Organizer.Internal.Model.Task;
 using System;
 using static Android.App.ActionBar;
+using static Organizer.Internal.Activity.MainActivity;
 
 namespace Organizer.Internal.Fragments
 {
@@ -44,6 +45,7 @@ namespace Organizer.Internal.Fragments
             _nextPeriodButton = view.FindViewById<ImageButton>(Resource.Id.ListNextPeriodButton);
             _addButton = view.FindViewById<ImageButton>(Resource.Id.ListAddTaskButton);
             _tasksLayout = view.FindViewById<LinearLayout>(Resource.Id.ListTasksLinearLayout);
+            ScrollView scrollView = view.FindViewById<ScrollView>(Resource.Id.ListScrollView);
 
             _periodSpinner.ItemSelected += (s, e) => PeriodSpinner_ItemSelected();
             UpdatePeriods(firstCreate: true);
@@ -54,6 +56,8 @@ namespace Organizer.Internal.Fragments
 
             UpdateListView();
             PaintViews();
+
+            scrollView.SetOnTouchListener(new OnSwipeTouchListener(_mainActivity));
 
             return view;
         }

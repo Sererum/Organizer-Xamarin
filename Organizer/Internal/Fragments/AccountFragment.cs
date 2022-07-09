@@ -1,5 +1,6 @@
 ﻿using Android.Graphics;
 using Android.OS;
+using Android.Util;
 using Android.Views;
 using Android.Widget;
 using AndroidX.Fragment.App;
@@ -18,6 +19,7 @@ namespace Organizer.Internal.Fragments
         private readonly Android.App.Activity _context;
         private readonly MainActivity _mainActivity;
         private LinearLayout _mainLayout;
+        private GestureDetector _gestureDetector;
 
         private Color _mainColor;
         private PorterDuffColorFilter _mainFilter;
@@ -35,8 +37,17 @@ namespace Organizer.Internal.Fragments
         public override View OnCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             View view = inflater.Inflate(Resource.Layout.fragment_account, container, false);
-            _mainLayout = view.FindViewById<LinearLayout>(Resource.Id.AccountMainLayout);
+
+            _mainLayout = view.FindViewById<LinearLayout>(Resource.Id.AccountLinearLayout);
+            _gestureDetector = new GestureDetector(_mainActivity, new GestureListener(_mainActivity));
+
             UpdateListView();
+
+            _mainLayout.Touch += (s, e) => 
+            {
+                Log.Debug("MotionEvent", e.Event.Action.ToString());
+                _gestureDetector.OnTouchEvent(e.Event); 
+            };
 
             return view;
         }

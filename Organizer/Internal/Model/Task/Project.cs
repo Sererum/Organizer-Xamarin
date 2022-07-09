@@ -4,7 +4,7 @@ namespace Organizer.Internal.Model.Task
 {
     class Project : BaseTask
     {
-        public static readonly string ProjectSep = "^";
+        public static readonly string ProjectSep = "─";
 
         private ListTasks _tasks;
         private bool _complete;

@@ -40,6 +40,7 @@ namespace Organizer.Internal.Fragments
             _searchEditText = view.FindViewById<EditText>(Resource.Id.InboxSearchEditText);
             _listLayout = view.FindViewById<LinearLayout>(Resource.Id.InboxTasksLayout);
             _addButton = view.FindViewById<ImageButton>(Resource.Id.InboxAddTaskButton);
+            ScrollView scrollView = view.FindViewById<ScrollView>(Resource.Id.InboxScrollView);
 
             _searchEditText.ClearFocus();
             _searchEditText.AfterTextChanged += (s, e) => Search_AfterTextChanged();
@@ -48,6 +49,8 @@ namespace Organizer.Internal.Fragments
 
             UpdateListView();
             PaintViews();
+
+            scrollView.SetOnTouchListener(new OnSwipeTouchListener(_mainActivity));
 
             return view;
         }

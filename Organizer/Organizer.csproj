@@ -70,6 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Internal\Activity\MainActivity.cs" />
+    <Compile Include="Internal\ArrayAdapters\OnSwipeTouchListener.cs" />
     <Compile Include="Internal\ArrayAdapters\PeriodArrayAdapter.cs" />
     <Compile Include="Internal\ArrayAdapters\PopupConstructor.cs" />
     <Compile Include="Internal\ArrayAdapters\PriorityArrayAdapter.cs" />

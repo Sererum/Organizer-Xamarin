@@ -7,6 +7,7 @@ using Organizer.Internal.Activity;
 using Organizer.Internal.ArrayAdapters;
 using Organizer.Internal.Data;
 using System;
+using System.Threading.Tasks;
 
 namespace Organizer.Internal.Fragments
 {
@@ -22,7 +23,8 @@ namespace Organizer.Internal.Fragments
         private ImageButton _nextPeriodButton;
         private ListView _listView;
 
-        private int _countHidden = 0;
+        private bool _isTimerActive = false;
+        private int _hideChangeCounter = 0;
 
         public ScheduleFragment(Android.App.Activity context)
         {
@@ -86,18 +88,33 @@ namespace Organizer.Internal.Fragments
             _nextPeriodButton.Background.SetColorFilter(buttonFilter);
         }
 
+        private async Task DisplayTimeAsync ()
+        {
+            while (_isTimerActive)
+            {
+                UpdateListView();
+                await Task.Delay(5000);
+            }
+        }
+
         public override void OnHiddenChanged (bool hidden)
         {
             base.OnHiddenChanged(hidden);
-            if (hidden)
+
+            if (hidden == false)
             {
-                UpdateListView();
-                _countHidden++;
+                _isTimerActive = true;
+                Task task = DisplayTimeAsync();
             }
-            if (_countHidden == 1)
+            else
+            {
+                _isTimerActive = false;
+            }
+            if (_hideChangeCounter == 1)
             {
                 _listView.SetSelection(DateTime.Now.Hour);
             }
+            _hideChangeCounter++;
         }
     }
 }
