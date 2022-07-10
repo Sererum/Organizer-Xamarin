@@ -59,7 +59,7 @@ namespace Organizer.Internal.Fragments
             _nextButton.Click += (s, e) => SetStep(isNextStep: true);
 
             _backgroundColor = Storage.GetColor(_mainActivity.Designer.GetIdTextColor());
-            _backgroundColor.A = 220;
+            _backgroundColor.A = 200;
             _backgroundFilter = new PorterDuffColorFilter(_backgroundColor, PorterDuff.Mode.SrcAtop);
             _textColor = Storage.GetColor(_mainActivity.Designer.GetIdMainColor());
             _textFilter = new PorterDuffColorFilter(_textColor, PorterDuff.Mode.SrcAtop);
@@ -69,6 +69,7 @@ namespace Organizer.Internal.Fragments
 
             _lastButton.Background.SetColorFilter(_textFilter);
             _nextButton.Background.SetColorFilter(_textFilter);
+            _tutorTextView.SetTextColor(_textColor);
 
             return view;
         }
@@ -81,63 +82,44 @@ namespace Organizer.Internal.Fragments
 
             _toolBarLayout.SetBackgroundColor(_backgroundColor);
             _centerLayout.SetBackgroundColor(_backgroundColor);
-            _tutorTextView.SetTextColor(_textColor);
             
             switch (step)
             {
                 case 1:
                     _mainActivity.ShowListTasks();
                     _tutorTextView.Text = _mainActivity.Translater.GetString(Resource.String.text_step_one);
-                    UnpaintDownButtons();
-                    _listTasksButton.Background.SetColorFilter(_brightFilter);
                     _lastButton.Visibility = ViewStates.Invisible;
                     break;
                 case 2:
                     _mainActivity.ShowListTasks();
                     _tutorTextView.Text = _mainActivity.Translater.GetString(Resource.String.text_step_two);
-                    UnpaintDownButtons();
-                    _listTasksButton.Background.SetColorFilter(_brightFilter);
                     _toolBarLayout.SetBackgroundColor(new Color());
                     _lastButton.Visibility = ViewStates.Visible;
                     break;
                 case 3:
-                    _mainActivity.ShowCalendar();
+                    _mainActivity.ShowAccount();
                     _tutorTextView.Text = _mainActivity.Translater.GetString(Resource.String.text_step_three);
-                    UnpaintDownButtons();
-                    _calendarButton.Background.SetColorFilter(_brightFilter);
                     break;
                 case 4:
                     _mainActivity.ShowCalendar();
                     _tutorTextView.Text = _mainActivity.Translater.GetString(Resource.String.text_step_four);
-                    UnpaintDownButtons();
-                    _calendarButton.Background.SetColorFilter(_brightFilter);
                     break;
                 case 5:
-                    _mainActivity.ShowSchedule();
+                    _mainActivity.ShowCalendar();
                     _tutorTextView.Text = _mainActivity.Translater.GetString(Resource.String.text_step_five);
-                    UnpaintDownButtons();
-                    _scheduleButton.Background.SetColorFilter(_brightFilter);
                     break;
                 case 6:
-                    _mainActivity.ShowSchedule();
-                    _tutorTextView.Text = _mainActivity.Translater.GetString(Resource.String.text_step_six);
-                    UnpaintDownButtons();
-                    _scheduleButton.Background.SetColorFilter(_brightFilter);
-                    break;
-                case 7:
                     _mainActivity.ShowInbox();
-                    _tutorTextView.Text =
-                    _tutorTextView.Text = _mainActivity.Translater.GetString(Resource.String.text_step_seven);
-                    UnpaintDownButtons();
-                    _inboxButton.Background.SetColorFilter(_brightFilter);
+                    _tutorTextView.Text = _mainActivity.Translater.GetString(Resource.String.text_step_six);
                     _toolBarLayout.SetBackgroundColor(new Color());
                     break;
+                case 7:
+                    _mainActivity.ShowSchedule();
+                    _tutorTextView.Text = _mainActivity.Translater.GetString(Resource.String.text_step_seven);
+                    break;
                 case 8:
-                    _mainActivity.ShowAccount();
-                    _tutorTextView.Text =
+                    _mainActivity.ShowSchedule();
                     _tutorTextView.Text = _mainActivity.Translater.GetString(Resource.String.text_step_eight);
-                    UnpaintDownButtons();
-                    _accountButton.Background.SetColorFilter(_brightFilter);
                     break;
                 case 9:
                     _mainActivity.ShowListTasks();
@@ -149,15 +131,6 @@ namespace Organizer.Internal.Fragments
                 default:
                     throw new ArgumentException();
             }
-        }
-
-        private void UnpaintDownButtons ()
-        {
-            _calendarButton.Background.SetColorFilter(_downPanelFilter);
-            _scheduleButton.Background.SetColorFilter(_downPanelFilter);
-            _listTasksButton.Background.SetColorFilter(_downPanelFilter);
-            _inboxButton.Background.SetColorFilter(_downPanelFilter);
-            _accountButton.Background.SetColorFilter(_downPanelFilter);
         }
 
         private void SetStep (bool isNextStep)

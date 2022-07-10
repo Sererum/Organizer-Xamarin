@@ -9,16 +9,42 @@
 
     <LinearLayout
         android:id="@+id/ButtonsMainLayout"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:background="@drawable/round_rect"
         >
+
+        <LinearLayout
+            android:id="@+id/ButtonsAccountLayout"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            >
+
+            <ImageButton
+                android:layout_width="@dimen/half_tool_bar"
+                android:layout_height="@dimen/half_tool_bar"
+                android:background="@drawable/ic_cancel"
+                android:contentDescription="@string/description_delete_button"
+                android:visibility="invisible"
+                />
+
+            <ImageView 
+                android:id="@+id/ButtonsAccountImage"
+                android:layout_width="@dimen/height_tool_bar"
+                android:layout_height="@dimen/height_tool_bar"
+                android:background="@drawable/ic_account"
+                android:contentDescription="@string/account"/>
+
+        </LinearLayout>
     
         <LinearLayout
             android:id="@+id/ButtonsCalendarLayout"
             android:orientation="vertical"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center_horizontal">
@@ -37,85 +63,16 @@
                 android:background="@drawable/ic_calendar"
                 android:contentDescription="@string/calendar"/>
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="@dimen/height_tool_bar"
-                android:layout_height="@dimen/half_tool_bar">
-
-                <ImageButton
-                    android:id="@+id/ButtonsCalendarLeftButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/ic_left"
-                    android:contentDescription="@string/description_move_left_button"/>
-
-                <ImageButton
-                    android:id="@+id/ButtonsCalendarRightLeftButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/ic_right"
-                    android:contentDescription="@string/description_move_right_button"/>
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/ButtonsScheduleLayout"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_horizontal">
-
-            <ImageButton
-                android:id="@+id/ButtonsScheduleDeleteButton"
-                android:layout_width="@dimen/half_tool_bar"
-                android:layout_height="@dimen/half_tool_bar"
-                android:background="@drawable/ic_cancel"
-                android:contentDescription="@string/description_delete_button"/>
-
-            <ImageView 
-                android:id="@+id/ButtonsScheduleImage"
-                android:layout_width="@dimen/height_tool_bar"
-                android:layout_height="@dimen/height_tool_bar"
-                android:background="@drawable/ic_schedule"
-                android:contentDescription="@string/schedule"/>
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="@dimen/height_tool_bar"
-                android:layout_height="@dimen/half_tool_bar">
-
-                <ImageButton
-                    android:id="@+id/ButtonsScheduleLeftButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/ic_left"
-                    android:contentDescription="@string/description_move_left_button"/>
-
-                <ImageButton
-                    android:id="@+id/ButtonsScheduleRightLeftButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/ic_right"
-                    android:contentDescription="@string/description_move_right_button"/>
-
-            </LinearLayout>
-
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/ButtonsListLayout"
             android:orientation="vertical"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="center_horizontal">
+            android:gravity="center_horizontal"
+            >
 
             <ImageButton
                 android:id="@+id/ButtonsListDeleteButton"
@@ -131,38 +88,16 @@
                 android:background="@drawable/ic_list"
                 android:contentDescription="@string/list_tasks"/>
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="@dimen/height_tool_bar"
-                android:layout_height="@dimen/half_tool_bar">
-
-                <ImageButton
-                    android:id="@+id/ButtonsListLeftButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/ic_left"
-                    android:contentDescription="@string/description_move_left_button"/>
-
-                <ImageButton
-                    android:id="@+id/ButtonsListRightLeftButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/ic_right"
-                    android:contentDescription="@string/description_move_right_button"/>
-
-            </LinearLayout>
-
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/ButtonsInboxLayout"
             android:orientation="vertical"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="center_horizontal">
+            android:gravity="center_horizontal"
+            >
 
             <ImageButton
                 android:id="@+id/ButtonsInboxDeleteButton"
@@ -178,79 +113,33 @@
                 android:background="@drawable/ic_inbox"
                 android:contentDescription="@string/inbox"/>
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="@dimen/height_tool_bar"
-                android:layout_height="@dimen/half_tool_bar">
-
-                <ImageButton
-                    android:id="@+id/ButtonsInboxLeftButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/ic_left"
-                    android:contentDescription="@string/description_move_left_button"/>
-
-                <ImageButton
-                    android:id="@+id/ButtonsInboxRightLeftButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/ic_right"
-                    android:contentDescription="@string/description_move_right_button"/>
-
-            </LinearLayout>
-
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/ButtonsAccountLayout"
+            android:id="@+id/ButtonsScheduleLayout"
             android:orientation="vertical"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="center_horizontal">
+            android:gravity="center_horizontal"
+            >
 
             <ImageButton
+                android:id="@+id/ButtonsScheduleDeleteButton"
                 android:layout_width="@dimen/half_tool_bar"
                 android:layout_height="@dimen/half_tool_bar"
                 android:background="@drawable/ic_cancel"
-                android:contentDescription="@string/description_delete_button"
-                android:visibility="invisible"
-                />
+                android:contentDescription="@string/description_delete_button"/>
 
             <ImageView 
-                android:id="@+id/ButtonsAccountImage"
+                android:id="@+id/ButtonsScheduleImage"
                 android:layout_width="@dimen/height_tool_bar"
                 android:layout_height="@dimen/height_tool_bar"
-                android:background="@drawable/ic_account"
-                android:contentDescription="@string/account"/>
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="@dimen/height_tool_bar"
-                android:layout_height="@dimen/half_tool_bar">
-
-                <ImageButton
-                    android:id="@+id/ButtonsAccountLeftButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/ic_left"
-                    android:contentDescription="@string/description_move_left_button"/>
-
-                <ImageButton
-                    android:id="@+id/ButtonsAccountRightLeftButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/ic_right"
-                    android:contentDescription="@string/description_move_right_button"/>
-
-            </LinearLayout>
+                android:background="@drawable/ic_schedule"
+                android:contentDescription="@string/schedule"/>
 
         </LinearLayout>
-    
+
     </LinearLayout>
 
 </RelativeLayout>

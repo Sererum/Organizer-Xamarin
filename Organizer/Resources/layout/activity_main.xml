@@ -26,6 +26,25 @@
         >
 
         <RelativeLayout
+            android:id="@+id/MainAccountLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <ImageButton
+                android:id="@+id/MainAccountButton"
+                android:layout_width="@dimen/height_tool_bar"
+                android:layout_height="@dimen/height_tool_bar"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:background="@drawable/ic_account"
+                android:contentDescription="@string/description_account_button" 
+                />
+        
+        </RelativeLayout>
+
+        <RelativeLayout
             android:id="@+id/MainCalendarLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -42,22 +61,7 @@
         
         </RelativeLayout>
 
-        <RelativeLayout
-            android:id="@+id/MainScheduleLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center">
-
-            <ImageButton
-                android:id="@+id/MainScheduleButton"
-                android:layout_width="@dimen/height_tool_bar"
-                android:layout_height="@dimen/height_tool_bar"
-                android:background="@drawable/ic_schedule"
-                android:contentDescription="@string/description_schedule_button" 
-                />
         
-        </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/MainListLayout"
@@ -94,20 +98,18 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/MainAccountLayout"
+            android:id="@+id/MainScheduleLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center">
 
             <ImageButton
-                android:id="@+id/MainAccountButton"
+                android:id="@+id/MainScheduleButton"
                 android:layout_width="@dimen/height_tool_bar"
                 android:layout_height="@dimen/height_tool_bar"
-                android:layout_weight="1"
-                android:layout_gravity="center"
-                android:background="@drawable/ic_account"
-                android:contentDescription="@string/description_account_button" 
+                android:background="@drawable/ic_schedule"
+                android:contentDescription="@string/description_schedule_button" 
                 />
         
         </RelativeLayout>

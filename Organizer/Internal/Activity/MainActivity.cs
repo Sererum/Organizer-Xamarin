@@ -1,12 +1,9 @@
 ﻿using Android.App;
-using Android.Content;
 using Android.Graphics;
 using Android.OS;
-using Android.Util;
 using Android.Views;
 using Android.Widget;
 using AndroidX.AppCompat.App;
-using Organizer.Internal.ArrayAdapters.AccountConstructors;
 using Organizer.Internal.Data;
 using Organizer.Internal.Fragments;
 using Organizer.Internal.Model;
@@ -22,7 +19,7 @@ namespace Organizer.Internal.Activity
     [Activity(Theme = "@style/AppTheme", MainLauncher = true)]
     public class MainActivity : AppCompatActivity
     {
-        public enum StartScreen { Calendar, Schedule, List, Inbox, Account }
+        public enum StartScreen { Account, Calendar, List, Inbox, Schedule }
 
         private CalendarFragment _calendarFragment;
         private ScheduleFragment _scheduleFragment;
@@ -35,7 +32,8 @@ namespace Organizer.Internal.Activity
         private Fragment _currentFragment;
         private Stack<Fragment> _lastFragments;
         private Fragment[] _fragments;
-        private Fragment[] _fragmentsCustom;
+        private int _countScreens = Enum.GetNames(typeof(StartScreen)).Length;
+        private bool[] _fragmentsVisible;
 
         private Translater _translater;
         private Designer _designer;
@@ -68,8 +66,6 @@ namespace Organizer.Internal.Activity
             SetContentView(Resource.Layout.activity_main);
 
             InitializeResources();
-            Storage.InitializeListsTasks(this);
-
             InitializeButtons();
             InitializeFragments(savedInstanceState);
             Window.SetSoftInputMode(SoftInput.StateHidden);
@@ -78,6 +74,8 @@ namespace Organizer.Internal.Activity
             TutorialCheck();
         }
 
+        #region Tutorial
+
         private void TutorialCheck ()
         {
             if (Server.Tutorial == false)
@@ -85,9 +83,10 @@ namespace Organizer.Internal.Activity
                 return;
             }
             AlertDialog.Builder alert = new AlertDialog.Builder(this)
-                .SetMessage("Привет, давай я быстренько объясню что здесь происходит")
+                .SetMessage("Привет, давай быстренько объясню что здесь происходит")
                 .SetPositiveButton("Да, давай", (s, e) => { StartTutorial(); })
-                .SetNegativeButton("Нет, я сам", (s, e) => { return;});
+                .SetNegativeButton("Нет, я сам", (s, e) => { return;})
+                .SetCancelable(false);
             alert.Create().Show();
         }
 
@@ -110,8 +109,11 @@ namespace Organizer.Internal.Activity
             Server.Tutorial = false;
         }
 
+        #endregion
+
         private void InitializeResources ()
         {
+            Storage.InitializeListsTasks(this);
             _translater = new Translater();
             _designer = new Designer();
         }
@@ -136,7 +138,23 @@ namespace Organizer.Internal.Activity
             _inboxLayout = FindViewById<RelativeLayout>(Resource.Id.MainInboxLayout);
             _accountLayout = FindViewById<RelativeLayout>(Resource.Id.MainAccountLayout);
 
-            UpdateButtonsPositions();
+            _fragmentsVisible = new bool[5];
+            UpdateButtonsVisible();
+        }
+
+        public void UpdateButtonsVisible ()
+        {
+            char[] visibility = Server.ButtonsVisible.ToCharArray();
+            for (int i = 0; i < _countScreens; i++)
+            {
+                _fragmentsVisible[i] = (visibility[i] == '1');
+            }
+
+            _accountLayout.Visibility = _fragmentsVisible[(int) StartScreen.Account] ? ViewStates.Visible : ViewStates.Gone;
+            _calendarLayout.Visibility = _fragmentsVisible[(int) StartScreen.Calendar] ? ViewStates.Visible : ViewStates.Gone;
+            _listLayout.Visibility = _fragmentsVisible[(int) StartScreen.List] ? ViewStates.Visible : ViewStates.Gone;
+            _inboxLayout.Visibility = _fragmentsVisible[(int) StartScreen.Inbox] ? ViewStates.Visible : ViewStates.Gone;
+            _scheduleLayout.Visibility = _fragmentsVisible[(int) StartScreen.Schedule] ? ViewStates.Visible : ViewStates.Gone;
         }
 
         #region Initialize fragments
@@ -152,9 +170,9 @@ namespace Organizer.Internal.Activity
 
             _tutorialFragment = new TutorialFragment(this);
 
-            _fragments = new Fragment[] { 
-                _calendarFragment, _scheduleFragment, _listTasksFragment, 
-                _inboxFragment, _accountFragment, _tutorialFragment };
+            _fragments = new Fragment[] {
+                _accountFragment, _calendarFragment, _listTasksFragment, 
+                _inboxFragment, _scheduleFragment, _tutorialFragment };
 
             _currentFragment = _fragments[Server.StartScreen];
 
@@ -168,8 +186,6 @@ namespace Organizer.Internal.Activity
                 fragmentTransaction.Commit();
             }
             ShowFragment(_currentFragment);
-
-            _fragmentsCustom = new Fragment[] { _calendarFragment, _scheduleFragment, _listTasksFragment, _inboxFragment, _accountFragment };
         }
 
         public void ShowFragment (Fragment fragment, bool returnBack = false)
@@ -257,23 +273,7 @@ namespace Organizer.Internal.Activity
             _listTasksButton.Background.SetColorFilter(CurrentFragment is ListTasksFragment ? toolElementsFilter : colorFilter);
             _inboxButton.Background.SetColorFilter(CurrentFragment is InboxFragment ? toolElementsFilter : colorFilter);
             _accountButton.Background.SetColorFilter(CurrentFragment is AccountFragment ? toolElementsFilter : colorFilter);
-
         }
-
-        public void UpdateButtonsPositions ()
-        {
-            string[] buttonProperties = Server.Buttons.Split(ButtonsChangeConstructor.Sep);
-            char[] positions = buttonProperties[0].ToCharArray();
-            char[] visibility = buttonProperties[1].ToCharArray();
-
-            _calendarLayout.Visibility = ButtonVisible(visibility, StartScreen.Calendar) ? ViewStates.Visible : ViewStates.Gone;
-            _scheduleLayout.Visibility = ButtonVisible(visibility, StartScreen.Schedule) ? ViewStates.Visible : ViewStates.Gone;
-            _listLayout.Visibility = ButtonVisible(visibility, StartScreen.List) ? ViewStates.Visible : ViewStates.Gone;
-            _inboxLayout.Visibility = ButtonVisible(visibility, StartScreen.Inbox) ? ViewStates.Visible : ViewStates.Gone;
-            _accountLayout.Visibility = ButtonVisible(visibility, StartScreen.Account) ? ViewStates.Visible : ViewStates.Gone;
-        }
-
-        private bool ButtonVisible (char[] visibility, StartScreen startScreen) => visibility[(int) startScreen] == '1';
 
         public void ShowCalendar () => ShowFragment(_calendarFragment);
         public void ShowSchedule () => ShowFragment(_scheduleFragment);
@@ -283,20 +283,29 @@ namespace Organizer.Internal.Activity
 
         public void OnSwipe(bool inLeft)
         {
+            int addition = inLeft ? -1 : 1;
             int nextIndex = -10;
-            for (int i = 0; i < _fragmentsCustom.Length; i++)
+            for (int i = 0; i < _countScreens; i++)
             {
-                if (_currentFragment == _fragmentsCustom[i])
+                if (_currentFragment == _fragments[i])
                 {
-                    nextIndex = i + (inLeft ? -1 : 1);
+                    nextIndex = i + addition;
                     break;
                 }
             }
-            if (nextIndex < 0 || _fragmentsCustom.Length <= nextIndex)
+            if (nextIndex < 0 || _countScreens <= nextIndex)
             {
                 return;
             }
-            ShowFragment(_fragmentsCustom[nextIndex]);
+            while (_fragmentsVisible[nextIndex] == false)
+            {
+                nextIndex += addition;
+                if (nextIndex < 0 || _countScreens <= nextIndex)
+                {
+                    return;
+                }
+            }
+            ShowFragment(_fragments[nextIndex]);
         }
 
         public override void OnBackPressed ()

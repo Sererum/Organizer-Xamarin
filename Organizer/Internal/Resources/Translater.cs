@@ -95,47 +95,40 @@ namespace Organizer.Internal.Resources
 			{ Resource.String.saturday_short, new string[] { "Sat.", "Сб" } },
 
 			{ Resource.String.text_step_one, new string[] {
-				"This is the main list in the application, where you can view your " +
-				"tasks for different time periods: day, month, year and main tasks.",
-				"Это главный список в приложении, в нем можно просмотреть свои " +
-				"задачи на разные периоды времени: день, месяц, год и главные задачи." } },
+				"In the center is the main list in the application, for viewing " +
+				"tasks for four time intervals: day, month, year and without time.",
+				"По центру расположен главный список в приложении, для просмотра задач " +
+				"на четыре временных периода: день, месяц, год и без времени." } },
 			{ Resource.String.text_step_two, new string[] {
-				"By clicking on the side arrows on top, you can change the date of the list," +
-				"by clicking on the text, you can select the period of interest.",
-				"Нажимая на боковые стрелки сверху можно менять дату списка, " +
-				"при нажатии на текст можно выбрать интересующий период." } },
+				"The date of the list is changed by the upper side arrows, the time period is changed by clicking on the text.",
+				"Дата списка меняется верхними боковыми стрелками, временной период меняется нажатием на текст." } },
 			{ Resource.String.text_step_three, new string[] {
-				"In the calendar, you can add tasks to the list on a specific date.",
-				"В календаре можно добавлять задачи в список на определенную дату." } },
+				"On the left there is information about the user: the progress of completed tasks, settings, repeated training.",
+				"Слева расположена информация о пользователе: прогресс выполненных задач, настройки, повторное обучение." } },
 			{ Resource.String.text_step_four, new string[] {
-				"The Council:\n\nAs soon as you have any task for a certain date, you should " +
-				"immediately enter it in the calendar, so as not to forget.",
-				"Совет:\n\nКак только у вас появляется какая-либо задача на определенную дату, " +
-				"ее сразу надо заносить в календарь, чтоб не забыть, а также очистить голову." } },
-			{ Resource.String.text_step_five, new string[] { 
-				"The schedule tab contains a list divided into hourly segments.\nWhen creating a task with a start " +
-				"and end time, the task is displayed in the schedule.\nWhen you click on the hour, a task is created.",
-				"Во вкладке расписание находится список, разделенный на часовые отрезки.\nПри создании задачи с " +
-				"временем начала и конца задача отображается в расписании.\nПри нажатии на час создается задача." } },
+				"Next comes the calendar, here the task is added on the selected date.",
+				"Далее идет календарь, здесь задача добавляется на выбранную дату." } },
+			{ Resource.String.text_step_five, new string[] {
+				"The Council:\n\nA task with a specific date should be immediately " +
+				"entered into the calendar, this helps not to stuff up your head.",
+				"Совет:\n\nЗадачу с конкретной датой следует сразу заносить в календарь, это помогает не загружать голову." } },
 			{ Resource.String.text_step_six, new string[] {
-				"The Council:\n\nLeave enough free time between tasks for unforeseen situations, " +
-				"and also try to avoid excessive planning.\n A good habit is to create a task list " +
-				"in the evening of the previous day and edit the compiled list in the morning.",
-				"Совет:\n\nОставляйте между задачами достаточно свободного времени на непредвиденные " +
-				"ситуации, также старайтесь избегать избыточного планирования.\nХорошей привычкой будет " +
-				"создание списка задач вечером предыдущего дня и редактирование составленного списка утром." } },
+				"Next comes a list for tasks that cannot be assigned to other lists at once.\n" +
+				"The list is also intended for notes that can be found using the search bar.",
+				"Далее идет список для задач, которые не получается определить в другие списки сразу.\n" +
+				"Также список предназначен для заметок, которые можно найти с помощью поисковой строки." } },
 			{ Resource.String.text_step_seven, new string[] {
-				"This list is intended for tasks that you find it difficult to identify " +
-				"in any list right now. You can also use this list for notes that are easy " +
-				"to search by name using the search bar at the top of the screen.",
-				"Данный список предназначен для задач, которые вы затрудняетесь определить в " +
-				"какой-либо список прямо сейчас. Также этот список можно использовать для " +
-				"заметок, которые легко искать по названию с помощью поисковой строки вверху экрана." } },
+				"On the right there is a schedule divided into hourly segments.\n" +
+				"To be displayed in the schedule, the task must have a start and end time.\n" +
+				"Clicking on the selected hour opens the task creation window.",
+				"Справа расположено расписание, разделенное на часовые отрезки.\n" +
+				"Для отображения в расписании задание должно иметь время начала и конца.\n" +
+				"Нажав на выбранный час открывается окно создания задачи." } },
 			{ Resource.String.text_step_eight, new string[] {
-				"Here is the progress of the application configuration tasks completed " +
-				"for today, as well as the button for re-passing the training.",
-				"Здесь находится прогресс выполненых на сегодня задач и " +
-				"настройки приложения, а также кнопка повторного прохождения обучения." } },
+				"The Council:\n\nBetween tasks, leave free time for unforeseen situations and avoid excessive planning.\n" +
+				"A useful habit is to create a task list in the evening of the previous day and edit the list in the morning.",
+				"Совет:\n\nМежду задачами оставляйте свободное время на непредвиденные ситуации и избегайте избыточного планирования.\n" +
+				"Полезной привычкой будет создание списка задач вечером предыдущего дня и редактирование списка утром." } },
 			{ Resource.String.text_step_nine, new string[] { "That's all, good lack", "На этом все, удачи." } }
 		};
 	}

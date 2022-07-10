@@ -58,9 +58,9 @@ namespace Organizer.Internal.Data
             set { _preferencesEdit.PutBoolean(Key.Tutorial.ToString(), value).Commit(); }
         }
 
-        public static string Buttons
+        public static string ButtonsVisible
         {
-            get => _preferences.GetString(Key.Buttons.ToString(), "01234_11111");
+            get => _preferences.GetString(Key.Buttons.ToString(), "11111");
             set { _preferencesEdit.PutString(Key.Buttons.ToString(), value).Commit(); }
         }
 

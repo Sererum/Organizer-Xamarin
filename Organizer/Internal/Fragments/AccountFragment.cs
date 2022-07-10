@@ -72,16 +72,15 @@ namespace Organizer.Internal.Fragments
             _mainLayout.AddView(GetTitleView(Resource.String.title_statistics), titleParams);
             _mainLayout.AddView(GetCounterView(), layoutParams);
 
-            _mainLayout.AddView(GetTitleView(Resource.String.title_time_management), titleParams);
-            _mainLayout.AddView(GetTutorialView(), layoutParams);
-
             _mainLayout.AddView(GetTitleView(Resource.String.title_settings), titleParams);
-            ButtonsChangeConstructor constructor = new ButtonsChangeConstructor(_mainActivity);
-            _mainLayout.AddView(constructor.GetView(), layoutParams);
             _mainLayout.AddView(GetChangeLanguageView(), layoutParams);
             _mainLayout.AddView(GetChangeMainScreenView(), layoutParams);
+            ButtonsChangeConstructor constructor = new ButtonsChangeConstructor(_mainActivity);
+            _mainLayout.AddView(constructor.GetView(), layoutParams);
             _mainLayout.AddView(GetThemeChangeView(), layoutParams);
             _mainLayout.AddView(GetChangeSortView(), layoutParams);
+
+            _mainLayout.AddView(GetTutorialView(), titleParams);
         }
 
         private View GetTitleView(int idTitle)
@@ -272,13 +271,21 @@ namespace Organizer.Internal.Fragments
             mainLayout.Click += (s, e) =>
             {
                 PopupMenu popup = PopupConstructor.GetPopupMenu(_mainActivity, view, Resource.Menu.change_screen_menu,
-                    idItems: new int[] { 
-                        Resource.Id.screen_calendar, Resource.Id.screen_schedule, 
-                        Resource.Id.screen_list, Resource.Id.screen_inbox, Resource.Id.screen_account },
-                    idTitles: new int[] { 
-                        Resource.String.calendar, Resource.String.schedule, 
-                        Resource.String.list_tasks, Resource.String.inbox, Resource.String.account });
+                    idItems: new int[] {
+                        Resource.Id.screen_account, Resource.Id.screen_calendar,
+                        Resource.Id.screen_list, Resource.Id.screen_inbox, Resource.Id.screen_schedule },
+                    idTitles: new int[] {
+                        Resource.String.account, Resource.String.calendar, 
+                        Resource.String.list_tasks, Resource.String.inbox, Resource.String.schedule });
                 popup.Show();
+
+                char[] buttonsVisible = Server.ButtonsVisible.ToCharArray();
+
+                RemoveScreenItem(popup, buttonsVisible, MainActivity.StartScreen.Account, Resource.Id.screen_account);
+                RemoveScreenItem(popup, buttonsVisible, MainActivity.StartScreen.Calendar, Resource.Id.screen_calendar);
+                RemoveScreenItem(popup, buttonsVisible, MainActivity.StartScreen.List, Resource.Id.screen_list);
+                RemoveScreenItem(popup, buttonsVisible, MainActivity.StartScreen.Inbox, Resource.Id.screen_inbox);
+                RemoveScreenItem(popup, buttonsVisible, MainActivity.StartScreen.Schedule, Resource.Id.screen_schedule);
 
                 popup.MenuItemClick += (s, e) =>
                 {
@@ -304,6 +311,14 @@ namespace Organizer.Internal.Fragments
             };
 
             return view;
+        }
+
+        private void RemoveScreenItem(PopupMenu popup, char[] chars, MainActivity.StartScreen screen, int idItem)
+        {
+            if (chars[(int) screen] == '0')
+            {
+                popup.Menu.RemoveItem(idItem);
+            }
         }
 
         private string GetScreenName (int startScreen)
