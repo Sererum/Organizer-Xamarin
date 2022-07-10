@@ -40,11 +40,12 @@ namespace Organizer.Internal.Fragments
             View view = inflater.Inflate(Resource.Layout.fragment_account, container, false);
 
             _mainLayout = view.FindViewById<LinearLayout>(Resource.Id.AccountLinearLayout);
+            ScrollView scrollView = view.FindViewById<ScrollView>(Resource.Id.AccountScrollView);
             _gestureDetector = new GestureDetector(_mainActivity, new GestureListener(_mainActivity));
 
             UpdateListView();
 
-            _mainLayout.Touch += (s, e) => { _gestureDetector.OnTouchEvent(e.Event); };
+            scrollView.Touch += (s, e) => { _gestureDetector.OnTouchEvent(e.Event); };
 
             return view;
         }
